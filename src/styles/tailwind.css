@@ -1,0 +1,11 @@
+
+@tailwind base;
+@tailwind components;
+
+
+@layer components {
+  .bg-img {
+    @apply  w-72 h-48
+  }
+}
+@tailwind utilities;
