@@ -44,7 +44,7 @@ class Header extends Component {
         const { processLogout, language, userInfo } = this.props
         const { menuApp } = this.state
         return (
-            <div className="flex justify-between items-center bg-blue-600 text-gray-200 z-50">
+            <div className="flex justify-between items-center bg-indigo-600 text-gray-200 z-50">
                 {/* thanh navigator */}
                 <div className="header-tabs-container z-50">
                     <Navigator menus={menuApp} />

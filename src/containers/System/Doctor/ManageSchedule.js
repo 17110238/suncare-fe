@@ -143,7 +143,7 @@ class ManageSchedule extends Component {
                 <div className="text-2xl font-bold w-full text-center my-4">
                     <FormattedMessage id="manage-schudule.title" />
                 </div>
-                <div className="grid grid-cols-2 gap-8 mb-16">
+                <div className="grid grid-cols-4 gap-8 mb-16">
                     <div className="grid grid-cols-1">
                         <label className="font-bold"> <FormattedMessage id="manage-schudule.choose-doctor" /></label>
                         <Select
@@ -156,7 +156,6 @@ class ManageSchedule extends Component {
 
                     <div className="grid grid-cols-1">
                         <label className="font-bold"> <FormattedMessage id="manage-schudule.choose-date" /></label>
-
                         <DatePicker
                             className="form-control"
                             onChange={this.handleOnChangeDatePicker}
@@ -178,7 +177,7 @@ class ManageSchedule extends Component {
                                 return (
                                     <div key={item.id}
                                         onClick={() => this.handleChooseSheduleTime(item)}>
-                                        <div className={item.isSelected ? " bg-yellow-500 font-bold py-2 rounded" : " bg-gray-200 font-bold py-2 rounded"}>
+                                        <div className={item.isSelected ? " bg-indigo-500 text-white font-bold py-2 rounded" : " bg-gray-200 font-bold py-2 rounded"}>
                                             {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                         </div>
                                     </div>
@@ -200,7 +199,7 @@ class ManageSchedule extends Component {
 
                                     <div key={item.id}
                                         onClick={() => this.handleChooseSheduleTime(item)}>
-                                        <div className={item.isSelected ? " bg-yellow-500 font-bold py-2 rounded" : " bg-gray-200 font-bold py-2 rounded"}>
+                                        <div className={item.isSelected ? " bg-indigo-500 text-white font-bold py-2 rounded" : " bg-gray-200 font-bold py-2 rounded"}>
                                             {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                         </div>
 
@@ -209,15 +208,11 @@ class ManageSchedule extends Component {
                             }
                         }
                         )}
-
-
                     </div>
-
-
                 </div>
 
                 <div>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    <button className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
                         onClick={() => this.handleClickSaveSchedule()}>
                         {language === LANGUAGES.VI ? 'Lưu thông tin' : 'Save'}
                     </button>

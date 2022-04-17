@@ -244,16 +244,8 @@ class UserRedux extends Component {
         return (
             <div className="container">
                 {loadingCreateNewUser && <Loading />}
-
-                <div className="text-center font-bold text-3xl py-4" >Thêm, sửa thông tin Bác sĩ</div>
-                {/* <div>
-                    {isLoadingGenders === true ? 'Loading Gender' : ''}
-                </div> */}
-                {/* <div className=" row mb-4 offset-md-1">
-                    <span className="text-xl font-medium -ml-2"><FormattedMessage id="manage-user.add" /></span>
-                </div> */}
+                <div className="text-center font-bold text-3xl py-4" ><FormattedMessage id="manage-user.manage-doctor" /></div>
                 <form>
-
                     <div className="row mb-3 justify-content-center">
                         <div className="form-group col-md-5">
                             <label htmlFor="inputFirstName4"><FormattedMessage id="manage-user.firstName" /></label>
@@ -401,15 +393,14 @@ class UserRedux extends Component {
                             </button>
                         </div>
                     </div>
-
-                    <div className=" row mb-4 justify-content-center">
-                        <div className="col-md-10 mt-4">
-                            <TableManage
-                                handleEditUserFromParent={this.handleEditUserFromParent}
-                            />
-                        </div>
-                    </div>
                 </form>
+                <div className="mb-4 w-full ">
+                    <div className="mt-4">
+                        <TableManage
+                            handleEditUserFromParent={this.handleEditUserFromParent}
+                        />
+                    </div>
+                </div>
                 {isOpen && (
                     <Lightbox
                         mainSrc={previewImage}

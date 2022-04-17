@@ -281,7 +281,7 @@ class ManageDoctor extends Component {
 
                 <div className="grid grid-cols-2">
                     <div className="">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-choose-doctor">
+                        <label className="block uppercase tracking-wide text-gray-700 text-sm font-semibold mb-2" htmlFor="grid-choose-doctor">
                             <FormattedMessage id="admin.manage-doctor.choose-doctor" />
                         </label>
 
@@ -295,7 +295,7 @@ class ManageDoctor extends Component {
                         />
                     </div>
                     <div className="">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-doctor-info">
+                        <label className="block uppercase tracking-wide text-gray-700 text-sm font-semibold mb-2" htmlFor="grid-doctor-info">
                             <FormattedMessage id="admin.manage-doctor.doctor-info" />
                             <textarea
                                 onChange={(e) => this.handleChangeDesc(e)}
@@ -310,7 +310,7 @@ class ManageDoctor extends Component {
                     <div className="col-span-2 mb-3">
                         <div className="grid grid-cols-3 gap-2">
                             <div className="grid grid-cols-1">
-                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-choose-price">
+                                <label className="block uppercase tracking-wide text-gray-700 text-sm font-semibold mb-2" htmlFor="grid-choose-price">
                                     <FormattedMessage id="admin.manage-doctor.choose-price" />
                                 </label>
                                 <Select
@@ -322,7 +322,7 @@ class ManageDoctor extends Component {
                                 />
                             </div>
                             <div className="grid grid-cols-1">
-                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-method-pay">
+                                <label className="block uppercase tracking-wide text-gray-700 text-sm font-semibold mb-2" htmlFor="grid-method-pay">
                                     <FormattedMessage id="admin.manage-doctor.pay-method" />
                                 </label>
                                 <Select
@@ -334,7 +334,7 @@ class ManageDoctor extends Component {
                                 />
                             </div>
                             <div className="grid grid-cols-1">
-                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-choose-province">
+                                <label className="block uppercase tracking-wide text-gray-700 text-sm font-semibold mb-2" htmlFor="grid-choose-province">
                                     <FormattedMessage id="admin.manage-doctor.choose-province" />
                                 </label>
                                 <Select
@@ -351,21 +351,21 @@ class ManageDoctor extends Component {
                     <div className="col-span-2 mb-3">
                         <div className="grid grid-cols-3 gap-2">
                             <div className="grid grid-cols-1">
-                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-clinic-name">
+                                <label className="block uppercase tracking-wide text-gray-700 text-sm font-semibold mb-2" htmlFor="grid-clinic-name">
                                     <FormattedMessage id="admin.manage-doctor.name-clinic" />
                                 </label>
                                 <input className="appearance-none bg-gray-200 text-gray-700 border border-red-500 rounded py-1 px-2 leading-tight focus:outline-none focus:bg-white" id="grid-clinic-name" type="text"
                                     value={nameClinic} onChange={(e) => this.handleChangeInput(e, 'nameClinic')} />
                             </div>
                             <div className="grid grid-cols-1">
-                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-clinic-address">
+                                <label className="block uppercase tracking-wide text-gray-700 text-sm font-semibold mb-2" htmlFor="grid-clinic-address">
                                     <FormattedMessage id="admin.manage-doctor.address-clinic" />
                                 </label>
                                 <input className="appearance-none bg-gray-200 text-gray-700 border border-red-500 rounded py-1 px-2 leading-tight focus:outline-none focus:bg-white" id="grid-clinic-address" type="text"
                                     value={addressClinic} onChange={(e) => this.handleChangeInput(e, 'addressClinic')} />
                             </div>
                             <div className="grid grid-cols-1">
-                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-note">
+                                <label className="block uppercase tracking-wide text-gray-700 text-sm font-semibold mb-2" htmlFor="grid-note">
                                     <FormattedMessage id="admin.manage-doctor.note" />
                                 </label>
                                 <input className="appearance-none bg-gray-200 text-gray-700 border border-red-500 rounded py-1 px-2 leading-tight focus:outline-none focus:bg-white" id="grid-note" type="text"
@@ -376,7 +376,7 @@ class ManageDoctor extends Component {
                     <div className="col-span-2 mb-3">
                         <div className="grid grid-cols-2 gap-2">
                             <div className="grid grid-cols-1">
-                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-specialty">
+                                <label className="block uppercase tracking-wide text-gray-700 text-sm font-semibold mb-2" htmlFor="grid-specialty">
                                     <FormattedMessage id="admin.manage-doctor.specialty" />
                                 </label>
                                 <Select
@@ -389,7 +389,7 @@ class ManageDoctor extends Component {
                                 />
                             </div>
                             <div className="grid grid-cols-1">
-                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-clinic">
+                                <label className="block uppercase tracking-wide text-gray-700 text-sm font-semibold mb-2" htmlFor="grid-clinic">
                                     <FormattedMessage id="admin.manage-doctor.clinic" />
                                 </label>
                                 <Select

@@ -29,7 +29,7 @@
             "manage-doctor": "Manage Doctors",
             "manage-admin": "Admin",
             "crud": "CRUD User",
-            "crud-redux": "CRUD Redux",
+            "crud-redux": "Manage users",
             "manage-clinic": "Manage Clinic",
             "clinic": "Clinic",
             "specialty": "Specialty",
@@ -54,7 +54,8 @@
         "role": "Role",
         "image": "Avatar",
         "save": "Save",
-        "edit": "Edit"
+        "edit": "Edit",
+        "manage-doctor": "Manage Doctor's information"
     },
     "homepage": {
         "outstanding-doctor": "Last week's featured doctor",

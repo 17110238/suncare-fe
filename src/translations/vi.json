@@ -30,7 +30,7 @@
             "manage-doctor": "Quản lý Bác sĩ",
             "manage-admin": "Quản lý admin",
             "crud": "CRUD User",
-            "crud-redux": "CRUD Redux",
+            "crud-redux": "Quản lý người dùng",
             "manage-clinic": "Quản lý phòng khám",
             "clinic": "Phòng khám",
             "specialty": "Chuyên Khoa",
@@ -55,7 +55,8 @@
         "role": "Vai trò",
         "image": "Ảnh đại diện",
         "save": "Lưu người dùng",
-        "edit": "Lưu chỉnh sửa"
+        "edit": "Lưu chỉnh sửa",
+        "manage-doctor": "Quản lý thông tin Bác sĩ"
     },
     "homepage": {
         "outstanding-doctor": "Bác sĩ nỗi bật tuần qua ",
