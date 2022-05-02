@@ -5,9 +5,9 @@ import Specialty from './Sections/Specialty'
 import MedicalFacility from './Sections/MedicalFacility'
 import OutstandingDoctor from './Sections/OutstandingDoctor'
 import About from './Sections/About'
-import HomeFooter from './HomeFooter'
+import HomeFooter from './HomeFooter/HomeFooter'
 import HandBook from './Sections/HandBook'
-import HomeBanner from './HomeBanner'
+import HomeBanner from './HomeBanner/HomeBanner'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import './Homepage.scss'
