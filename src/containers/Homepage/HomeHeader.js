@@ -83,7 +83,14 @@ class HomeHeader extends Component {
                 <div className="flex items-center mr-4 cursor-pointer">
                   {/* <FaQuestionCircle className="text-blue-500 mr-1 text-sm" />
                    */}
-                  <div className="login_btn" style={{display: 'flex', justifyContent: 'center', alignItems: "center"}}>
+                  <div
+                    className="login_btn"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
                     <button
                       type="button"
                       className="inline-flex items-center mr-5 px-3 py-1 border border-transparent text-md font-medium rounded-3xl shadow-sm text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
