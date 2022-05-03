@@ -18,6 +18,8 @@ import DetailDoctor from './Patient/Doctor/DetailDoctor'
 import Doctor from '../routes/Doctor'
 import VerifyEmail from '../containers/Patient/VerifyEmail'
 import SpecialtyDetail from '../containers/Patient/Specialty/SpecialtyDetail'
+import Register from './Auth/SignUp/SignUp';
+import SignUpForDoctor from './Auth/SignUp/SignUpForDoctor';
 class App extends Component {
 
     handlePersistorState = () => {
@@ -46,6 +48,8 @@ class App extends Component {
                         <div className="content-container">
                             <Switch>
                                 <Route path={path.HOME} exact component={(Home)} />
+                                <Route path={'/sign-up'} component={Register}/>
+                                <Route path={'/sign-up-for-doctor'} component={SignUpForDoctor}/>
                                 <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                 <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                 <Route path={'/doctor/'} component={userIsAuthenticated(Doctor)} />

@@ -1,11 +1,11 @@
 import "./SignUp.scss";
-import { Form, Input, Button } from "antd";
-import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
+import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import * as Yup from "yup";
-import { authRegister, authsSelector } from "./authSlice";
-import { yupResolver } from "@hookform/resolvers/yup";
-import image from "../../assets/undraw_doctor_kw-5-l_v2.svg";
-import image2 from "../../assets/undraw_medicine_b-1-ol.svg";
+// import { authRegister, authsSelector } from "./authSlice";
+import image from "../../../assets/images/undraw_doctor_kw-5-l_v2.svg";
+import image2 from "../../../assets/images/undraw_medicine_b-1-ol.svg";
+import { Form } from "antd";
+import { Button } from "antd";
 const Register = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
@@ -24,32 +24,17 @@ const Register = () => {
     <div className="register">
       <div id="container-register" className="container-register">
         <div className="row">
-          {/* Start sign up */}
+          {/* Start sign up for doctor */}
           <div className="col align-item-center">
             <div className="form-wrapper align-item-center">
               <div className="form sign-up">
+                <h2 className="w-full text-3xl text-center">Đăng ký cho các bác sĩ</h2>
                 <Form
                   name="normal_login"
                   className="login-form"
                   initialValues={{ remember: true }}
                   onFinish={onFinish}
                 >
-                  <Form.Item
-                    name="username"
-                    className="input-group"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your Username!",
-                      },
-                    ]}
-                  >
-                    <Input
-                      prefix={<UserOutlined className="site-form-item-icon" />}
-                      placeholder="Username"
-                      className="input"
-                    />
-                  </Form.Item>
                   <Form.Item
                     name="email"
                     className="input-group"
@@ -60,11 +45,50 @@ const Register = () => {
                       },
                     ]}
                   >
-                    <Input
-                      prefix={<MailOutlined className="site-form-item-icon" />}
+                    {/* <Input
+                      prefix={<UserOutlined className="site-form-item-icon" />}
                       placeholder="Email"
                       className="input"
-                    />
+                    /> */}
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-600 uppercase"
+                    >
+                      Email
+                    </label>
+                    <div className="mt-1">
+                      <div
+                        className="email-input"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          backgroundColor: "#efefef",
+                          borderRadius: "0.5rem",
+                          width: "100%",
+                        }}
+                      >
+                        <MailOutlined
+                          className="site-form-item-icon"
+                          style={{ color: "#757575", marginLeft: "1rem" }}
+                        />
+                        <input
+                          id="email"
+                          name="email"
+                          type="email"
+                          autoComplete="email"
+                          required
+                          autoFocus={false}
+                          placeholder="Nhập email"
+                          className="appearance-none block w-full mb-1     placeholder-#efefef focus:outline-none sm:text-sm"
+                          style={{
+                            backgroundColor: "#efefef",
+                            fontSize: "1rem",
+                            padding: "1rem",
+                            outline: "none",
+                          }}
+                        />
+                      </div>
+                    </div>
                   </Form.Item>
                   <Form.Item
                     name="password"
@@ -72,47 +96,111 @@ const Register = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your Password!",
+                        message: "Xin hãy điền mật khẩu",
                       },
                     ]}
                   >
-                    <Input
+                    {/* <Input
                       prefix={<LockOutlined className="site-form-item-icon" />}
                       type="password"
                       placeholder="Password"
                       className="input"
-                    />
+                    /> */}
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-600 uppercase"
+                    >
+                      Mật khẩu
+                    </label>
+                    <div>
+                      <div
+                        className="password-input"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          backgroundColor: "#efefef",
+                          borderRadius: "0.5rem",
+                          width: "100%",
+                        }}
+                      >
+                        <LockOutlined
+                          className="site-form-item-icon"
+                          style={{ color: "#757575", marginLeft: "1rem" }}
+                        />
+                        <input
+                          id="password"
+                          name="password"
+                          type="password"
+                          autoComplete="password"
+                          required
+                          autoFocus={false}
+                          placeholder="Nhập mật khẩu"
+                          className="appearance-none block w-full mb-1     placeholder-#efefef focus:outline-none sm:text-sm"
+                          style={{
+                            backgroundColor: "#efefef",
+                            fontSize: "1rem",
+                            padding: "1rem",
+                            outline: "none",
+                          }}
+                        />
+                      </div>
+                    </div>
                   </Form.Item>
                   <Form.Item
-                    name="confirm"
-                    dependencies={["password"]}
-                    hasFeedback
+                    name="password"
                     className="input-group"
                     rules={[
                       {
                         required: true,
-                        message: "Please confirm your password!",
+                        message: "Xin hãy điền mật khẩu",
                       },
-                      ({ getFieldValue }) => ({
-                        validator(_, value) {
-                          if (!value || getFieldValue("password") === value) {
-                            return Promise.resolve();
-                          }
-                          return Promise.reject(
-                            new Error(
-                              "The two passwords that you entered do not match!"
-                            )
-                          );
-                        },
-                      }),
                     ]}
                   >
-                    <Input
+                    {/* <Input
                       prefix={<LockOutlined className="site-form-item-icon" />}
                       type="password"
-                      placeholder="Confirm Password"
+                      placeholder="Password"
                       className="input"
-                    />
+                    /> */}
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-600 uppercase"
+                    >
+                      Xác nhận mật khẩu
+                    </label>
+                    <div>
+                      <div
+                        className="password-input"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          backgroundColor: "#efefef",
+                          borderRadius: "0.5rem",
+                          width: "100%",
+                        }}
+                      >
+                        <LockOutlined
+                          className="site-form-item-icon"
+                          style={{ color: "#757575", marginLeft: "1rem" }}
+                        />
+                        <input
+                          id="confirm_password"
+                          name="confirm_password"
+                          type="password"
+                          autoComplete="password"
+                          required
+                          autoFocus={false}
+                          placeholder="Xác nhận mật khẩu"
+                          className="appearance-none block w-full mb-1     placeholder-#efefef focus:outline-none sm:text-sm"
+                          style={{
+                            backgroundColor: "#efefef",
+                            fontSize: "1rem",
+                            padding: "1rem",
+                            outline: "none",
+                          }}
+                        />
+                      </div>
+                    </div>
                   </Form.Item>
                   <Form.Item>
                     <Button
@@ -120,21 +208,23 @@ const Register = () => {
                       htmlType="submit"
                       className="login-form-button"
                     >
-                      Register
+                      Đăng ký
                     </Button>
                   </Form.Item>
                   <span className="navigate-sign-in" onClick={toggle}>
-                    Already have an account? Sign in here
+                    Bạn là bệnh nhân đang có nhu cầu tham gia?{" "}
+                    <span style={{ color: "red" }}>Đăng ký tại đây !</span>
                   </span>
                 </Form>
               </div>
             </div>
           </div>
-          {/* End sign up */}
-          {/* Start sign in */}
+          {/* End sign up for doctor */}
+          {/* Start sign up for patient */}
           <div className="col align-item-center">
             <div className="form-wrapper align-item-center">
               <div className="form sign-in">
+                <h2 className="w-full text-3xl text-center">Đăng ký cho bệnh nhân</h2>
                 <Form
                   name="normal_login"
                   className="login-form"
@@ -142,20 +232,59 @@ const Register = () => {
                   onFinish={onFinish}
                 >
                   <Form.Item
-                    name="username"
+                    name="email"
                     className="input-group"
                     rules={[
                       {
                         required: true,
-                        message: "Please input your Username!",
+                        message: "Please input your Email!",
                       },
                     ]}
                   >
-                    <Input
+                    {/* <Input
                       prefix={<UserOutlined className="site-form-item-icon" />}
-                      placeholder="Username"
+                      placeholder="Email"
                       className="input"
-                    />
+                    /> */}
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-600 uppercase"
+                    >
+                      Email
+                    </label>
+                    <div className="mt-1">
+                      <div
+                        className="email-input"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          backgroundColor: "#efefef",
+                          borderRadius: "0.5rem",
+                          width: "100%",
+                        }}
+                      >
+                        <MailOutlined
+                          className="site-form-item-icon"
+                          style={{ color: "#757575", marginLeft: "1rem" }}
+                        />
+                        <input
+                          id="email"
+                          name="email"
+                          type="email"
+                          autoComplete="email"
+                          required
+                          autoFocus={false}
+                          placeholder="Nhập email"
+                          className="appearance-none block w-full mb-1     placeholder-#efefef focus:outline-none sm:text-sm"
+                          style={{
+                            backgroundColor: "#efefef",
+                            fontSize: "1rem",
+                            padding: "1rem",
+                            outline: "none",
+                          }}
+                        />
+                      </div>
+                    </div>
                   </Form.Item>
                   <Form.Item
                     name="password"
@@ -163,16 +292,111 @@ const Register = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your Password!",
+                        message: "Xin hãy điền mật khẩu!",
                       },
                     ]}
                   >
-                    <Input
+                    {/* <Input
                       prefix={<LockOutlined className="site-form-item-icon" />}
                       type="password"
                       placeholder="Password"
                       className="input"
-                    />
+                    /> */}
+                    <label
+                      htmlFor="password"
+                      className="block text-sm font-medium text-gray-600 uppercase"
+                    >
+                      Mật khẩu
+                    </label>
+                    <div>
+                      <div
+                        className="password-input"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          backgroundColor: "#efefef",
+                          borderRadius: "0.5rem",
+                          width: "100%",
+                        }}
+                      >
+                        <LockOutlined
+                          className="site-form-item-icon"
+                          style={{ color: "#757575", marginLeft: "1rem" }}
+                        />
+                        <input
+                          id="password"
+                          name="password"
+                          type="password"
+                          autoComplete="password"
+                          required
+                          autoFocus={false}
+                          placeholder="Nhập mật khẩu"
+                          className="appearance-none block w-full mb-1     placeholder-#efefef focus:outline-none sm:text-sm"
+                          style={{
+                            backgroundColor: "#efefef",
+                            fontSize: "1rem",
+                            padding: "1rem",
+                            outline: "none",
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </Form.Item>
+                  <Form.Item
+                    name="password"
+                    className="input-group"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Xin kiểm tra và điền lại mật khẩu",
+                      },
+                    ]}
+                  >
+                    {/* <Input
+                      prefix={<LockOutlined className="site-form-item-icon" />}
+                      type="password"
+                      placeholder="Password"
+                      className="input"
+                    /> */}
+                    <label
+                      htmlFor="password"
+                      className="block text-sm font-medium text-gray-600 uppercase"
+                    >
+                      Xác nhận mật khẩu
+                    </label>
+                    <div>
+                      <div
+                        className="password-input"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          backgroundColor: "#efefef",
+                          borderRadius: "0.5rem",
+                          width: "100%",
+                        }}
+                      >
+                        <LockOutlined
+                          className="site-form-item-icon"
+                          style={{ color: "#757575", marginLeft: "1rem" }}
+                        />
+                        <input
+                          id="confirm_password"
+                          name="confirm_password"
+                          type="password"
+                          autoComplete="password"
+                          required
+                          autoFocus={false}
+                          placeholder="Xác nhận mật khẩu"
+                          className="appearance-none block w-full mb-1     placeholder-#efefef focus:outline-none sm:text-sm"
+                          style={{
+                            backgroundColor: "#efefef",
+                            fontSize: "1rem",
+                            padding: "1rem",
+                            outline: "none",
+                          }}
+                        />
+                      </div>
+                    </div>
                   </Form.Item>
                   <Form.Item>
                     <Button
@@ -180,51 +404,46 @@ const Register = () => {
                       htmlType="submit"
                       className="login-form-button"
                     >
-                      Sign in
+                      Đăng ký
                     </Button>
                   </Form.Item>
                   <span className="navigate-sign-in" onClick={toggle}>
-                    Don't have an account? Sign up here
+                    Bạn là bác sĩ, có nhu cầu tham gia với chúng tôi?{" "}
+                    <span style={{ color: "red" }}>Đăng ký tại đây</span>
                   </span>
                 </Form>
               </div>
             </div>
           </div>
-          {/* End sign in */}
+          {/* End sign up for patient */}
           {/* Start Content section */}
           <div className="row content-row">
-            {/* Start Sign in content */}
+            {/* Start sign up for patient content */}
             <div className="col align-item-center flex-col">
               <div className="text sign-in">
-                <h2>Welcome back</h2>
+                <h2>Chào mừng bạn đến với SunCare</h2>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab
-                  aperiam aliquam praesentium minima totam sit nulla mollitia
-                  neque. Cum facere cumque voluptatem, incidunt optio quam?
-                  Maxime quas praesentium dolore quae.
+                  Nơi giúp bạn tiết kiệm thời gian và công sức khi đăng ký khám chữa bệnh với các bác sĩ và bệnh viện hàng đầu Việt Nam
                 </p>
               </div>
               <div className="img sign-in">
                 <img src={image} alt="welcome" />
               </div>
             </div>
-            {/* End Sign in content */}
-            {/* Start sign up content */}
+            {/* End sign up for patient content */}
+            {/* Start sign up for doctor content */}
             <div className="col align-item-center flex-col">
               <div className="img sign-up">
                 <img src={image2} alt="welcome" />
               </div>
               <div className="text sign-up">
-                <h2>Join with us</h2>
+                <h2>Tham gia cùng chúng tôi nào</h2>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab
-                  aperiam aliquam praesentium minima totam sit nulla mollitia
-                  neque. Cum facere cumque voluptatem, incidunt optio quam?
-                  Maxime quas praesentium dolore quae.
+                  Bạn đang muốn kiếm thêm thu nhập vào những khung giờ rảnh rỗi? Chúng tôi sẽ giới thiệu các bệnh nhân đang lo lắng về sức khỏe và cần sự trợ giúp từ bạn
                 </p>
               </div>
             </div>
-            {/* End sign up content */}
+            {/* End sign up for doctor content */}
           </div>
           {/* End Content section */}
         </div>

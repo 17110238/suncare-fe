@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 // import './styles/styles.scss'
 import 'bootstrap/dist/css/bootstrap.css'
 import './styles/main.css'
-
+// import 'antd/dist/antd.min.css';
 import App from './containers/App'
 import * as serviceWorker from './serviceWorker'
 import IntlProviderWrapper from "./hoc/IntlProviderWrapper"

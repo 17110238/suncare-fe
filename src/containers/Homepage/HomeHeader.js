@@ -10,6 +10,8 @@ import vi from "../../assets/images/vi.png";
 import { withRouter, Router, Redirect } from "react-router-dom";
 
 import { changeLanguageApp } from "../../store/actions";
+import { history } from './../../redux';
+import { push } from 'connected-react-router';
 
 class HomeHeader extends Component {
   handleChangeLanguage = (e) => {
@@ -21,6 +23,10 @@ class HomeHeader extends Component {
     history.push("/home/");
   };
 
+  handleLogin = () => {
+    const {history} = this.props
+    history.push('/login')
+  }
   render() {
     let language = this.props.language;
     return (
@@ -94,6 +100,7 @@ class HomeHeader extends Component {
                     <button
                       type="button"
                       className="inline-flex items-center mr-5 px-3 py-1 border border-transparent text-md font-medium rounded-3xl shadow-sm text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                      onClick={() => this.handleLogin()}
                     >
                       Đăng nhập
                     </button>
