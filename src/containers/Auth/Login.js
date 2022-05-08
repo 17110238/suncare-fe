@@ -184,7 +184,7 @@ class Login extends Component {
                   </a>
                 </div>
                 <div className="sign-up-btn">
-                  Don't have an account?<span onClick={() => this.handleClickRegister()}>Register here!</span>
+                  Don't have an account? <span onClick={() => this.handleClickRegister()}>Register here!</span>
                 </div>
                 <div className="mt-8 flex items-center">
                   <div className="w-1 h-1 bg-gray-400 flex-1"></div>

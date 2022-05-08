@@ -1,0 +1,58 @@
+.sign-up-for-doctor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: rgb(16,141,199);
+background: linear-gradient(90deg, rgba(16,141,199,1) 50%, rgba(239,142,56,1) 100%);
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .form-wrapper {
+      width: 100%;
+      max-width: 70rem;
+      .form-sign-up {
+        padding: 1rem;
+        background-color: white;
+        border-radius: 1.5rem;
+        width: 100% !important;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        .title {
+          margin-bottom: 20px;
+          h2 {
+            text-align: center;
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+          }
+        }
+        .form-input {
+          .group-input {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            label {
+              margin-left: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.login-form-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  background-color: #4ea685;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  outline: none;
+  width: 100%;
+  span {
+    padding: 0.6rem;
+  }
+}
