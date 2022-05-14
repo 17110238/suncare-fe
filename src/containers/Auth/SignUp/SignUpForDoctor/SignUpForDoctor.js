@@ -318,7 +318,7 @@ const handleDeleteImage = () => {
                       <option value="Female">Female</option>
                       <option value="Female">Other</option>
                     </select>
-                    <FaAngleDown className="text-gray-700 text-xl -ml-8" />
+                    <FaAngleDown className="text-gray-700 text-xl mr-2" />
                   </div>
                 </div>
                 <div className="position form-group col-md-6">
@@ -366,7 +366,7 @@ const handleDeleteImage = () => {
                       </option>
                       <option value="Professor">Professor</option>
                     </select>
-                    <FaAngleDown className="text-gray-700 text-xl -ml-8" />
+                    <FaAngleDown className="text-gray-700 text-xl mr-2" />
                   </div>
                 </div>
               </div>
