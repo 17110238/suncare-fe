@@ -249,13 +249,13 @@ class UserRedux extends Component {
                     <div className="row mb-3 justify-content-center">
                         <div className="form-group col-md-5">
                             <label htmlFor="inputFirstName4"><FormattedMessage id="manage-user.firstName" /></label>
-                            <input type="text" className="form-control" id="inputFirstName4" placeholder="Tien" value={firstName}
+                            <input type="text" className="form-control" id="inputFirstName4" value={firstName}
                                 onChange={(e) => this.handleInput(e, 'firstName')} />
                             <span className="text-red-600">{errors.firstName}</span>
                         </div>
                         <div className="form-group col-md-5">
                             <label htmlFor="inputLastName4"><FormattedMessage id="manage-user.lastName" /></label>
-                            <input type="text" className="form-control" id="inputLastName4" placeholder="Pham Ngoc" value={lastName}
+                            <input type="text" className="form-control" id="inputLastName4" value={lastName}
                                 onChange={(event) => this.handleInput(event, 'lastName')} />
                             <span className="text-red-600">{errors.lastName}</span>
                         </div>

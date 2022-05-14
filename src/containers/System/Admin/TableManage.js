@@ -45,6 +45,7 @@ class TableManage extends Component {
     handleDeleteUser(userId) {
         this.props.DeleteUser(userId)
     }
+    
 
     handleEditUser(data) {
         this.props.handleEditUserFromParent(data)

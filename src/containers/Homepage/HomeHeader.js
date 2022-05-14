@@ -24,7 +24,12 @@ class HomeHeader extends Component {
   };
 
   handleLogin = () => {
-    const {history} = this.props
+    const { history } = this.props
+    history.push('/login')
+  }
+
+  handleSignUp = () => {
+    const { history } = this.props
     history.push('/login')
   }
   render() {
@@ -35,7 +40,7 @@ class HomeHeader extends Component {
           <div className="max-w-7xl mx-auto">
             <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 ">
               <div className="flex items-center justify-center cursor-pointer">
-                <FaBars className="mr-3 text-2xl" />
+                {/* <FaBars className="mr-3 text-2xl" /> */}
                 <div
                   className="flex items-center"
                   onClick={() => this.returnToHome()}
@@ -76,14 +81,14 @@ class HomeHeader extends Component {
                     <FormattedMessage id="homeheader.choose-doctor" />
                   </div>
                 </div>
-                <div className="text-base">
+                {/* <div className="text-base">
                   <div className="font-bold">
                     <FormattedMessage id="homeheader.fee" />
                   </div>
                   <div>
                     <FormattedMessage id="homeheader.general-health-check" />
                   </div>
-                </div>
+                </div> */}
               </nav>
               <div className="flex items-center">
                 <div className="flex items-center mr-4 cursor-pointer">
@@ -103,6 +108,13 @@ class HomeHeader extends Component {
                       onClick={() => this.handleLogin()}
                     >
                       Đăng nhập
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex items-center mr-5 px-3 py-1 border border-transparent text-md font-medium rounded-3xl shadow-sm text-white bg-yellow-500 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                      onClick={() => this.handleSignUp()}
+                    >
+                      Đăng ký
                     </button>
                   </div>
                   {/* <div className="font-bold text-base flex items-center ">

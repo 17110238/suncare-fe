@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import { Button, Modal, ModalHeader, ModalFooter, ModalBody, Form, Label, Input, FormGroup, Row, Col, FormFeedback, FormText } from 'reactstrap'
 import _ from 'lodash'
 
+const Modal = () => {
+
+}
 class ModalEditUser extends Component {
 
     constructor(props) {
