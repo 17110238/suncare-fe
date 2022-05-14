@@ -19,7 +19,7 @@ import Doctor from '../routes/Doctor'
 import VerifyEmail from '../containers/Patient/VerifyEmail'
 import SpecialtyDetail from '../containers/Patient/Specialty/SpecialtyDetail'
 import Register from './Auth/SignUp/SignUp';
-import SignUpForDoctor from './Auth/SignUp/SignUpForDoctor';
+import SignUpForDoctor from './Auth/SignUp/SignUpForDoctor/SignUpForDoctor';
 class App extends Component {
 
     handlePersistorState = () => {

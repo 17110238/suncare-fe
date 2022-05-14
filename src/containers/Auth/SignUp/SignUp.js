@@ -6,6 +6,9 @@ import image from "../../../assets/images/undraw_doctor_kw-5-l_v2.svg";
 import image2 from "../../../assets/images/undraw_medicine_b-1-ol.svg";
 import { Form } from "antd";
 import { Button } from "antd";
+import { history } from './../../../redux';
+import { push } from 'connected-react-router';
+import { Link } from 'react-router-dom';
 const Register = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
@@ -14,6 +17,7 @@ const Register = () => {
   const toggle = () => {
     document.getElementById("container-register").classList.toggle("sign-in");
     document.getElementById("container-register").classList.toggle("sign-up");
+
   };
 
   setTimeout(() => {
@@ -407,9 +411,9 @@ const Register = () => {
                       Đăng ký
                     </Button>
                   </Form.Item>
-                  <span className="navigate-sign-in" onClick={toggle}>
+                  <span className="navigate-sign-in">
                     Bạn là bác sĩ, có nhu cầu tham gia với chúng tôi?{" "}
-                    <span style={{ color: "red" }}>Đăng ký tại đây</span>
+                    <Link to='/sign-up-for-doctor' style={{ color: "red" }}>Đăng ký tại đây</Link>
                   </span>
                 </Form>
               </div>
