@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { FaGooglePlus, FaFacebook, FaEye, FaEyeSlash } from "react-icons/fa";
-import * as actions from "../../store/actions";
+import * as actions from "../../../store/actions";
 import "./Login.scss";
 import { FormattedMessage } from "react-intl";
-import doccare from "../../assets/images/doctorcare.jpg";
-import { handleLoginApi } from "../../services/userService";
+import doccare from "../../../assets/images/doctorcare.jpg";
+import { handleLoginApi } from "../../../services/userService";
 // import { Button } from "reactstrap";
-import { history } from "./../../redux";
 import { withRouter } from 'react-router-dom';
+import HomeHeader from "../../Homepage/HomeHeader";
 
 class Login extends Component {
   constructor(props) {
@@ -106,14 +106,12 @@ class Login extends Component {
     const { username, password, type, hideShow } = this.state;
     return (
       <>
+        <HomeHeader />
         <div
           className="login-background h-screen flex items-center justify-center lg:p-56 md:p-8 "
           onKeyPress={(e) => this.handleOnKeyDown(e)}
         >
           <div className=" bg-white p-8 rounded-3xl">
-            <div className="text-center text-4xl pb-8 italic text-red-600 font-bold font-serif">
-              Wellcome to SunCare
-            </div>
             <div className="flex items-center justify-center">
               <div className="w-3/5 lg:block sm:hidden md:block xl:block">
                 <img src={doccare} />

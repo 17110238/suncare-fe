@@ -55,7 +55,10 @@
         "image": "Avatar",
         "save": "Save",
         "edit": "Edit",
-        "manage-doctor": "Manage Doctor's information"
+        "sign-in": "Sign In",
+        "manage-doctor": "Manage Doctor's information",
+        "create-doctor-information": "Create doctor information",
+        "edit-doctor-information": "Edit doctor information"
     },
     "homepage": {
         "outstanding-doctor": "Last week's featured doctor",

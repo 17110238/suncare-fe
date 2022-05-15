@@ -1,44 +1,293 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux"
 import { Button, Modal, ModalHeader, ModalFooter, ModalBody, Form, Label, Input, FormGroup, Row, Col } from 'reactstrap'
-import ProfileDoctor from '../ProfileDoctor'
 import _ from 'lodash'
-import NumberFormat from 'react-number-format'
 import { FormattedMessage } from 'react-intl'
-import DatePicker from '../../../../components/Input/DatePicker'
-import { LANGUAGES } from '../../../../utils'
-import * as actions from "../.././../../store/actions"
+import * as actions from "../../../../store/actions"
 import Select from 'react-select'
 import { postPatientAppointment } from '../../../../services/userService'
 import { toast } from 'react-toastify'
-import moment from 'moment'
+import { FaAngleDown } from 'react-icons/fa'
+import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../../utils';
+import Loading from '../../../../components/Loading/Loading';
 
-class CreateUser extends Component {
+class UserManage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            id: '',
+            firstName: '',
+            lastName: '',
+            phoneNumber: '',
+            address: '',
+            email: '',
+            password: '',
+            image: '',
+            previewImage: '',
+            gender: '',
+            role: '',
+            position: '',
+            isOpen: false,
+            photoIndex: 0,
+            errors: {},
+            arrGenders: [],
+            arrRoles: [],
+            arrPositions: [],
+            createNewUserInfo: {},
         }
     }
 
     componentDidMount() {
-
+        this.props.getGenderStart()
+        this.props.getPositionSuccess()
+        this.props.getRoleSuccess()
     }
 
-    componentDidUpdate() {
+    handleInput(e, name) {
+        e.preventDefault()
+        let copyState = { ...this.state }
+        copyState[name] = e.target.value
+        this.setState({
+            ...copyState
+        })
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.genderRedux !== prevProps.genderRedux) {
+            let arrGenders = this.props.genderRedux
+            this.setState({
+                arrGenders: arrGenders,
+                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].key : '',
+            })
+        }
+
+        if (this.props.positionRedux !== prevProps.positionRedux) {
+            let arrPositions = this.props.positionRedux
+            this.setState({
+                arrPositions: arrPositions,
+                position: arrPositions && arrPositions.length > 0 ? arrPositions[0].key : '',
+            })
+        }
+
+        if (this.props.roleRedux !== prevProps.roleRedux) {
+            let arrRoles = this.props.roleRedux
+            this.setState({
+                arrRoles: arrRoles,
+                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : '',
+            })
+        }
+
+        if (this.props.listUsers !== prevProps.listUsers) {
+            let arrGenders = this.props.genderRedux
+            let arrPositions = this.props.positionRedux
+            let arrRoles = this.props.roleRedux
+
+            this.setState({
+                firstName: '',
+                lastName: '',
+                phoneNumber: '',
+                address: '',
+                email: '',
+                password: '',
+                image: '',
+                previewImage: '',
+                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].keyMap : '',
+                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].keyMap : '',
+                position: arrPositions && arrPositions.length > 0 ? arrPositions[0].keyMap : '',
+                isOpen: false,
+                photoIndex: 0,
+                errors: {},
+                action: CRUD_ACTIONS.CREATE
+            })
+
+        }
+        if (this.props.createNewUserInfo !== prevProps.createNewUserInfo) {
+            if (this.props.createNewUserInfo?.errCode === 0) {
+                toast.success('Create a new user success!')
+                this.props.handleClose()
+            }
+            else {
+                this.setState({
+                    createNewUserInfo: this.props.createNewUserInfo
+                })
+            }
+        }
+
+        if (this.props.editUserInfo !== prevProps.editUserInfo) {
+            if (this.props.editUserInfo?.errCode === 0) {
+                toast.success('Update user success!')
+                this.props.handleClose()
+            }
+            else {
+                toast.error('Update user not success!')
+            }
+        }
+
+        if (this.props.userData !== prevProps.userData) {
+            this.handleEditUserFromParent(this.props.userData)
+        }
 
     }
+    handleChangeImage = async (e) => {
+        const file = e.target.files[0]
+        if (file) {
+            let base64 = await CommonUtils.getBase64(file)
+            this.setState({
+                previewImage: URL.createObjectURL(file),
+                image: base64
+            })
+        }
+    }
+
+    handleDeleteImage = () => {
+        this.setState({
+            previewImage: ''
+        })
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault()
+
+        const validate = this.validate()
+        if (validate === false) return
+        if (validate) {
+
+            let action = this.state.action
+
+            if (action === CRUD_ACTIONS.CREATE) {
+                this.props.createNewUser({
+                    email: this.state.email,
+                    password: this.state.password,
+                    firstName: this.state.firstName,
+                    lastName: this.state.lastName,
+                    phoneNumber: this.state.phoneNumber,
+                    gender: this.state.gender,
+                    address: this.state.address,
+                    role: this.state.role,
+                    position: this.state.position,
+                    image: this.state.image
+                })
+            }
+            if (action === CRUD_ACTIONS.EDIT) {
+
+                this.props.editUser({
+                    id: this.state.id,
+                    email: this.state.email,
+                    firstName: this.state.firstName,
+                    lastName: this.state.lastName,
+                    phoneNumber: this.state.phoneNumber,
+                    gender: this.state.gender,
+                    address: this.state.address,
+                    roleId: this.state.role,
+                    positionId: this.state.position,
+                    image: this.state.image
+                })
+            }
+        }
+    }
+
+
+    handleChangeGender = (e) => {
+        this.setState({ gender: e.target.value })
+    }
+
+    validate = () => {
+        const { email, password, phoneNumber, firstName, lastName, address, action } = this.state
+        const errors = {}
+
+        function validateEmail(email) {
+            const re = /^(([^<>()[\]\\.,:\s@"]+(\.[^<>()[\]\\.,:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            return re.test(String(email).toLowerCase())
+        }
+
+        if (email === '') {
+            errors.email = "Required"
+        }
+
+        if (phoneNumber === '') {
+            errors.phoneNumber = "Required"
+        }
+
+        else if (!validateEmail(email)) {
+            errors.email = "Not an email adress"
+        }
+
+        if (password === '' && action === CRUD_ACTIONS.CREATE) {
+            errors.password = "Required"
+        }
+
+        if (firstName === '') {
+            errors.firstName = "Required"
+        }
+        if (lastName === '') {
+            errors.lastName = "Required"
+        }
+        if (address === '') {
+            errors.address = "Required"
+        }
+
+        this.setState({ errors: errors })
+        if (Object.keys(errors).length > 0) return false
+        return true
+    }
+
+
+    handleEditUserFromParent = (data) => {
+        let imageBase64 = ''
+        if (data.image) {
+            imageBase64 = new Buffer(data.image, 'base64').toString('binary')
+        }
+        this.setState({
+            id: data.id,
+            email: data.email,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            phoneNumber: data.phoneNumber,
+            gender: data.gender,
+            address: data.address,
+            role: data.roleId,
+            position: data.positionId,
+            image: '',
+            previewImage: imageBase64,
+            action: CRUD_ACTIONS.EDIT,
+        })
+    }
+
+    handleCloseModal() {
+        this.props.handleClose()
+        this.props.action === CRUD_ACTIONS.CREATE && this.setState({
+            firstName: '',
+            lastName: '',
+            phoneNumber: '',
+            address: '',
+            email: '',
+            password: '',
+            image: '',
+            previewImage: '',
+            isOpen: false,
+            photoIndex: 0,
+        })
+    }
+
 
     render() {
-
+        const { arrGenders, arrPositions, gender, arrRoles, firstName, lastName, address, email, password, phoneNumber, image, isOpen, errors,
+            role, position, previewImage, createNewUserInfo } = this.state
+        const { language, action } = this.props
         return (
             <div>
-                <Modal isOpen={show} toggle={() => this.toggle()} style={{ maxWidth: '60%' }} >
-                    <ModalHeader toggle={() => this.toggle()} className="text-2xl">
-                        <FormattedMessage id="patient.profile-doctor.title" />
+
+                <Modal isOpen={this.props.isShow} toggle={() => this.handleCloseModal()} style={{ maxWidth: '80%' }}
+                    backdrop="static"
+                >
+                    <ModalHeader toggle={() => this.handleCloseModal()} className="text-2xl">
+                        {this.props.action === CRUD_ACTIONS.CREATE ? <FormattedMessage id="manage-user.create-doctor-information" /> :
+                            this.props.action === CRUD_ACTIONS.EDIT ? <FormattedMessage id="manage-user.edit-doctor-information" /> : ''
+                        }
                     </ModalHeader>
                     <ModalBody>
                         <form>
+
                             <div className="row mb-3 justify-content-center">
                                 <div className="form-group col-md-5">
                                     <label htmlFor="inputFirstName4"><FormattedMessage id="manage-user.firstName" /></label>
@@ -83,9 +332,7 @@ class CreateUser extends Component {
                                         disabled={action === CRUD_ACTIONS.EDIT ? true : false} />
                                     <span className="text-red-600">{errors.password}</span>
                                 </div>
-                            </div>
-                            <div className="row mb-3 justify-content-center">
-                                <div className="form-group col-md-3">
+                                <div className={`${role === 'R3' | role === 'R1' | !role ? 'col-md-5' : 'col-md-3'} form-group mt-2`}>
                                     <label htmlFor="inputGender"><FormattedMessage id="manage-user.gender" /></label>
                                     <div className="flex items-center">
                                         <select id="inputGender" className="form-control" value={gender} onChange={(e) => this.handleInput(e, 'gender')}>
@@ -101,8 +348,8 @@ class CreateUser extends Component {
                                         <FaAngleDown className="text-gray-700 text-xl -ml-8" />
                                     </div>
                                 </div>
-                                <div className="form-group col-md-4">
-                                    <label htmlFor="inputPosition"><FormattedMessage id="manage-user.position" /></label>
+                                {role === 'R3' | role === 'R1' | !role ? '' : <div className="form-group col-md-4 mt-2">
+                                    <label className='text-md font-semibold' htmlFor="inputPosition"><FormattedMessage id="manage-user.position" /></label>
                                     <div className="flex items-center">
                                         <select id="inputPosition" className="form-control" value={position} onChange={(e) => this.handleInput(e, 'position')}>
                                             {arrPositions && arrPositions.length > 0 ?
@@ -116,8 +363,8 @@ class CreateUser extends Component {
                                         </select>
                                         <FaAngleDown className="text-gray-700 text-xl -ml-8" />
                                     </div>
-                                </div>
-                                <div className="form-group col-md-3">
+                                </div>}
+                                <div className={`${role === 'R3' | role === 'R1' | !role ? 'col-md-5' : 'col-md-3'} form-group mt-2`}>
                                     <label htmlFor="inputRole"><FormattedMessage id="manage-user.role" /></label>
                                     <div className="flex items-center">
                                         <select id="inputRole" className="form-control" value={role} onChange={(e) => this.handleInput(e, 'role')}>
@@ -154,7 +401,7 @@ class CreateUser extends Component {
                                                         <img src={previewImage} className="h-40" />
                                                     </label>
                                                     <div className="flex w-full justify-around mt-2">
-                                                        <button type="button" className="bg-green-500 hover:bg-green-700 text-white rounded w-24 cursor-pointer"
+                                                        <button type="button" className="bg-green-500 hover:bg-green-700 text-white rounded  w-24 cursor-pointer"
                                                         // onClick={(e) => this.handleChangeImage(e)}
                                                         >
                                                             {previewImage === '' ? 'Add' : 'Change'}
@@ -178,17 +425,18 @@ class CreateUser extends Component {
 
                             <div className=" row mb-4 offset-md-1">
                                 <div className="col-md-3">
-                                    <button type="submit" className={action === CRUD_ACTIONS.EDIT ? "btn btn-warning -ml-2 px-4 py-2 font-bold" :
-                                        "btn btn-primary -ml-2 px-4 py-2 font-bold"}
+                                    <button type="submit" className={this.props.action === CRUD_ACTIONS.EDIT ? "btn btn-warning w-40 whitespace-nowrap -ml-2 px-4 py-2 font-bold" :
+                                        "btn btn-primary w-40 whitespace-nowrap -ml-2 px-4 py-2 font-bold"}
                                         onClick={(e) => this.handleSubmit(e)} >
-                                        {action === CRUD_ACTIONS.EDIT ?
+                                        {this.props.action === CRUD_ACTIONS.EDIT ?
                                             <FormattedMessage id="manage-user.edit" /> : <FormattedMessage id="manage-user.save" />}
                                     </button>
                                 </div>
                             </div>
+                            {this.props.loadingCreateNewUser && <Loading />}
                         </form>
                     </ModalBody>
-                    <ModalFooter>
+                    {/* <ModalFooter>
                         <Button
                             color="primary"
                             onClick={() => this.handleConfirmBooking()}
@@ -199,8 +447,8 @@ class CreateUser extends Component {
                         <Button onClick={() => this.toggle()}>
                             {cancel}
                         </Button>
-                    </ModalFooter>
-                </Modal>
+                    </ModalFooter> */}
+                </Modal >
             </div >
         )
     }
@@ -208,16 +456,27 @@ class CreateUser extends Component {
 
 const mapStateToProps = state => {
     return {
-        genderRedux: state.admin.genders,
         language: state.app.language,
+        genderRedux: state.admin.genders,
+        positionRedux: state.admin.positions,
+        roleRedux: state.admin.roles,
+        isLoadingGenders: state.admin.isLoadingGenders,
+        listUsers: state.admin.users,
+        createNewUserInfo: state.admin.createNewUserInfo,
+        editUserInfo: state.admin.editUserInfo,
+        loadingCreateNewUser: state.admin.isLoading
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         getGenderStart: () => dispatch(actions.fetchGenderStart()),
-
+        getPositionSuccess: () => dispatch(actions.fetchPositionStart()),
+        getRoleSuccess: () => dispatch(actions.fetchRoleStart()),
+        createNewUser: (data) => dispatch(actions.createNewUser(data)),
+        fetchUserRedux: () => dispatch(actions.fetchALLUserStart()),
+        editUser: (data) => dispatch(actions.editUser(data)),
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateUser)
+export default connect(mapStateToProps, mapDispatchToProps)(UserManage)

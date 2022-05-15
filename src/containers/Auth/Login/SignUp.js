@@ -1,14 +1,15 @@
 import "./SignUp.scss";
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import * as Yup from "yup";
 // import { authRegister, authsSelector } from "./authSlice";
 import image from "../../../assets/images/undraw_doctor_kw-5-l_v2.svg";
 import image2 from "../../../assets/images/undraw_medicine_b-1-ol.svg";
 import { Form } from "antd";
 import { Button } from "antd";
-import { history } from './../../../redux';
+import { history } from '../../../redux';
 import { push } from 'connected-react-router';
 import { Link } from 'react-router-dom';
+import { LockOutlined, MailOutlined } from "@ant-design/icons";
+
 const Register = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);

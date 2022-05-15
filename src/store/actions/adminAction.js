@@ -128,6 +128,7 @@ export const fetchRoleFail = () => ({
 
 
 export const createNewUser = (data) => {
+    console.log("aaaa", data)
     return async (dispatch, getState) => {
         try {
             dispatch(saveUserRequest())
@@ -140,7 +141,7 @@ export const createNewUser = (data) => {
             }
         }
         catch (err) {
-            dispatch(saveUserFail())
+            toast.error('Create user not success!')
             console.error(err)
         }
     }
@@ -152,7 +153,7 @@ export const saveUserRequest = () => ({
 
 export const saveUserSuccess = (userInfo) => ({
     type: actionTypes.CREATE_USER_SUCCESS,
-    data: userInfo.data
+    data: userInfo
 })
 
 export const saveUserFail = (userInfo) => ({
@@ -175,11 +176,11 @@ export const DeleteUser = (data) => {
         }
         catch (err) {
             toast.error('Delete user not success!')
-            dispatch(deleteUserFail())
             console.error(err)
         }
     }
 }
+
 
 export const deleteUserFail = () => ({
     type: actionTypes.DELETE_USER_FAILED,
@@ -189,35 +190,38 @@ export const deleteUserSuccess = () => ({
     type: actionTypes.DELETE_USER_SUCCESS
 })
 
-
-
 export const editUser = (data) => {
+    console.log("dataaaa", data)
     return async (dispatch, getState) => {
         try {
+            dispatch(editUserRequest())
             let res = await editUserService(data)
             if (res && res.errCode === 0) {
-                toast.success('Update user success!')
-                dispatch(editUserSuccess())
+                dispatch(editUserSuccess(res))
                 dispatch(fetchALLUserStart())
             } else {
-                toast.error('Update user not success!')
-                dispatch(editUserFail())
+                dispatch(editUserFail(res))
             }
         }
         catch (err) {
             toast.error('Update user not success!')
-            dispatch(editUserFail())
             console.error(err)
         }
     }
 }
 
-export const editUserFail = () => ({
-    type: actionTypes.EDIT_USER_FAILED,
+export const editUserRequest = () => ({
+    type: actionTypes.EDIT_USER_REQUEST,
 })
 
-export const editUserSuccess = () => ({
-    type: actionTypes.EDIT_USER_SUCCESS
+export const editUserFail = (userInfo) => ({
+    type: actionTypes.EDIT_USER_FAILED,
+    data: userInfo
+})
+
+export const editUserSuccess = (userInfo) => ({
+    type: actionTypes.EDIT_USER_SUCCESS,
+    data: userInfo
 })
 
 export const fetchTopDoctors = () => {

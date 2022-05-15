@@ -15,6 +15,7 @@ const initialState = {
     listProvinces: [],
     listSpecialties: [],
     createNewUserInfo: {},
+    editUserInfo: {},
     isLoading: false,
 }
 
@@ -37,6 +38,27 @@ const adminReducer = (state = initialState, action) => {
         case actionTypes.CREATE_USER_FAILED:
             state.isLoading = false;
             state.createNewUserInfo = action.data
+            return {
+                ...state,
+            }
+
+        // Edit user
+        case actionTypes.EDIT_USER_REQUEST:
+            state.isLoading = true;
+            return {
+                ...state,
+            }
+
+        case actionTypes.EDIT_USER_SUCCESS:
+            state.isLoading = false;
+            state.editUserInfo = action.data
+            return {
+                ...state,
+            }
+
+        case actionTypes.EDIT_USER_FAILED:
+            state.isLoading = false;
+            state.editUserInfo = action.data
             return {
                 ...state,
             }

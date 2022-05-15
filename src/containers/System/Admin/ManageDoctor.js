@@ -432,7 +432,6 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchAllDoctor: () => dispatch(actions.fetchAllDoctor()),
         saveDetailDoctor: (data) => dispatch(actions.saveDetailDoctor(data)),
-
         getListPrices: () => dispatch(actions.getListPrices()),
         getListPayments: () => dispatch(actions.getListPayments()),
         getListProvinces: () => dispatch(actions.getListProvinces()),

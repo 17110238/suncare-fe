@@ -30,7 +30,7 @@ class HomeHeader extends Component {
 
   handleSignUp = () => {
     const { history } = this.props
-    history.push('/login')
+    history.push('/sign-up')
   }
   render() {
     let language = this.props.language;
