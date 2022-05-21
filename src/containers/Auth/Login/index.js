@@ -105,13 +105,13 @@ class Login extends Component {
   render() {
     const { username, password, type, hideShow } = this.state;
     return (
-      <>
+      <div className="w-full h-screen overflow-hidden">
         <HomeHeader />
         <div
-          className="login-background h-screen flex items-center justify-center lg:p-56 md:p-8 "
+          className="login-background h-screen flex items-center justify-center lg:p-56 -mt-12"
           onKeyPress={(e) => this.handleOnKeyDown(e)}
         >
-          <div className=" bg-white p-8 rounded-3xl">
+          <div className="bg-white px-8 rounded-3xl">
             <div className="flex items-center justify-center">
               <div className="w-3/5 lg:block sm:hidden md:block xl:block">
                 <img src={doccare} />
@@ -201,7 +201,7 @@ class Login extends Component {
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

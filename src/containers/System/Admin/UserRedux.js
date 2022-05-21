@@ -39,8 +39,6 @@ class UserRedux extends Component {
         this.props.DeleteUser(userId)
     }
 
-
-
     handleIsOpen = () => {
         this.setState({
             isOpen: true
@@ -62,7 +60,7 @@ class UserRedux extends Component {
             })
         }
         return (
-            <>
+            <div className='overflow-hidden'>
                 <UserManageModal
                     isShow={this.state.isShowCreateModal}
                     handleClose={this.handleCloseModal}
@@ -76,7 +74,7 @@ class UserRedux extends Component {
                     </h1>
                 </div>
 
-                <div className="px-4 sm:px-6 lg:px-8 mb-12 w-full">
+                <div className="px-4 sm:px-6 lg:px-8 mb-12 w-full overflow-x-hidden overflow-visible">
                     <div className="flex w-full justify-end sm:flex sm:items-center">
                         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                             <button
@@ -89,9 +87,9 @@ class UserRedux extends Component {
                         </div>
                     </div>
                     <div className="mt-8 flex flex-col w-full">
-                        <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div className="-my-2 -mx-4 overflow-x-hidden sm:-mx-6 lg:-mx-8">
                             <div className="inline-block min-w-full py-0.5 align-middle md:px-6 lg:px-8">
-                                <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                                <div className="overflow-x-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                                     <table className="min-w-full divide-y divide-gray-300">
                                         <thead className="bg-gray-50">
                                             <tr>
@@ -194,10 +192,7 @@ class UserRedux extends Component {
                         </div>
                     </div>
                 </div>
-
-                {/* <MdEditor style={{ height: '500px' }} renderHTML={text => mdParser.render(text)} onChange={handleEditorChange} /> */}
-            </>
-
+            </div>
         )
     }
 

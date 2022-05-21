@@ -77,8 +77,6 @@ class ManageDoctor extends Component {
                     object.value = item.id
                     object.label = item.name
                 }
-
-
                 result.push(object)
             })
         }
@@ -107,14 +105,12 @@ class ManageDoctor extends Component {
             let dataSelectPrices = this.buildDataInputSelect(this.props.listPrices, 'PRICES')
             let dataSelectPayments = this.buildDataInputSelect(this.props.listPayments, 'PAYEMENTS')
             let dataSelectProvinces = this.buildDataInputSelect(this.props.listProvinces, 'PROVINCES')
-            // let dataSelectSpecialties = this.buildDataInputSelect(this.props.listProvinces, 'SPECIALTIES')
 
             this.setState({
                 listDoctors: dataSelectDoctor,
                 arrPrices: dataSelectPrices,
                 arrPayments: dataSelectPayments,
                 arrProvinces: dataSelectProvinces,
-                // arrSpecialty: dataSelectSpecialties
             })
         }
 

@@ -8,7 +8,7 @@ class index extends Component {
         return (
             <>
                 <HomeHeader />
-                <div className="w-full py-10 border">
+                <div className="w-full py-10 border overflow-hidden">
                     <h1 className="text-center font-bold text-3xl mb-4"><FormattedMessage id="manage-user.sign-in" /></h1>
                     <FormSignUp />
                 </div>

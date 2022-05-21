@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import { FaAngleDown } from 'react-icons/fa'
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../../utils';
 import Loading from '../../../../components/Loading/Loading';
+import { withRouter } from 'react-router-dom';
 
 class index extends Component {
     constructor(props) {
@@ -124,6 +125,10 @@ class index extends Component {
                     createNewUserInfo: {},
                     action: CRUD_ACTIONS.CREATE
                 })
+                setTimeout(() => {
+                    const { history } = this.props;
+                    history.push('/login');
+                }, 2000)
             }
             if (this.props.createNewUserInfo?.errCode === 1) {
                 this.setState({
@@ -437,4 +442,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(index)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(index))

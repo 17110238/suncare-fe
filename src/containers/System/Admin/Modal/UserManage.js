@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux"
-import { Button, Modal, ModalHeader, ModalFooter, ModalBody, Form, Label, Input, FormGroup, Row, Col } from 'reactstrap'
+import { Button, Modal, ModalHeader, ModalFooter, ModalBody } from 'reactstrap'
 import _ from 'lodash'
 import { FormattedMessage } from 'react-intl'
 import * as actions from "../../../../store/actions"
 import Select from 'react-select'
-import { postPatientAppointment } from '../../../../services/userService'
 import { toast } from 'react-toastify'
 import { FaAngleDown } from 'react-icons/fa'
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../../utils';
@@ -105,6 +104,19 @@ class UserManage extends Component {
             if (this.props.createNewUserInfo?.errCode === 0) {
                 toast.success('Create a new user success!')
                 this.props.handleClose()
+                this.setState({
+                    firstName: '',
+                    lastName: '',
+                    phoneNumber: '',
+                    address: '',
+                    email: '',
+                    password: '',
+                    image: '',
+                    previewImage: '',
+                    isOpen: false,
+                    photoIndex: 0,
+                    createNewUserInfo: {}
+                })
             }
             else {
                 this.setState({
@@ -147,12 +159,11 @@ class UserManage extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-
         const validate = this.validate()
         if (validate === false) return
         if (validate) {
 
-            let action = this.state.action
+            let action = this.props.action
 
             if (action === CRUD_ACTIONS.CREATE) {
                 this.props.createNewUser({
@@ -169,7 +180,6 @@ class UserManage extends Component {
                 })
             }
             if (action === CRUD_ACTIONS.EDIT) {
-
                 this.props.editUser({
                     id: this.state.id,
                     email: this.state.email,
@@ -186,14 +196,15 @@ class UserManage extends Component {
         }
     }
 
-
     handleChangeGender = (e) => {
         this.setState({ gender: e.target.value })
     }
 
     validate = () => {
-        const { email, password, phoneNumber, firstName, lastName, address, action } = this.state
+        const { email, password, phoneNumber, firstName, lastName, address } = this.state
         const errors = {}
+
+        const action = this.props.action
 
         function validateEmail(email) {
             const re = /^(([^<>()[\]\\.,:\s@"]+(\.[^<>()[\]\\.,:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -249,7 +260,6 @@ class UserManage extends Component {
             position: data.positionId,
             image: '',
             previewImage: imageBase64,
-            action: CRUD_ACTIONS.EDIT,
         })
     }
 
@@ -266,28 +276,27 @@ class UserManage extends Component {
             previewImage: '',
             isOpen: false,
             photoIndex: 0,
+            createNewUserInfo: {}
         })
     }
-
 
     render() {
         const { arrGenders, arrPositions, gender, arrRoles, firstName, lastName, address, email, password, phoneNumber, image, isOpen, errors,
             role, position, previewImage, createNewUserInfo } = this.state
-        const { language, action } = this.props
+        const { language, action, loadingCreateNewUser } = this.props
         return (
-            <div>
+            <div className='overflow-hidden overflow-y-hidden'>
 
                 <Modal isOpen={this.props.isShow} toggle={() => this.handleCloseModal()} style={{ maxWidth: '80%' }}
                     backdrop="static"
                 >
                     <ModalHeader toggle={() => this.handleCloseModal()} className="text-2xl">
-                        {this.props.action === CRUD_ACTIONS.CREATE ? <FormattedMessage id="manage-user.create-doctor-information" /> :
-                            this.props.action === CRUD_ACTIONS.EDIT ? <FormattedMessage id="manage-user.edit-doctor-information" /> : ''
+                        {action === CRUD_ACTIONS.CREATE ? <FormattedMessage id="manage-user.create-doctor-information" /> :
+                            action === CRUD_ACTIONS.EDIT ? <FormattedMessage id="manage-user.edit-doctor-information" /> : ''
                         }
                     </ModalHeader>
                     <ModalBody>
                         <form>
-
                             <div className="row mb-3 justify-content-center">
                                 <div className="form-group col-md-5">
                                     <label htmlFor="inputFirstName4"><FormattedMessage id="manage-user.firstName" /></label>
@@ -402,7 +411,6 @@ class UserManage extends Component {
                                                     </label>
                                                     <div className="flex w-full justify-around mt-2">
                                                         <button type="button" className="bg-green-500 hover:bg-green-700 text-white rounded  w-24 cursor-pointer"
-                                                        // onClick={(e) => this.handleChangeImage(e)}
                                                         >
                                                             {previewImage === '' ? 'Add' : 'Change'}
                                                         </button>
@@ -425,29 +433,17 @@ class UserManage extends Component {
 
                             <div className=" row mb-4 offset-md-1">
                                 <div className="col-md-3">
-                                    <button type="submit" className={this.props.action === CRUD_ACTIONS.EDIT ? "btn btn-warning w-40 whitespace-nowrap -ml-2 px-4 py-2 font-bold" :
+                                    <button type="submit" className={action === CRUD_ACTIONS.EDIT ? "btn btn-warning w-40 whitespace-nowrap -ml-2 px-4 py-2 font-bold" :
                                         "btn btn-primary w-40 whitespace-nowrap -ml-2 px-4 py-2 font-bold"}
                                         onClick={(e) => this.handleSubmit(e)} >
-                                        {this.props.action === CRUD_ACTIONS.EDIT ?
+                                        {action === CRUD_ACTIONS.EDIT ?
                                             <FormattedMessage id="manage-user.edit" /> : <FormattedMessage id="manage-user.save" />}
                                     </button>
                                 </div>
                             </div>
-                            {this.props.loadingCreateNewUser && <Loading />}
+                            {loadingCreateNewUser && <Loading />}
                         </form>
                     </ModalBody>
-                    {/* <ModalFooter>
-                        <Button
-                            color="primary"
-                            onClick={() => this.handleConfirmBooking()}
-                        >
-                            {confirm}
-                        </Button>
-
-                        <Button onClick={() => this.toggle()}>
-                            {cancel}
-                        </Button>
-                    </ModalFooter> */}
                 </Modal >
             </div >
         )
