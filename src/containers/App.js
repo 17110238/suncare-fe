@@ -19,6 +19,7 @@ import Doctor from '../routes/Doctor'
 import VerifyEmail from '../containers/Patient/VerifyEmail'
 import SpecialtyDetail from '../containers/Patient/Specialty/SpecialtyDetail'
 import SignUp from './Auth/SignUp';
+import Page_404 from './404'
 // import SignUpForDoctor from './Auth/SignUp/SignUpForDoctor/SignUpForDoctor';
 class App extends Component {
 
@@ -57,6 +58,7 @@ class App extends Component {
                                 <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
                                 <Route path={path.VERIFY_EMAIL_BOOKING} component={VerifyEmail} />
                                 <Route path={path.DETAIL_SPECIALTY} component={SpecialtyDetail} />
+                                <Route component={Page_404} />
                             </Switch>
                         </div>
                     </div>

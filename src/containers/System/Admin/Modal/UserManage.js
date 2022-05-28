@@ -9,6 +9,7 @@ import { toast } from 'react-toastify'
 import { FaAngleDown } from 'react-icons/fa'
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../../utils';
 import Loading from '../../../../components/Loading/Loading';
+import '../ManageDoctor.scss'
 
 class UserManage extends Component {
     constructor(props) {
@@ -26,7 +27,7 @@ class UserManage extends Component {
             gender: '',
             role: '',
             position: '',
-            isOpen: false,
+            previewCertificateImage: '',
             photoIndex: 0,
             errors: {},
             arrGenders: [],
@@ -56,7 +57,7 @@ class UserManage extends Component {
             let arrGenders = this.props.genderRedux
             this.setState({
                 arrGenders: arrGenders,
-                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].key : '',
+                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].keyMap : '',
             })
         }
 
@@ -64,7 +65,7 @@ class UserManage extends Component {
             let arrPositions = this.props.positionRedux
             this.setState({
                 arrPositions: arrPositions,
-                position: arrPositions && arrPositions.length > 0 ? arrPositions[0].key : '',
+                position: arrPositions && arrPositions.length > 0 ? arrPositions[0].keyMap : '',
             })
         }
 
@@ -72,7 +73,7 @@ class UserManage extends Component {
             let arrRoles = this.props.roleRedux
             this.setState({
                 arrRoles: arrRoles,
-                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : '',
+                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].keyMap : '',
             })
         }
 
@@ -88,12 +89,13 @@ class UserManage extends Component {
                 address: '',
                 email: '',
                 password: '',
+                previewCertificateImage: '',
+                certificateImage: '',
                 image: '',
                 previewImage: '',
                 gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].keyMap : '',
                 role: arrRoles && arrRoles.length > 0 ? arrRoles[0].keyMap : '',
                 position: arrPositions && arrPositions.length > 0 ? arrPositions[0].keyMap : '',
-                isOpen: false,
                 photoIndex: 0,
                 errors: {},
                 action: CRUD_ACTIONS.CREATE
@@ -112,8 +114,9 @@ class UserManage extends Component {
                     email: '',
                     password: '',
                     image: '',
+                    previewCertificateImage: '',
+                    certificateImage: '',
                     previewImage: '',
-                    isOpen: false,
                     photoIndex: 0,
                     createNewUserInfo: {}
                 })
@@ -140,21 +143,29 @@ class UserManage extends Component {
         }
 
     }
-    handleChangeImage = async (e) => {
-        const file = e.target.files[0]
+    handleChangeImage = async (e, image) => {
+        let file = e.target.files[0]
         if (file) {
-            let base64 = await CommonUtils.getBase64(file)
+            const base64 = await CommonUtils.getBase64(file)
             this.setState({
-                previewImage: URL.createObjectURL(file),
-                image: base64
+                previewImage: image === 'IMAGE' ? URL.createObjectURL(file) : this.state.previewImage,
+                previewCertificateImage: image === 'CERTIFICATEIMAGE' ? URL.createObjectURL(file) : this.state.previewCertificateImage,
+                image: image === 'IMAGE' ? base64 : this.state.image,
+                certificateImage: image === 'CERTIFICATEIMAGE' ? base64 : this.state.certificateImage,
             })
         }
     }
 
-    handleDeleteImage = () => {
-        this.setState({
-            previewImage: ''
-        })
+    handleDeleteImage = (image) => {
+        document.getElementById("myForm").reset()
+        if (image) {
+            this.setState({
+                previewImage: image === 'IMAGE' ? '' : this.state.previewImage,
+                image: image === 'IMAGE' ? '' : this.state.image,
+                previewCertificateImage: image === 'CERTIFICATEIMAGE' ? '' : this.state.previewCertificateImage,
+                certificateImage: image === 'CERTIFICATEIMAGE' ? '' : this.state.certificateImage,
+            })
+        }
     }
 
     handleSubmit = (e) => {
@@ -176,7 +187,8 @@ class UserManage extends Component {
                     address: this.state.address,
                     role: this.state.role,
                     position: this.state.position,
-                    image: this.state.image
+                    image: this.state.image,
+                    certificateImage: this.state.certificateImage,
                 })
             }
             if (action === CRUD_ACTIONS.EDIT) {
@@ -190,7 +202,8 @@ class UserManage extends Component {
                     address: this.state.address,
                     roleId: this.state.role,
                     positionId: this.state.position,
-                    image: this.state.image
+                    image: this.state.image,
+                    certificateImage: this.state.certificateImage,
                 })
             }
         }
@@ -242,11 +255,14 @@ class UserManage extends Component {
         return true
     }
 
-
     handleEditUserFromParent = (data) => {
         let imageBase64 = ''
+        let certificateImageBase64 = ''
         if (data.image) {
             imageBase64 = new Buffer(data.image, 'base64').toString('binary')
+        }
+        if (data.certificateImage) {
+            certificateImageBase64 = new Buffer(data.certificateImage, 'base64').toString('binary')
         }
         this.setState({
             id: data.id,
@@ -260,6 +276,8 @@ class UserManage extends Component {
             position: data.positionId,
             image: '',
             previewImage: imageBase64,
+            previewCertificateImage: certificateImageBase64,
+            certificateImage: '',
         })
     }
 
@@ -274,20 +292,24 @@ class UserManage extends Component {
             password: '',
             image: '',
             previewImage: '',
-            isOpen: false,
+            previewCertificateImage: '',
+            certificateImage: '',
             photoIndex: 0,
             createNewUserInfo: {}
         })
     }
 
+
     render() {
         const { arrGenders, arrPositions, gender, arrRoles, firstName, lastName, address, email, password, phoneNumber, image, isOpen, errors,
-            role, position, previewImage, createNewUserInfo } = this.state
-        const { language, action, loadingCreateNewUser } = this.props
+            role, position, previewImage, createNewUserInfo, previewCertificateImage } = this.state
+        const { language, action, loadingCreateNewUser, isShow } = this.props
+        isShow && document.getElementsByTagName('body')[0].classList.add('showScroll')
+        !isShow && document.getElementsByTagName('body')[0].classList.remove('showScroll')
         return (
-            <div className='overflow-hidden overflow-y-hidden'>
+            <div className='overflow-visible' >
 
-                <Modal isOpen={this.props.isShow} toggle={() => this.handleCloseModal()} style={{ maxWidth: '80%' }}
+                <Modal isOpen={isShow} toggle={() => this.handleCloseModal()} style={{ maxWidth: '80%' }}
                     backdrop="static"
                 >
                     <ModalHeader toggle={() => this.handleCloseModal()} className="text-2xl">
@@ -296,10 +318,12 @@ class UserManage extends Component {
                         }
                     </ModalHeader>
                     <ModalBody>
-                        <form>
+                        <form id="myForm">
                             <div className="row mb-3 justify-content-center">
                                 <div className="form-group col-md-5">
-                                    <label htmlFor="inputFirstName4"><FormattedMessage id="manage-user.firstName" /></label>
+                                    <label htmlFor="inputFirstName4">
+                                        <FormattedMessage id="manage-user.firstName" />
+                                    </label>
                                     <input type="text" className="form-control" id="inputFirstName4" placeholder="Tien" value={firstName}
                                         onChange={(e) => this.handleInput(e, 'firstName')} />
                                     <span className="text-red-600">{errors.firstName}</span>
@@ -311,7 +335,7 @@ class UserManage extends Component {
                                     <span className="text-red-600">{errors.lastName}</span>
                                 </div>
                             </div>
-                            <div className="row mb-3 justify-content-center ">
+                            <div className="row mb-3 justify-content-center">
                                 <div className="form-group col-md-3">
                                     <label htmlFor="inputNumberPhone4"><FormattedMessage id="manage-user.phoneNumber" /></label>
                                     <input type="text" className="form-control" id="inputNumberPhone4" placeholder="0374327109" value={phoneNumber}
@@ -391,10 +415,9 @@ class UserManage extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="row mb-4 offset-md-1 ">
-                                <div className="form-group col-md-3 -ml-2">
-                                    <label htmlFor="inputImage"><FormattedMessage id="manage-user.image" /></label>
-
+                            <div className="flex">
+                                <div className="mb-4 offset-md-1 ">
+                                    <label htmlFor="inputImage" className='font-semibold'><FormattedMessage id="manage-user.image" /></label>
                                     <div className="w-72">
                                         <div className="rounded-lg shadow-xl bg-gray-100 ">
                                             <div className="m-4">
@@ -402,7 +425,6 @@ class UserManage extends Component {
                                                     Image(jpg,png,svg,jpeg)</label>
                                                 <div className="flex flex-col items-center justify-center w-full pb-2 ">
                                                     <label htmlFor="preview-img" className="flex flex-col w-full h-48 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300"
-                                                        onClick={() => this.setState({ isOpen: true })}
                                                     >
                                                         <p className="w-full text-center text-gray-500 cursor-pointer">Click here to see image full</p>
                                                         <div className="flex items-center justify-center ">
@@ -415,11 +437,11 @@ class UserManage extends Component {
                                                             {previewImage === '' ? 'Add' : 'Change'}
                                                         </button>
 
-                                                        <input title='' type="file" className="-ml-28 opacity-0 w-24  "
-                                                            onChange={(e) => this.handleChangeImage(e)}
+                                                        <input accept="image/*" title='' type="file" className="-ml-28 opacity-0 w-24  "
+                                                            onChange={(e) => this.handleChangeImage(e, 'IMAGE')}
                                                         />
                                                         <button type="button" className="bg-red-500 hover:bg-red-700 text-white rounded px-2 "
-                                                            onClick={(e) => this.handleDeleteImage(e)}
+                                                            onClick={() => this.handleDeleteImage('IMAGE')}
                                                         >
                                                             Delete Image
                                                         </button>
@@ -429,6 +451,49 @@ class UserManage extends Component {
                                         </div>
                                     </div>
                                 </div>
+                                {role === 'R3' | role === 'R1' | !role ? '' :
+                                    <div className="mb-4 offset-md-1">
+                                        <div className="form-group col-md-3 -ml-2 flex w-full">
+                                            <div className='mr-5'>
+                                                <label className='text-md font-semibold' htmlFor="inputImage"><FormattedMessage id="manage-user.bang-cap" /></label>
+                                                <div className="w-72">
+                                                    <div className="rounded-lg shadow-xl bg-gray-100 ">
+                                                        <div className="m-4">
+                                                            <label className="inline-block mb-2 text-gray-500">Upload
+                                                                Image(jpg,png,svg,jpeg)</label>
+                                                            <div className="flex flex-col items-center justify-center w-full pb-2 ">
+                                                                <label htmlFor="preview-img" className="flex text-md font-semibold flex-col w-full h-48 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300"
+                                                                >
+                                                                    <p className="w-full text-center text-gray-500 cursor-pointer">Click here to see image full</p>
+                                                                    <div className="flex items-center justify-center ">
+                                                                    </div>
+                                                                    <img src={previewCertificateImage} className="h-40" />
+                                                                </label>
+                                                                <div className="flex w-full justify-around mt-2">
+                                                                    <button type="button" className="bg-green-500 hover:bg-green-700 text-white rounded w-24 cursor-pointer"
+                                                                    >
+                                                                        {!previewCertificateImage ? 'Add' : 'Change'}
+                                                                    </button>
+
+                                                                    <input accept="image/*" id="image" title='' type="file" className="-ml-28 opacity-0 w-24"
+                                                                        onInput={(e) => {
+                                                                            this.handleChangeImage(e, 'CERTIFICATEIMAGE')
+                                                                        }}
+                                                                    />
+                                                                    <button type="button" className="bg-red-500 hover:bg-red-700 text-white rounded px-2 "
+                                                                        onClick={() => this.handleDeleteImage('CERTIFICATEIMAGE')}
+                                                                    >
+                                                                        Delete Image
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
                             </div>
 
                             <div className=" row mb-4 offset-md-1">

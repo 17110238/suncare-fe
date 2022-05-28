@@ -27,6 +27,8 @@ class index extends Component {
             position: '',
             isOpen: false,
             photoIndex: 0,
+            previewCertificateImage: '',
+            certificateImage: '',
             errors: {},
             arrGenders: [],
             arrRoles: [],
@@ -56,7 +58,7 @@ class index extends Component {
             const arrGenders = this.props.genderRedux
             this.setState({
                 arrGenders: arrGenders,
-                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].key : '',
+                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].keyMap : '',
             })
         }
 
@@ -64,7 +66,7 @@ class index extends Component {
             const arrPositions = this.props.positionRedux
             this.setState({
                 arrPositions: arrPositions,
-                position: arrPositions && arrPositions.length > 0 ? arrPositions[0].key : '',
+                position: arrPositions && arrPositions.length > 0 ? arrPositions[0].keyMap : '',
             })
         }
 
@@ -73,33 +75,8 @@ class index extends Component {
             const arrRolesFilter = arrRoles.filter(role => role.keyMap !== 'R1')
             this.setState({
                 arrRoles: arrRolesFilter,
-                role: arrRolesFilter && arrRolesFilter.length > 0 ? arrRolesFilter[0].key : '',
+                role: arrRolesFilter && arrRolesFilter.length > 0 ? arrRolesFilter[0].keyMap : '',
             })
-        }
-
-        if (this.props.listUsers !== prevProps.listUsers) {
-            let arrGenders = this.props.genderRedux
-            let arrPositions = this.props.positionRedux
-            let arrRoles = this.props.roleRedux
-
-            this.setState({
-                firstName: '',
-                lastName: '',
-                phoneNumber: '',
-                address: '',
-                email: '',
-                password: '',
-                image: '',
-                previewImage: '',
-                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].keyMap : '',
-                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].keyMap : '',
-                position: arrPositions && arrPositions.length > 0 ? arrPositions[0].keyMap : '',
-                isOpen: false,
-                photoIndex: 0,
-                errors: {},
-                action: CRUD_ACTIONS.CREATE
-            })
-
         }
         if (this.props.createNewUserInfo !== prevProps.createNewUserInfo) {
             if (this.props.createNewUserInfo?.errCode === 0) {
@@ -116,6 +93,8 @@ class index extends Component {
                     password: '',
                     image: '',
                     previewImage: '',
+                    certificateImage: '',
+                    previewCertificateImage: '',
                     gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].keyMap : '',
                     role: arrRoles && arrRoles.length > 0 ? arrRoles[0].keyMap : '',
                     position: arrPositions && arrPositions.length > 0 ? arrPositions[0].keyMap : '',
@@ -125,10 +104,8 @@ class index extends Component {
                     createNewUserInfo: {},
                     action: CRUD_ACTIONS.CREATE
                 })
-                setTimeout(() => {
-                    const { history } = this.props;
-                    history.push('/login');
-                }, 2000)
+                const { history } = this.props;
+                history.push('/login');
             }
             if (this.props.createNewUserInfo?.errCode === 1) {
                 this.setState({
@@ -136,22 +113,6 @@ class index extends Component {
                 })
             }
         }
-    }
-    handleChangeImage = async (e) => {
-        const file = e.target.files[0]
-        if (file) {
-            const base64 = await CommonUtils.getBase64(file)
-            this.setState({
-                previewImage: URL.createObjectURL(file),
-                image: base64
-            })
-        }
-    }
-
-    handleDeleteImage = () => {
-        this.setState({
-            previewImage: ''
-        })
     }
 
     handleSubmit = (e) => {
@@ -170,11 +131,11 @@ class index extends Component {
                 address: this.state.address,
                 role: this.state.role,
                 position: this.state.position,
-                image: this.state.image
+                image: this.state.image,
+                certificateImage: this.state.certificateImage
             })
         }
     }
-
 
     handleChangeGender = (e) => {
         this.setState({ gender: e.target.value })
@@ -220,27 +181,6 @@ class index extends Component {
         return true
     }
 
-    handleEditUserFromParent = (data) => {
-        let imageBase64 = ''
-        if (data.image) {
-            imageBase64 = new Buffer(data.image, 'base64').toString('binary')
-        }
-        this.setState({
-            id: data.id,
-            email: data.email,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            phoneNumber: data.phoneNumber,
-            gender: data.gender,
-            address: data.address,
-            role: data.roleId,
-            position: data.positionId,
-            image: '',
-            previewImage: imageBase64,
-            action: CRUD_ACTIONS.EDIT,
-        })
-    }
-
     handleCloseModal() {
         this.setState({
             firstName: '',
@@ -250,6 +190,8 @@ class index extends Component {
             email: '',
             password: '',
             image: '',
+            certificateImage: '',
+            previewCertificateImage: '',
             previewImage: '',
             isOpen: false,
             photoIndex: 0,
@@ -260,11 +202,37 @@ class index extends Component {
 
     render() {
         const { arrGenders, arrPositions, gender, arrRoles, firstName, lastName, address, email, password, phoneNumber, image, isOpen, errors,
-            role, position, previewImage, action, createNewUserInfo } = this.state
+            role, position, previewImage, action, createNewUserInfo, previewCertificateImage } = this.state
         const { language, } = this.props
+
+        const handleChangeImage = async (e, image) => {
+            let file = e.target.files[0]
+            if (file) {
+                const base64 = await CommonUtils.getBase64(file)
+                this.setState({
+                    previewImage: image === 'IMAGE' ? URL.createObjectURL(file) : this.state.previewImage,
+                    previewCertificateImage: image === 'CERTIFICATEIMAGE' ? URL.createObjectURL(file) : this.state.previewCertificateImage,
+                    image: image === 'IMAGE' ? base64 : this.state.image,
+                    certificateImage: image === 'CERTIFICATEIMAGE' ? base64 : this.state.certificateImage,
+                })
+            }
+        }
+
+        const handleDeleteImage = (image) => {
+            document.getElementById("myForm").reset()
+            if (image) {
+                this.setState({
+                    previewImage: image === 'IMAGE' ? '' : this.state.previewImage,
+                    image: image === 'IMAGE' ? '' : this.state.image,
+                    previewCertificateImage: image === 'CERTIFICATEIMAGE' ? '' : this.state.previewCertificateImage,
+                    certificateImage: image === 'CERTIFICATEIMAGE' ? '' : this.state.certificateImage,
+                })
+            }
+        }
+
         return (
             <div>
-                <form>
+                <form id="myForm">
                     <div className="row mb-3 justify-content-center">
                         <div className="form-group col-md-5">
                             <label className='text-md font-semibold' htmlFor="inputFirstName4"><FormattedMessage id="manage-user.firstName" /></label>
@@ -361,45 +329,93 @@ class index extends Component {
                         </div>
                     </div>
 
-                    <div className="row mb-4 offset-md-1 ">
-                        <div className="form-group col-md-3 -ml-2">
-                            <label className='text-md font-semibold' htmlFor="inputImage"><FormattedMessage id="manage-user.image" /></label>
+                    <div className="flex pt-2">
+                        <div className="row mb-4 offset-md-1 ">
+                            <div className="form-group col-md-3 -ml-2 flex w-full">
+                                <div className='mr-5'>
+                                    <label className='text-md font-semibold' htmlFor="inputImage"><FormattedMessage id="manage-user.image" /></label>
+                                    <div className="w-72">
+                                        <div className="rounded-lg shadow-xl bg-gray-100 ">
+                                            <div className="m-4">
+                                                <label className="inline-block mb-2 text-gray-500">Upload
+                                                    Image(jpg,png,svg,jpeg)</label>
+                                                <div className="flex flex-col items-center justify-center w-full pb-2 ">
+                                                    <label htmlFor="preview-img" className="flex text-md font-semibold flex-col w-full h-48 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300"
+                                                    >
+                                                        <p className="w-full text-center text-gray-500 cursor-pointer">Click here to see image full</p>
+                                                        <div className="flex items-center justify-center ">
+                                                        </div>
+                                                        <img src={previewImage} className="h-40" />
+                                                    </label>
+                                                    <div className="flex w-full justify-around mt-2">
+                                                        <button type="button" className="bg-green-500 hover:bg-green-700 text-white rounded w-24 cursor-pointer"
+                                                        >
+                                                            {!previewImage ? 'Add' : 'Change'}
+                                                        </button>
 
-                            <div className="w-72">
-                                <div className="rounded-lg shadow-xl bg-gray-100 ">
-                                    <div className="m-4">
-                                        <label className="inline-block mb-2 text-gray-500">Upload
-                                            Image(jpg,png,svg,jpeg)</label>
-                                        <div className="flex flex-col items-center justify-center w-full pb-2 ">
-                                            <label htmlFor="preview-img" className="flex text-md font-semibold flex-col w-full h-48 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300"
-                                                onClick={() => this.setState({ isOpen: true })}
-                                            >
-                                                <p className="w-full text-center text-gray-500 cursor-pointer">Click here to see image full</p>
-                                                <div className="flex items-center justify-center ">
+                                                        <input accept="image/*" id="image" title='' type="file" className="-ml-28 opacity-0 w-24"
+                                                            onInput={(e) => {
+                                                                handleChangeImage(e, 'IMAGE')
+                                                            }}
+                                                        />
+                                                        <button type="button" className="bg-red-500 hover:bg-red-700 text-white rounded px-2 "
+                                                            onClick={() => handleDeleteImage('IMAGE')}
+                                                        >
+                                                            Delete Image
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <img src={previewImage} className="h-40" />
-                                            </label>
-                                            <div className="flex w-full justify-around mt-2">
-                                                <button type="button" className="bg-green-500 hover:bg-green-700 text-white rounded w-24 cursor-pointer"
-                                                // onClick={(e) => this.handleChangeImage(e)}
-                                                >
-                                                    {previewImage === '' ? 'Add' : 'Change'}
-                                                </button>
-
-                                                <input title='' type="file" className="-ml-28 opacity-0 w-24  "
-                                                    onChange={(e) => this.handleChangeImage(e)}
-                                                />
-                                                <button type="button" className="bg-red-500 hover:bg-red-700 text-white rounded px-2 "
-                                                    onClick={(e) => this.handleDeleteImage(e)}
-                                                >
-                                                    Delete Image
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        {role === 'R3' ? '' :
+                            <div className="row mb-4 offset-md-1">
+                                <div className="form-group col-md-3 -ml-2 flex w-full">
+                                    <div className='mr-5'>
+                                        <label className='text-md font-semibold' htmlFor="inputImage"><FormattedMessage id="manage-user.bang-cap" /></label>
+                                        <div className="w-72">
+                                            <div className="rounded-lg shadow-xl bg-gray-100 ">
+                                                <div className="m-4">
+                                                    <label className="inline-block mb-2 text-gray-500">Upload
+                                                        Image(jpg,png,svg,jpeg)</label>
+                                                    <div className="flex flex-col items-center justify-center w-full pb-2 ">
+                                                        <label htmlFor="preview-img" className="flex text-md font-semibold flex-col w-full h-48 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300"
+                                                        >
+                                                            <p className="w-full text-center text-gray-500 cursor-pointer">Click here to see image full</p>
+                                                            <div className="flex items-center justify-center ">
+                                                            </div>
+                                                            <img src={previewCertificateImage} className="h-40" />
+                                                        </label>
+                                                        <div className="flex w-full justify-around mt-2">
+                                                            <button type="button" className="bg-green-500 hover:bg-green-700 text-white rounded w-24 cursor-pointer"
+                                                            >
+                                                                {!previewCertificateImage ? 'Add' : 'Change'}
+                                                            </button>
+
+                                                            <input accept="image/*" id="image" title='' type="file" className="-ml-28 opacity-0 w-24"
+                                                                onInput={(e) => {
+                                                                    handleChangeImage(e, 'CERTIFICATEIMAGE')
+                                                                }}
+                                                            />
+                                                            <button type="button" className="bg-red-500 hover:bg-red-700 text-white rounded px-2 "
+                                                                onClick={() => handleDeleteImage('CERTIFICATEIMAGE')}
+                                                            >
+                                                                Delete Image
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
                     </div>
 
                     <div className=" row mb-4 offset-md-1">
@@ -438,7 +454,6 @@ const mapDispatchToProps = dispatch => {
         getPositionSuccess: () => dispatch(actions.fetchPositionStart()),
         getRoleSuccess: () => dispatch(actions.fetchRoleStart()),
         createNewUser: (data) => dispatch(actions.createNewUser(data)),
-        fetchUserRedux: () => dispatch(actions.fetchALLUserStart()),
     }
 }
 

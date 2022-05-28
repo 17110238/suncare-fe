@@ -53,12 +53,14 @@
         "position": "Position",
         "role": "Role",
         "image": "Avatar",
+        "bang-cap": "Doctor's certificate photo",
         "save": "Save",
         "edit": "Edit",
         "sign-in": "Sign In",
         "manage-doctor": "Manage Doctor's information",
         "create-doctor-information": "Create doctor information",
-        "edit-doctor-information": "Edit doctor information"
+        "edit-doctor-information": "Edit doctor information",
+        "them-nguoi-dung": "Add user"
     },
     "homepage": {
         "outstanding-doctor": "Last week's featured doctor",

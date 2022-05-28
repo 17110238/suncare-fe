@@ -56,10 +56,12 @@
         "image": "Ảnh đại diện",
         "save": "Lưu người dùng",
         "edit": "Lưu chỉnh sửa",
-        "sign-in": "Đăng ký",
-        "manage-doctor": "Quản lý thông tin Bác sĩ",
+        "sign-in": "Đăng ký tài khoản",
+        "bang-cap": "Ảnh chứng nhận Bác sĩ",
+        "manage-doctor": "Quản lý thông tin người dùng",
         "create-doctor-information": "Tạo thông tin bác sĩ",
-        "edit-doctor-information": "Chỉnh sửa thông tin bác sĩ"
+        "edit-doctor-information": "Chỉnh sửa thông tin bác sĩ",
+        "them-nguoi-dung": "Thêm người dùng"
     },
     "homepage": {
         "outstanding-doctor": "Bác sĩ nỗi bật tuần qua ",

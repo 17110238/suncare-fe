@@ -60,7 +60,7 @@ class UserRedux extends Component {
             })
         }
         return (
-            <div className='overflow-hidden'>
+            <div className='overflow-x-hidden'>
                 <UserManageModal
                     isShow={this.state.isShowCreateModal}
                     handleClose={this.handleCloseModal}
@@ -97,7 +97,7 @@ class UserRedux extends Component {
                                                     ID
                                                 </th>
                                                 <th scope="col" className="px-3 py-3.5 text-left text-base font-semibold text-gray-900">
-                                                    First Name
+                                                    <FormattedMessage id="manage-user.firstName" />
                                                 </th>
                                                 <th scope="col" className="px-3 py-3.5 text-left text-base font-semibold text-gray-900">
                                                     Last Name
@@ -108,11 +108,11 @@ class UserRedux extends Component {
                                                 <th scope="col" className="px-3 py-3.5 text-left text-base font-semibold text-gray-900">
                                                     Phone Number
                                                 </th>
-                                                <th scope="col" className="px-3 py-3.5 text-left text-base font-semibold text-gray-900">
-                                                    Address
-                                                </th>
                                                 <th scope="col" className="w-20 px-3 py-3.5 text-left text-base font-semibold text-gray-900">
                                                     Thời gian tạo
+                                                </th>
+                                                <th scope="col" className="px-3 py-3.5 text-left text-base font-semibold text-gray-900">
+                                                    Trạng thái
                                                 </th>
                                                 <th scope="col" className="px-3 py-3.5 text-left text-base font-semibold text-gray-900">
                                                     Action
@@ -129,8 +129,8 @@ class UserRedux extends Component {
                                                     <td className="whitespace-nowrap group-hover:bg-gray-50 px-3 py-4 text-sm text-gray-500">{user?.lastName}</td>
                                                     <td className="whitespace-nowrap group-hover:bg-gray-50 px-3 py-4 text-sm text-gray-500">{user?.email}</td>
                                                     <td className="whitespace-nowrap group-hover:bg-gray-50 px-3 py-4 text-sm text-gray-500">{user?.phoneNumber}</td>
-                                                    <td className="whitespace-wrap group-hover:bg-gray-50 px-3 py-4 text-sm text-gray-500">{user?.address}</td>
                                                     <td className="whitespace-nowrap group-hover:bg-gray-50 px-3 py-4 text-left text-sm text-gray-500">{moment(user?.createdAt).format('DD/MM/YYYY HH:mm')}</td>
+                                                    <td className={`whitespace-wrap group-hover:bg-gray-50 px-3 py-4 text-sm ${user?.isVerify ? 'text-green-500' : 'text-yellow-500'}`}>{user?.isVerify ? 'Đã xác thực' : 'Chờ xác thực'}</td>
                                                     <td className="relative whitespace-nowrap group-hover:bg-gray-50 py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                                         <div className="flex justify-end text-lg">
                                                             <FaEdit
