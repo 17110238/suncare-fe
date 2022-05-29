@@ -2,7 +2,7 @@ import actionTypes from './actionTypes'
 import {
     getAllCodeService, createNewUserService, getAllUsers, deleteUserService, getAllcodeScheduleTimeDoctorService,
     editUserService, getTopDoctorHomeService, getAllDoctorService, saveDoctorDetailService, getDetailInfoDoctorService,
-    getListPriceService, getListPaymentService, getListProvinceService, getAllSpecialtyService
+    getListPriceService, getListPaymentService, getListProvinceService, getAllSpecialtyService, handleConfirmDoctorService
 } from '../../services/userService'
 import { toast } from 'react-toastify'
 
@@ -166,39 +166,36 @@ export const DeleteUser = (data) => {
         try {
             let res = await deleteUserService(data)
             if (res && res.errCode === 0) {
-                toast.success('Delete user success!')
-                dispatch(deleteUserSuccess())
+                dispatch(deleteUserSuccess(res))
                 dispatch(fetchALLUserStart())
             } else {
-                toast.error('Delete user not success!')
-                dispatch(deleteUserFail())
+                dispatch(deleteUserFail(res))
             }
         }
         catch (err) {
-            toast.error('Delete user not success!')
+            toast.error('Error from server!')
             console.error(err)
         }
     }
 }
 
-
-export const deleteUserFail = () => ({
+export const deleteUserFail = (data) => ({
     type: actionTypes.DELETE_USER_FAILED,
+    data: data
 })
 
-export const deleteUserSuccess = () => ({
-    type: actionTypes.DELETE_USER_SUCCESS
+export const deleteUserSuccess = (data) => ({
+    type: actionTypes.DELETE_USER_SUCCESS,
+    data: data
 })
 
 export const editUser = (data) => {
-    console.log("dataaaa", data)
     return async (dispatch, getState) => {
         try {
             dispatch(editUserRequest())
             let res = await editUserService(data)
             if (res && res.errCode === 0) {
                 dispatch(editUserSuccess(res))
-                dispatch(fetchALLUserStart())
             } else {
                 dispatch(editUserFail(res))
             }
@@ -222,6 +219,38 @@ export const editUserFail = (userInfo) => ({
 export const editUserSuccess = (userInfo) => ({
     type: actionTypes.EDIT_USER_SUCCESS,
     data: userInfo
+})
+
+export const confirmDoctor = (doctorId) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(confirmDoctorRequest())
+            let res = await handleConfirmDoctorService(doctorId)
+            if (res && res.errCode === 0) {
+                dispatch(confirmDoctorSuccess(res))
+            } else {
+                dispatch(confirmDoctorFail(res))
+            }
+        }
+        catch (err) {
+            toast.error('Confirm doctor not success!')
+            console.error(err)
+        }
+    }
+}
+
+export const confirmDoctorRequest = () => ({
+    type: actionTypes.CONFIRM_DOCTOR_REQUEST,
+})
+
+export const confirmDoctorFail = (data) => ({
+    type: actionTypes.CONFIRM_DOCTOR_FAILED,
+    data: data
+})
+
+export const confirmDoctorSuccess = (data) => ({
+    type: actionTypes.CONFIRM_DOCTOR_SUCCESS,
+    data: data
 })
 
 export const fetchTopDoctors = () => {

@@ -27,6 +27,7 @@ class UserManage extends Component {
             gender: '',
             role: '',
             position: '',
+            isVerify: 0,
             previewCertificateImage: '',
             photoIndex: 0,
             errors: {},
@@ -81,7 +82,6 @@ class UserManage extends Component {
             let arrGenders = this.props.genderRedux
             let arrPositions = this.props.positionRedux
             let arrRoles = this.props.roleRedux
-
             this.setState({
                 firstName: '',
                 lastName: '',
@@ -100,8 +100,8 @@ class UserManage extends Component {
                 errors: {},
                 action: CRUD_ACTIONS.CREATE
             })
-
         }
+
         if (this.props.createNewUserInfo !== prevProps.createNewUserInfo) {
             if (this.props.createNewUserInfo?.errCode === 0) {
                 toast.success('Create a new user success!')
@@ -141,8 +141,8 @@ class UserManage extends Component {
         if (this.props.userData !== prevProps.userData) {
             this.handleEditUserFromParent(this.props.userData)
         }
-
     }
+
     handleChangeImage = async (e, image) => {
         let file = e.target.files[0]
         if (file) {
@@ -278,8 +278,10 @@ class UserManage extends Component {
             previewImage: imageBase64,
             previewCertificateImage: certificateImageBase64,
             certificateImage: '',
+            isVerify: data.isVerify
         })
     }
+
 
     handleCloseModal() {
         this.props.handleClose()
@@ -299,21 +301,28 @@ class UserManage extends Component {
         })
     }
 
+    handleCancleDoctor(doctorId) {
+        this.props.DeleteUser(doctorId)
+    }
+
+    handleConfirmDoctor(doctorId) {
+        this.props.confirmDoctor({ doctorId })
+    }
 
     render() {
         const { arrGenders, arrPositions, gender, arrRoles, firstName, lastName, address, email, password, phoneNumber, image, isOpen, errors,
-            role, position, previewImage, createNewUserInfo, previewCertificateImage } = this.state
+            role, position, previewImage, createNewUserInfo, previewCertificateImage, isVerify, id } = this.state
         const { language, action, loadingCreateNewUser, isShow } = this.props
         isShow && document.getElementsByTagName('body')[0].classList.add('showScroll')
         !isShow && document.getElementsByTagName('body')[0].classList.remove('showScroll')
+        console.log("isVerify", isVerify)
         return (
             <div className='overflow-visible' >
-
                 <Modal isOpen={isShow} toggle={() => this.handleCloseModal()} style={{ maxWidth: '80%' }}
                     backdrop="static"
                 >
                     <ModalHeader toggle={() => this.handleCloseModal()} className="text-2xl">
-                        {action === CRUD_ACTIONS.CREATE ? <FormattedMessage id="manage-user.create-doctor-information" /> :
+                        {isVerify === 0 ? 'Xác nhận thông tin người dùng' : action === CRUD_ACTIONS.CREATE ? <FormattedMessage id="manage-user.create-doctor-information" /> :
                             action === CRUD_ACTIONS.EDIT ? <FormattedMessage id="manage-user.edit-doctor-information" /> : ''
                         }
                     </ModalHeader>
@@ -498,12 +507,28 @@ class UserManage extends Component {
 
                             <div className=" row mb-4 offset-md-1">
                                 <div className="col-md-3">
-                                    <button type="submit" className={action === CRUD_ACTIONS.EDIT ? "btn btn-warning w-40 whitespace-nowrap -ml-2 px-4 py-2 font-bold" :
-                                        "btn btn-primary w-40 whitespace-nowrap -ml-2 px-4 py-2 font-bold"}
-                                        onClick={(e) => this.handleSubmit(e)} >
-                                        {action === CRUD_ACTIONS.EDIT ?
-                                            <FormattedMessage id="manage-user.edit" /> : <FormattedMessage id="manage-user.save" />}
-                                    </button>
+                                    {
+                                        isVerify === 0 ?
+                                            <div className="flex">
+                                                <button type="button" className="mr-5 rounded text-white bg-indigo-500 w-40 whitespace-nowrap -ml-2 px-4 py-2 font-bold"
+                                                    onClick={(e) => this.handleConfirmDoctor(id)}
+                                                >
+                                                    Xác nhận
+                                                </button>
+
+                                                <button type="button" className="btn rounded text-black bg-yellow-500 w-40 whitespace-nowrap -ml-2 px-4 py-2 font-bold"
+                                                    onClick={(e) => this.handleCancleDoctor(id)} >
+                                                    Hủy xác nhận
+                                                </button>
+                                            </div>
+                                            :
+                                            <button className={action === CRUD_ACTIONS.EDIT ? "btn btn-warning w-40 whitespace-nowrap -ml-2 px-4 py-2 font-bold" :
+                                                "btn btn-primary w-40 whitespace-nowrap -ml-2 px-4 py-2 font-bold"}
+                                                onClick={(e) => this.handleSubmit(e)} >
+                                                {action === CRUD_ACTIONS.EDIT ?
+                                                    <FormattedMessage id="manage-user.edit" /> : <FormattedMessage id="manage-user.save" />}
+                                            </button>
+                                    }
                                 </div>
                             </div>
                             {loadingCreateNewUser && <Loading />}
@@ -525,7 +550,8 @@ const mapStateToProps = state => {
         listUsers: state.admin.users,
         createNewUserInfo: state.admin.createNewUserInfo,
         editUserInfo: state.admin.editUserInfo,
-        loadingCreateNewUser: state.admin.isLoading
+        loadingCreateNewUser: state.admin.isLoading,
+        deleteUserInfo: state.admin.deleteUserInfo
     }
 }
 
@@ -537,6 +563,8 @@ const mapDispatchToProps = dispatch => {
         createNewUser: (data) => dispatch(actions.createNewUser(data)),
         fetchUserRedux: () => dispatch(actions.fetchALLUserStart()),
         editUser: (data) => dispatch(actions.editUser(data)),
+        DeleteUser: (id) => dispatch(actions.DeleteUser(id)),
+        confirmDoctor: (id) => dispatch(actions.confirmDoctor(id)),
     }
 }
 

@@ -16,7 +16,9 @@ const initialState = {
     listSpecialties: [],
     createNewUserInfo: {},
     editUserInfo: {},
+    deleteUserInfo: {},
     isLoading: false,
+    confirmDoctor: {}
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -59,6 +61,41 @@ const adminReducer = (state = initialState, action) => {
         case actionTypes.EDIT_USER_FAILED:
             state.isLoading = false;
             state.editUserInfo = action.data
+            return {
+                ...state,
+            }
+
+        // Confirm doctor
+
+        case actionTypes.CONFIRM_DOCTOR_REQUEST:
+            state.isLoading = true;
+            return {
+                ...state,
+            }
+
+        case actionTypes.CONFIRM_DOCTOR_SUCCESS:
+            state.isLoading = false;
+            state.confirmDoctor = action.data
+            return {
+                ...state,
+            }
+
+        case actionTypes.CONFIRM_DOCTOR_FAILED:
+            state.isLoading = false;
+            state.confirmDoctor = action.data
+            return {
+                ...state,
+            }
+
+        // Delete user
+        case actionTypes.DELETE_USER_SUCCESS:
+            state.deleteUserInfo = action.data
+            return {
+                ...state,
+            }
+
+        case actionTypes.DELETE_USER_FAILED:
+            state.deleteUserInfo = action.data
             return {
                 ...state,
             }

@@ -9,6 +9,7 @@ import moment from 'moment'
 import 'react-markdown-editor-lite/lib/index.css';
 import UserManageModal from './Modal/UserManage'
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../utils';
+import { toast } from 'react-toastify'
 
 class UserRedux extends Component {
 
@@ -33,9 +34,43 @@ class UserRedux extends Component {
                 arrUsers: this.props.listUsers
             })
         }
+
+        if (this.props.deleteUserInfo !== prevProps.deleteUserInfo) {
+            if (this.state.action === CRUD_ACTIONS.DELETE) {
+                if (this.props.deleteUserInfo?.errCode === 0) {
+                    toast.success('Delete user success!')
+                }
+                else {
+                    toast.error('Delete user not success!')
+                }
+            }
+            if (this.state.action === CRUD_ACTIONS.EDIT) {
+                if (this.props.deleteUserInfo?.errCode === 0) {
+                    this.handleCloseModal()
+                    toast.success('Canceling confirmation of user information successfully!')
+                }
+                else {
+                    toast.error('Canceling confirmation of user information not successfully!')
+                    this.handleCloseModal()
+                }
+            }
+        }
+
+        if (this.props.confirmDoctor !== prevProps.confirmDoctor) {
+            console.log("first, ", this.props.confirmDoctor?.message)
+            if (this.props.confirmDoctor?.errCode === 0) {
+                this.handleCloseModal()
+                toast.success(this.props.confirmDoctor?.message)
+                this.props.fetchAllUserRedux()
+            } else {
+                toast.error(this.props.confirmDoctor?.message)
+                this.handleCloseModal()
+            }
+        }
     }
 
-    handleDeleteUser(userId) {
+    handleDeleteUser(userId, action) {
+        this.setState({ ...this.state, action })
         this.props.DeleteUser(userId)
     }
 
@@ -114,7 +149,7 @@ class UserRedux extends Component {
                                                 <th scope="col" className="px-3 py-3.5 text-left text-base font-semibold text-gray-900">
                                                     Trạng thái
                                                 </th>
-                                                <th scope="col" className="px-3 py-3.5 text-left text-base font-semibold text-gray-900">
+                                                <th scope="col" className="px-3 py-3.5 text-right text-base font-semibold text-gray-900">
                                                     Action
                                                 </th>
                                             </tr>
@@ -169,7 +204,7 @@ class UserRedux extends Component {
                                                                             <button
                                                                                 type="button"
                                                                                 className="px-6 py-2 text-sm font-medium rounded shadow-sm bg-red-600 hover:bg-red-700 "
-                                                                                onClick={() => this.handleDeleteUser(user.id)}
+                                                                                onClick={() => this.handleDeleteUser(user.id, CRUD_ACTIONS.DELETE)}
                                                                             >
                                                                                 Delete
                                                                             </button>
@@ -200,7 +235,9 @@ class UserRedux extends Component {
 
 const mapStateToProps = state => {
     return {
-        listUsers: state.admin.users
+        listUsers: state.admin.users,
+        deleteUserInfo: state.admin.deleteUserInfo,
+        confirmDoctor: state.admin.confirmDoctor,
     }
 }
 
