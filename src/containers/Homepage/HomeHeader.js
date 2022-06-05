@@ -10,8 +10,8 @@ import vi from "../../assets/images/vi.png";
 import { withRouter, Router, Redirect } from "react-router-dom";
 
 import { changeLanguageApp } from "../../store/actions";
-import { history } from './../../redux';
-import { push } from 'connected-react-router';
+import { history } from "./../../redux";
+import { push } from "connected-react-router";
 
 class HomeHeader extends Component {
   handleChangeLanguage = (e) => {
@@ -24,14 +24,14 @@ class HomeHeader extends Component {
   };
 
   handleLogin = () => {
-    const { history } = this.props
-    history.push('/login')
-  }
+    const { history } = this.props;
+    history.push("/login");
+  };
 
   handleSignUp = () => {
-    const { history } = this.props
-    history.push('/sign-up')
-  }
+    const { history } = this.props;
+    history.push("/sign-up");
+  };
   render() {
     let language = this.props.language;
     return (
@@ -107,14 +107,14 @@ class HomeHeader extends Component {
                       className="inline-flex items-center mr-5 px-3 py-1 border border-transparent text-md font-medium rounded-3xl shadow-sm text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                       onClick={() => this.handleLogin()}
                     >
-                      Đăng nhập
+                      <FormattedMessage id="homeheader.sign-in" />
                     </button>
                     <button
                       type="button"
                       className="inline-flex items-center mr-5 px-3 py-1 border border-transparent text-md font-medium rounded-3xl shadow-sm text-white bg-yellow-500 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                       onClick={() => this.handleSignUp()}
                     >
-                      Đăng ký
+                      <FormattedMessage id="homeheader.sign-up" />
                     </button>
                   </div>
                   {/* <div className="font-bold text-base flex items-center ">

@@ -9,20 +9,25 @@
         "fee": "Gói Khám",
         "general-health-check": "Khám sức khỏe tổng quát",
         "support": "Hỗ trợ",
-        "welcome": "Xin chào,"
+        "welcome": "Xin chào,",
+        "sign-in": "Đăng nhập",
+        "sign-up": "Đăng ký"
+
     },
     "banner": {
         "medical-background": "NỀN TẢNG Y TẾ",
         "comprehensive-health-care": "CHĂM SÓC SỨC KHỎE TOÀN DIỆN",
         "examination": "Khám",
         "speciality": "Chuyên khoa",
+        "speciality-examination": "Khám \n chuyên khoa",
         "remote-examination": "Khám từ xa",
         "general-examination": "Khám tổng quát",
         "medical-test": "Xét nghiệm y học",
         "health": "Sức khỏe",
         "mental": "tinh thần",
         "dental-examination": "Khám nha khoa",
-        "search": "Tìm kiếm chuyên khoa khám bệnh"
+        "search": "Tìm kiếm chuyên khoa khám bệnh",
+        "mental-health": "Sức khỏe tinh thần"
     },
     "menu": {
         "admin": {

@@ -39,8 +39,8 @@ class HomeHeader extends Component {
           <div>
             <div className="banner_content">
               <div className="container">
-                <h1>NỀN TẢNG Y TẾ</h1>
-                <b>CHĂM SÓC SỨC KHỎE TOÀN DIỆN</b>
+                <h1><FormattedMessage id="banner.medical-background" /></h1>
+                <b><FormattedMessage id="banner.comprehensive-health-care" /></b>
                 <div className="search_form">
                   <div className="search_bar">
                     <span>
@@ -61,24 +61,12 @@ class HomeHeader extends Component {
                         backgroundImage: `url("https://cdn.bookingcare.vn/fo/2021/12/08/133537-khamchuyenkhoa.png")`,
                       }}
                     ></div>
-                    Khám
+                    {/* Khám
                     <br />
-                    Chuyên khoa
+                    Chuyên khoa */}
+                    <FormattedMessage id="banner.speciality-examination" style={{whiteSpace: "pre-line"}} />
                   </a>
                 </li>
-                {/* <li>
-                  <a href="/chuyenkhoa" onClick={handleATag}>
-                    <div
-                      className="icon"
-                      style={{
-                        backgroundImage: `url("https://cdn.bookingcare.vn/fo/2021/12/08/133657-khamtuxa.png")`,
-                      }}
-                    ></div>
-                    Khám
-                    <br />
-                    Từ xa
-                  </a>
-                </li> */}
                 <li>
                   <a href="/chuyenkhoa" onClick={handleATag}>
                     <div
@@ -87,9 +75,7 @@ class HomeHeader extends Component {
                         backgroundImage: `url("https://cdn.bookingcare.vn/fo/2021/12/08/133744-khamtongquat.png")`,
                       }}
                     ></div>
-                    Khám
-                    <br />
-                    Tổng quát
+                    <FormattedMessage id="banner.general-examination" />
                   </a>
                 </li>
                 <li>
@@ -100,8 +86,7 @@ class HomeHeader extends Component {
                         backgroundImage: `url("https://cdn.bookingcare.vn/fo/2021/12/08/133744-dichvuxetnghiem.png")`,
                       }}
                     ></div>
-                    Xét nghiệm
-                    <br />Y học
+                    <FormattedMessage id="banner.medical-test" />
                   </a>
                 </li>
                 <li>
@@ -112,9 +97,7 @@ class HomeHeader extends Component {
                         backgroundImage: `url("https://cdn.bookingcare.vn/fo/2021/12/08/133744-suckhoetinhthan.png")`,
                       }}
                     ></div>
-                    Sức khỏe
-                    <br />
-                    Tinh thần
+                    <FormattedMessage id="banner.mental-health" />
                   </a>
                 </li>
                 <li>
@@ -125,9 +108,7 @@ class HomeHeader extends Component {
                         backgroundImage: `url("https://cdn.bookingcare.vn/fo/2021/12/08/133537-khamchuyenkhoa.png")`,
                       }}
                     ></div>
-                    Khám
-                    <br />
-                    Nha khoa
+                    <FormattedMessage id="banner.dental-examination" />
                   </a>
                 </li>
                 <li>

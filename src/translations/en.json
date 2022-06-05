@@ -9,19 +9,23 @@
         "fee": "Checkup package",
         "general-health-check": "General health check",
         "support": "Support",
-        "welcome": "Welcome,"
+        "welcome": "Welcome,",
+        "sign-in": "Sign In",
+        "sign-up": "Sign Up"
     },
     "banner": {
         "medical-background": "MEDICAL PLATFORM",
         "comprehensive-health-care": "COMPREHENSIVE HEALTH CARE",
         "examination": "Examination",
         "speciality": "Speciality",
-        "remote-examination": "Remote examination",
-        "general-examination": "General examination",
-        "medical-test": "Medical test",
+        "speciality-examination": "Speciality\n Examination",
+        "remote-examination": "Remote Examination",
+        "general-examination": "General Examination",
+        "medical-test": "Medical Test",
         "health": "Health",
         "mental": "Mental",
-        "dental-examination": "Dental examination"
+        "mental-health": "Mental Health",
+        "dental-examination": "Dental Examination"
     },
     "menu": {
         "admin": {
