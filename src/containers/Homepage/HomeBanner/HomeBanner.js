@@ -105,13 +105,13 @@ class HomeHeader extends Component {
                     <div
                       className="icon"
                       style={{
-                        backgroundImage: `url("https://cdn.bookingcare.vn/fo/2021/12/08/133537-khamchuyenkhoa.png")`,
+                        backgroundImage: `url("https://png.pngtree.com/png-clipart/20191123/original/pngtree-dental-clinic-line-icon-vector-png-image_5199460.jpg")`,
                       }}
                     ></div>
                     <FormattedMessage id="banner.dental-examination" />
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a href="/chuyenkhoa" onClick={handleATag}>
                     <div
                       className="icon"
@@ -122,17 +122,6 @@ class HomeHeader extends Component {
                     Gói
                     <br />
                     Phẫu thuật
-                  </a>
-                </li>
-                {/* <li>
-                  <a href="/chuyenkhoa" onClick={handleATag}>
-                    <div
-                      className="icon"
-                      style={{
-                        backgroundImage: `url("https://cdn.bookingcare.vn/fo/2021/12/08/133744-khamtainha.png")`,
-                      }}
-                    ></div>
-                    Sản phẩm y tế
                   </a>
                 </li> */}
               </ul>

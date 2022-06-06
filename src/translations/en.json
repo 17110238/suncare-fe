@@ -69,7 +69,32 @@
     "homepage": {
         "outstanding-doctor": "Last week's featured doctor",
         "popular-specialties": "Popular specialties",
-        "more-info": "More Information"
+        "more-info": "More Information",
+        "outstanding-medical-facility": "Outstanding Medical Facility",
+        "handbook": "Handbook",
+        "more-about":"More about SunCare"
+
+    },
+    "footer": {
+        "support": "Support",
+        "address": "Address",
+        "service": "Service",
+        "more-infomation": "More infomation",
+        "customer-support": "Customer support",
+        "business-certificate": "Business certificate",
+        "follow-us": "Follow us",
+        "detail-address": "SALA TOWER 10 Mai Chi Tho St, An Loi Đong Ward, Thu Duc City,HCM City",
+        "detail-service": "Booking an appointment",
+        "detail-infomation-crew": "Doctor team",
+        "detail-infomation-facility": "Medical facility",
+        "detail-infomation-speciality": "Poplar Speciality",
+        "detail-cs-question": "Frequently asked questions",
+        "detail-cs-private-policy": "Private policy",
+        "detail-cs-policy": "Policy",
+        "detail-cs-complain": "Complain policy",
+        "name": "SunCare CO.,LTD",
+        "detail-bc": "0309145924 first registration at 06/07/2009, register for the 6th change at 11/09/2019, granted by Ho Chi Minh Authority for planning and investment."
+
     },
     "manage-schudule": {
         "title": "Manage Doctor's appointment schedule",

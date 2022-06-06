@@ -12,8 +12,8 @@ class MedicalFacility extends Component {
             <div className="bg-gray-50">
                 <div className="h-80 pb-4 pt-4 mx-auto w-10/12">
                     <div className="flex items-center justify-between mb-4">
-                        <div className="font-medium text-2xl ">Cơ sở y tế nỗi bật</div>
-                        <button className="p-2 bg-gray-300 uppercase hover:bg-yellow-300 hover:text-white">Xem Thêm</button>
+                        <div className="font-medium text-2xl "><FormattedMessage id="homepage.outstanding-medical-facility" /></div>
+                        <button className="p-2 bg-gray-300 uppercase hover:bg-yellow-300 hover:text-white"><FormattedMessage id="homepage.more-info"/></button>
                     </div>
                     <Slider {...this.props.settings}>
                         <div className="cursor-pointer">

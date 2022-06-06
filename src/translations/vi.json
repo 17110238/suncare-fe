@@ -71,7 +71,31 @@
     "homepage": {
         "outstanding-doctor": "Bác sĩ nỗi bật tuần qua ",
         "popular-specialties": "Chuyên khoa phổ biến",
-        "more-info": "Xem thêm"
+        "more-info": "Xem thêm",
+        "outstanding-medical-facility": "Cơ sở y tế nổi bật",
+        "handbook": "Cẩm nang",
+        "more-about":"Tìm hiểu thêm về SunCare"
+    },
+    "footer": {
+        "support": "Hỗ trợ",
+        "address": "Địa chỉ",
+        "service": "Dịch vụ",
+        "more-infomation": "Tìm hiểu thêm",
+        "customer-support": "Chăm sóc khách hàng",
+        "business-certificate": "Giấy CNĐKDN",
+        "follow-us": "Hãy theo dõi chúng tôi tại",
+        "detail-address": "SALA TOWER 10 Mai Chí Thọ, Phường An Lợi Đông, TP. Thủ Đức,TP.HCM",
+        "detail-service": "Đặt lịch khám trực tuyến",
+        "detail-infomation-crew": "Đội ngũ bác sĩ",
+        "detail-infomation-facility": "Cơ sở y tế",
+        "detail-infomation-speciality": "Chuyên khoa phổ biến",
+        "detail-cs-question": "Câu hỏi thường gặp",
+        "detail-cs-private-policy": "Chính sách bảo mật",
+        "detail-cs-policy": "Chính sách hoạt động",
+        "detail-cs-complain": "Chính sách khiếu nại",
+        "name": "CÔNG TY TNHH SunCare",
+        "detail-bc": "0309145924 đăng ký lần đầu ngày 06/07/2009, đăng ký thay đổi lần thứ 6 ngày 11/09/2019, cấp bởi Sở KHĐT thành phố Hồ Chí Minh."
+
     },
     "manage-schudule": {
         "title": "Quản lý lịch khám bệnh của Bác sĩ",
