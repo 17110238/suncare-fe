@@ -4,7 +4,6 @@ import { Button, Modal, ModalHeader, ModalFooter, ModalBody } from 'reactstrap'
 import _ from 'lodash'
 import { FormattedMessage } from 'react-intl'
 import * as actions from "../../../../store/actions"
-import Select from 'react-select'
 import { toast } from 'react-toastify'
 import { FaAngleDown } from 'react-icons/fa'
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../../utils';
@@ -58,7 +57,7 @@ class UserManage extends Component {
             let arrGenders = this.props.genderRedux
             this.setState({
                 arrGenders: arrGenders,
-                gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].keyMap : '',
+                gender: arrGenders?.length > 0 ? arrGenders[0].keyMap : '',
             })
         }
 
@@ -66,7 +65,7 @@ class UserManage extends Component {
             let arrPositions = this.props.positionRedux
             this.setState({
                 arrPositions: arrPositions,
-                position: arrPositions && arrPositions.length > 0 ? arrPositions[0].keyMap : '',
+                position: arrPositions?.length > 0 ? arrPositions[0].keyMap : '',
             })
         }
 
@@ -74,7 +73,7 @@ class UserManage extends Component {
             let arrRoles = this.props.roleRedux
             this.setState({
                 arrRoles: arrRoles,
-                role: arrRoles && arrRoles.length > 0 ? arrRoles[0].keyMap : '',
+                role: arrRoles?.length > 0 ? arrRoles[0].keyMap : '',
             })
         }
 
@@ -173,9 +172,7 @@ class UserManage extends Component {
         const validate = this.validate()
         if (validate === false) return
         if (validate) {
-
             let action = this.props.action
-
             if (action === CRUD_ACTIONS.CREATE) {
                 this.props.createNewUser({
                     email: this.state.email,
@@ -256,32 +253,33 @@ class UserManage extends Component {
     }
 
     handleEditUserFromParent = (data) => {
-        let imageBase64 = ''
-        let certificateImageBase64 = ''
-        if (data.image) {
-            imageBase64 = new Buffer(data.image, 'base64').toString('binary')
+        if (this.props.action === CRUD_ACTIONS.EDIT) {
+            let imageBase64 = ''
+            let certificateImageBase64 = ''
+            if (data.image) {
+                imageBase64 = new Buffer(data.image, 'base64').toString('binary')
+            }
+            if (data.certificateImage) {
+                certificateImageBase64 = new Buffer(data.certificateImage, 'base64').toString('binary')
+            }
+            this.setState({
+                id: data.id,
+                email: data.email,
+                firstName: data.firstName,
+                lastName: data.lastName,
+                phoneNumber: data.phoneNumber,
+                gender: data.gender,
+                address: data.address,
+                role: data.roleId,
+                position: data.positionId,
+                image: '',
+                previewImage: imageBase64,
+                previewCertificateImage: certificateImageBase64,
+                certificateImage: '',
+                isVerify: data.isVerify
+            })
         }
-        if (data.certificateImage) {
-            certificateImageBase64 = new Buffer(data.certificateImage, 'base64').toString('binary')
-        }
-        this.setState({
-            id: data.id,
-            email: data.email,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            phoneNumber: data.phoneNumber,
-            gender: data.gender,
-            address: data.address,
-            role: data.roleId,
-            position: data.positionId,
-            image: '',
-            previewImage: imageBase64,
-            previewCertificateImage: certificateImageBase64,
-            certificateImage: '',
-            isVerify: data.isVerify
-        })
     }
-
 
     handleCloseModal() {
         this.props.handleClose()
@@ -302,20 +300,19 @@ class UserManage extends Component {
     }
 
     handleCancleDoctor(doctorId) {
-        this.props.DeleteUser(doctorId)
+        this.props.DeleteUser({ doctorId, language: this.props.language === 'vi' ? 'vi' : 'en' })
     }
 
     handleConfirmDoctor(doctorId) {
-        this.props.confirmDoctor({ doctorId })
+        this.props.confirmDoctor({ doctorId, language: this.props.language === 'vi' ? 'vi' : 'en' })
     }
 
     render() {
         const { arrGenders, arrPositions, gender, arrRoles, firstName, lastName, address, email, password, phoneNumber, image, isOpen, errors,
             role, position, previewImage, createNewUserInfo, previewCertificateImage, isVerify, id } = this.state
-        const { language, action, loadingCreateNewUser, isShow } = this.props
+        const { language, action, isShow, isLoading } = this.props
         isShow && document.getElementsByTagName('body')[0].classList.add('showScroll')
         !isShow && document.getElementsByTagName('body')[0].classList.remove('showScroll')
-        console.log("isVerify", isVerify)
         return (
             <div className='overflow-visible' >
                 <Modal isOpen={isShow} toggle={() => this.handleCloseModal()} style={{ maxWidth: '80%' }}
@@ -531,7 +528,7 @@ class UserManage extends Component {
                                     }
                                 </div>
                             </div>
-                            {loadingCreateNewUser && <Loading />}
+                            {isLoading && <Loading />}
                         </form>
                     </ModalBody>
                 </Modal >
@@ -550,7 +547,7 @@ const mapStateToProps = state => {
         listUsers: state.admin.users,
         createNewUserInfo: state.admin.createNewUserInfo,
         editUserInfo: state.admin.editUserInfo,
-        loadingCreateNewUser: state.admin.isLoading,
+        isLoading: state.admin.isLoading,
         deleteUserInfo: state.admin.deleteUserInfo
     }
 }
@@ -563,8 +560,8 @@ const mapDispatchToProps = dispatch => {
         createNewUser: (data) => dispatch(actions.createNewUser(data)),
         fetchUserRedux: () => dispatch(actions.fetchALLUserStart()),
         editUser: (data) => dispatch(actions.editUser(data)),
-        DeleteUser: (id) => dispatch(actions.DeleteUser(id)),
-        confirmDoctor: (id) => dispatch(actions.confirmDoctor(id)),
+        DeleteUser: (data) => dispatch(actions.DeleteUser(data)),
+        confirmDoctor: (data) => dispatch(actions.confirmDoctor(data)),
     }
 }
 

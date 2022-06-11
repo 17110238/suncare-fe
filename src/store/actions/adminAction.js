@@ -72,7 +72,6 @@ export const fetchGenderFail = () => ({
 // Position
 export const fetchPositionStart = () => {
     return async (dispatch, getState) => {
-
         try {
             let res = await getAllCodeService('position')
             if (res && res.errCode === 0) {
@@ -102,7 +101,6 @@ export const fetchRoleStart = () => {
     return async (dispatch, getState) => {
 
         try {
-
             let res = await getAllCodeService('role')
             if (res && res.errCode === 0) {
                 dispatch(fetchRoleSuccess(res.data))
@@ -128,7 +126,6 @@ export const fetchRoleFail = () => ({
 
 
 export const createNewUser = (data) => {
-    console.log("aaaa", data)
     return async (dispatch, getState) => {
         try {
             dispatch(saveUserRequest())
@@ -164,6 +161,7 @@ export const saveUserFail = (userInfo) => ({
 export const DeleteUser = (data) => {
     return async (dispatch, getState) => {
         try {
+            dispatch(deleteRequest())
             let res = await deleteUserService(data)
             if (res && res.errCode === 0) {
                 dispatch(deleteUserSuccess(res))
@@ -178,6 +176,10 @@ export const DeleteUser = (data) => {
         }
     }
 }
+
+export const deleteRequest = () => ({
+    type: actionTypes.DELETE_USER_REQUEST,
+})
 
 export const deleteUserFail = (data) => ({
     type: actionTypes.DELETE_USER_FAILED,
@@ -221,11 +223,11 @@ export const editUserSuccess = (userInfo) => ({
     data: userInfo
 })
 
-export const confirmDoctor = (doctorId) => {
+export const confirmDoctor = (data) => {
     return async (dispatch, getState) => {
         try {
             dispatch(confirmDoctorRequest())
-            let res = await handleConfirmDoctorService(doctorId)
+            let res = await handleConfirmDoctorService(data)
             if (res && res.errCode === 0) {
                 dispatch(confirmDoctorSuccess(res))
             } else {

@@ -16,8 +16,8 @@ const createNewUserService = (data) => {
     return axios.post('/api/create-new-user', data)
 }
 
-const deleteUserService = (id) => {
-    return axios.delete('/api/delete-user', { params: { id } })
+const deleteUserService = (data) => {
+    return axios.post('/api/delete-user', data)
 }
 
 const editUserService = (data) => {
@@ -116,8 +116,8 @@ const getDetailSpecialtyService = (id) => {
     })
 }
 
-const handleConfirmDoctorService = (doctorId) => {
-    return axios.post('/api/confirmDoctor', doctorId)
+const handleConfirmDoctorService = (data) => {
+    return axios.post('/api/confirmDoctor', data)
 }
 
 export {

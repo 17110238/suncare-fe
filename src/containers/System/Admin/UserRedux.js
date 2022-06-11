@@ -4,12 +4,12 @@ import { connect } from 'react-redux'
 import { FaEdit, FaTrashAlt, FaPlus } from 'react-icons/fa'
 import * as actions from "../../../store/actions"
 import { Menu, Transition } from '@headlessui/react'
-import MarkdownIt from 'markdown-it';
 import moment from 'moment'
 import 'react-markdown-editor-lite/lib/index.css';
 import UserManageModal from './Modal/UserManage'
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../utils';
 import { toast } from 'react-toastify'
+import Loading from '../../../components/Loading/Loading'
 
 class UserRedux extends Component {
 
@@ -57,7 +57,6 @@ class UserRedux extends Component {
         }
 
         if (this.props.confirmDoctor !== prevProps.confirmDoctor) {
-            console.log("first, ", this.props.confirmDoctor?.message)
             if (this.props.confirmDoctor?.errCode === 0) {
                 this.handleCloseModal()
                 toast.success(this.props.confirmDoctor?.message)
@@ -71,7 +70,7 @@ class UserRedux extends Component {
 
     handleDeleteUser(userId, action) {
         this.setState({ ...this.state, action })
-        this.props.DeleteUser(userId)
+        this.props.DeleteUser({ doctorId: userId, language: this.props.language === 'vi' ? 'vi' : 'en' })
     }
 
     handleIsOpen = () => {
@@ -94,6 +93,7 @@ class UserRedux extends Component {
                 action
             })
         }
+
         return (
             <div className='overflow-x-hidden'>
                 <UserManageModal
@@ -108,6 +108,8 @@ class UserRedux extends Component {
                         <FormattedMessage id="manage-user.manage-doctor" />
                     </h1>
                 </div>
+
+                {this.props.isLoading && <Loading />}
 
                 <div className="px-4 sm:px-6 lg:px-8 mb-12 w-full overflow-x-hidden overflow-visible">
                     <div className="flex w-full justify-end sm:flex sm:items-center">
@@ -237,6 +239,7 @@ const mapStateToProps = state => {
     return {
         listUsers: state.admin.users,
         deleteUserInfo: state.admin.deleteUserInfo,
+        isLoading: state.admin.isLoading,
         confirmDoctor: state.admin.confirmDoctor,
     }
 }
@@ -244,7 +247,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllUserRedux: () => dispatch(actions.fetchALLUserStart()),
-        DeleteUser: (id) => dispatch(actions.DeleteUser(id)),
+        DeleteUser: (data) => dispatch(actions.DeleteUser(data)),
     }
 }
 

@@ -88,13 +88,21 @@ const adminReducer = (state = initialState, action) => {
             }
 
         // Delete user
+        case actionTypes.DELETE_USER_REQUEST:
+            state.isLoading = true;
+            return {
+                ...state,
+            }
+
         case actionTypes.DELETE_USER_SUCCESS:
             state.deleteUserInfo = action.data
+            state.isLoading = false;
             return {
                 ...state,
             }
 
         case actionTypes.DELETE_USER_FAILED:
+            state.isLoading = false;
             state.deleteUserInfo = action.data
             return {
                 ...state,

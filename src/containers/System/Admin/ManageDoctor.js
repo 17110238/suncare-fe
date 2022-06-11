@@ -12,7 +12,6 @@ import { getDetailInfoDoctorService } from '../../../services/userService'
 import './ManageDoctor'
 
 const mdParser = new MarkdownIt(/* Markdown-it options */)
-
 class ManageDoctor extends Component {
 
     constructor(props) {
