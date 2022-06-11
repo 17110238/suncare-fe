@@ -57,6 +57,7 @@
         "position": "Position",
         "role": "Role",
         "image": "Avatar",
+        "personal-infomation": "Personal information",
         "bang-cap": "Doctor's certificate photo",
         "save": "Save",
         "edit": "Edit",
@@ -72,8 +73,7 @@
         "more-info": "More Information",
         "outstanding-medical-facility": "Outstanding Medical Facility",
         "handbook": "Handbook",
-        "more-about":"More about SunCare"
-
+        "more-about": "More about SunCare"
     },
     "footer": {
         "support": "Support",
@@ -94,7 +94,6 @@
         "detail-cs-complain": "Complain policy",
         "name": "SunCare CO.,LTD",
         "detail-bc": "0309145924 first registration at 06/07/2009, register for the 6th change at 11/09/2019, granted by Ho Chi Minh Authority for planning and investment."
-
     },
     "manage-schudule": {
         "title": "Manage Doctor's appointment schedule",

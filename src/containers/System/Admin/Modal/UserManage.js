@@ -9,7 +9,6 @@ import { FaAngleDown } from 'react-icons/fa'
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../../utils';
 import Loading from '../../../../components/Loading/Loading';
 import '../ManageDoctor.scss'
-
 class UserManage extends Component {
     constructor(props) {
         super(props)
@@ -319,7 +318,7 @@ class UserManage extends Component {
                     backdrop="static"
                 >
                     <ModalHeader toggle={() => this.handleCloseModal()} className="text-2xl">
-                        {isVerify === 0 ? 'Xác nhận thông tin người dùng' : action === CRUD_ACTIONS.CREATE ? <FormattedMessage id="manage-user.create-doctor-information" /> :
+                        {isVerify === 0 && this.props.userInfo.roleId !== 'R1' ? 'Chỉnh sửa thông tin cá nhân' : isVerify === 0 ? 'Xác nhận thông tin người dùng' : action === CRUD_ACTIONS.CREATE ? <FormattedMessage id="manage-user.create-doctor-information" /> :
                             action === CRUD_ACTIONS.EDIT ? <FormattedMessage id="manage-user.edit-doctor-information" /> : ''
                         }
                     </ModalHeader>
@@ -407,7 +406,6 @@ class UserManage extends Component {
                                     <label htmlFor="inputRole"><FormattedMessage id="manage-user.role" /></label>
                                     <div className="flex items-center">
                                         <select id="inputRole" className="form-control" value={role} onChange={(e) => this.handleInput(e, 'role')}>
-
                                             {arrRoles && arrRoles.length > 0 ?
                                                 <>
                                                     {arrRoles.map((item, index) => {
@@ -505,7 +503,7 @@ class UserManage extends Component {
                             <div className=" row mb-4 offset-md-1">
                                 <div className="col-md-3">
                                     {
-                                        isVerify === 0 ?
+                                        isVerify === 0 && this.props.userInfo.roleId !== 'R3' ?
                                             <div className="flex">
                                                 <button type="button" className="mr-5 rounded text-white bg-indigo-500 w-40 whitespace-nowrap -ml-2 px-4 py-2 font-bold"
                                                     onClick={(e) => this.handleConfirmDoctor(id)}
@@ -548,7 +546,8 @@ const mapStateToProps = state => {
         createNewUserInfo: state.admin.createNewUserInfo,
         editUserInfo: state.admin.editUserInfo,
         isLoading: state.admin.isLoading,
-        deleteUserInfo: state.admin.deleteUserInfo
+        deleteUserInfo: state.admin.deleteUserInfo,
+        userInfo: state.user.userInfo
     }
 }
 

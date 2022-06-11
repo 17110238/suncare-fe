@@ -62,6 +62,9 @@ export const doctorMenu = [
     {
         name: 'menu.admin.manage-user',
         menus: [
+            { // Thong tin ca nhan cua Bac si
+                name: 'manage-user.personal-infomation', link: '/system/user-redux'
+            },
             { // Quản lý ke hoach kham benh
                 name: 'menu.doctor.manage-schedule', link: '/doctor/manage-schedule'
             },

@@ -85,7 +85,14 @@ class UserRedux extends Component {
     }
 
     render() {
-        const arrUsers = this.state.arrUsers
+        let arrUsers = this.state.arrUsers
+        let currentUser = this.props.userInfo
+        let arrUsersFilter = [...arrUsers]
+        arrUsersFilter = currentUser.roleId !== 'R1' ? arrUsers.filter(user => {
+            if (user.roleId === currentUser.roleId && currentUser.email === user.email && currentUser !== 'R1') {
+                return user
+            }
+        }) : arrUsersFilter
         const handleShowModal = (user, action) => {
             this.setState({
                 user: user && Object.keys(user).length > 0 ? user : {},
@@ -105,7 +112,7 @@ class UserRedux extends Component {
 
                 <div className="w-full my-4">
                     <h1 className='text-center mb-4 text-3xl font-semibold'>
-                        <FormattedMessage id="manage-user.manage-doctor" />
+                        {currentUser.roleId === 'R1' ? <FormattedMessage id="manage-user.manage-doctor" /> : <FormattedMessage id="manage-user.personal-infomation" />}
                     </h1>
                 </div>
 
@@ -148,16 +155,19 @@ class UserRedux extends Component {
                                                 <th scope="col" className="w-20 px-3 py-3.5 text-left text-base font-semibold text-gray-900">
                                                     Thời gian tạo
                                                 </th>
-                                                <th scope="col" className="px-3 py-3.5 text-left text-base font-semibold text-gray-900">
-                                                    Trạng thái
-                                                </th>
+                                                {this.props.userInfo.roleId === 'R1' ?
+                                                    <th scope="col" className="px-3 py-3.5 text-left text-base font-semibold text-gray-900">
+                                                        Trạng thái
+                                                    </th> : ''
+                                                }
                                                 <th scope="col" className="px-3 py-3.5 text-right text-base font-semibold text-gray-900">
                                                     Action
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody className="divide-y divide-gray-200 bg-white  ">
-                                            {arrUsers.length > 0 && arrUsers.map((user, index) => (
+                                        <tbody className="divide-y divide-gray-200 bg-white">
+                                            {arrUsersFilter.length > 0 && arrUsersFilter.map((user, index) => (
+
                                                 <tr key={user.id} className="group">
                                                     <td className="whitespace-nowrap group-hover:bg-gray-50 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">
                                                         {user.id}
@@ -167,7 +177,10 @@ class UserRedux extends Component {
                                                     <td className="whitespace-nowrap group-hover:bg-gray-50 px-3 py-4 text-sm text-gray-500">{user?.email}</td>
                                                     <td className="whitespace-nowrap group-hover:bg-gray-50 px-3 py-4 text-sm text-gray-500">{user?.phoneNumber}</td>
                                                     <td className="whitespace-nowrap group-hover:bg-gray-50 px-3 py-4 text-left text-sm text-gray-500">{moment(user?.createdAt).format('DD/MM/YYYY HH:mm')}</td>
-                                                    <td className={`whitespace-wrap group-hover:bg-gray-50 px-3 py-4 text-sm ${user?.isVerify ? 'text-green-500' : 'text-yellow-500'}`}>{user?.isVerify ? 'Đã xác thực' : 'Chờ xác thực'}</td>
+                                                    {this.props.userInfo.roleId === 'R1' ?
+                                                        <td className={`whitespace-wrap group-hover:bg-gray-50 px-3 py-4 text-sm ${user?.isVerify ? 'text-green-500' : 'text-yellow-500'}`}>{user?.isVerify ? 'Đã xác thực' : 'Chờ xác thực'}</td>
+                                                        : ''
+                                                    }
                                                     <td className="relative whitespace-nowrap group-hover:bg-gray-50 py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                                         <div className="flex justify-end text-lg">
                                                             <FaEdit
@@ -177,9 +190,11 @@ class UserRedux extends Component {
                                                             <Menu as="div" className="relative inline-block text-left">
                                                                 <div>
                                                                     <Menu.Button className="text-red-600 cursor-pointer">
-                                                                        <FaTrashAlt
-                                                                            onClick={() => this.handleIsOpen()}
-                                                                        />
+                                                                        {currentUser.roleId === 'R1' ?
+                                                                            <FaTrashAlt
+                                                                                onClick={() => this.handleIsOpen()}
+                                                                            /> : ''
+                                                                        }
                                                                     </Menu.Button>
                                                                 </div>
                                                                 <Transition
@@ -241,6 +256,7 @@ const mapStateToProps = state => {
         deleteUserInfo: state.admin.deleteUserInfo,
         isLoading: state.admin.isLoading,
         confirmDoctor: state.admin.confirmDoctor,
+        userInfo: state.user.userInfo
     }
 }
 

@@ -12,7 +12,6 @@
         "welcome": "Xin chào,",
         "sign-in": "Đăng nhập",
         "sign-up": "Đăng ký"
-
     },
     "banner": {
         "medical-background": "NỀN TẢNG Y TẾ",
@@ -62,6 +61,7 @@
         "save": "Lưu người dùng",
         "edit": "Lưu chỉnh sửa",
         "sign-in": "Đăng ký tài khoản",
+        "personal-infomation": "Thông tin cá nhân",
         "bang-cap": "Ảnh chứng nhận Bác sĩ",
         "manage-doctor": "Quản lý thông tin người dùng",
         "create-doctor-information": "Tạo thông tin bác sĩ",
@@ -74,7 +74,7 @@
         "more-info": "Xem thêm",
         "outstanding-medical-facility": "Cơ sở y tế nổi bật",
         "handbook": "Cẩm nang",
-        "more-about":"Tìm hiểu thêm về SunCare"
+        "more-about": "Tìm hiểu thêm về SunCare"
     },
     "footer": {
         "support": "Hỗ trợ",
@@ -95,7 +95,6 @@
         "detail-cs-complain": "Chính sách khiếu nại",
         "name": "CÔNG TY TNHH SunCare",
         "detail-bc": "0309145924 đăng ký lần đầu ngày 06/07/2009, đăng ký thay đổi lần thứ 6 ngày 11/09/2019, cấp bởi Sở KHĐT thành phố Hồ Chí Minh."
-
     },
     "manage-schudule": {
         "title": "Quản lý lịch khám bệnh của Bác sĩ",
