@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Logo from "../../../assets/images/logo.png";
 import "./HomeFooter.scss";
+import { FormattedMessage } from "react-intl";
 import { FacebookOutlined, InstagramOutlined } from "@ant-design/icons";
 class HomeFooter extends Component {
   render() {
@@ -35,76 +36,104 @@ class HomeFooter extends Component {
               <div className="col-3">
                 <ul className="footer-list-text">
                   <li>
-                    <span className="font-bold">Hotline </span>
-                    <a href="/" onClick={handleATag}>1900113114</a>
+                    <span className="font-bold">Hotline: </span>
+                    <a href="/" onClick={handleATag}>
+                      1900113114
+                    </a>
                   </li>
                   <li>
-                    <span className="font-bold">Hỗ trợ </span>
-                    <a href="/" onClick={handleATag}>support@admin.com</a>
+                    <span className="font-bold">
+                      <FormattedMessage id="footer.support" />:{" "}
+                    </span>
+                    <a href="/" onClick={handleATag}>
+                      support@admin.com
+                    </a>
                   </li>
                   <li>
-                    <span className="font-bold">Địa chỉ </span>
-                    SALA TOWER 10 Mai Chí Thọ, Phường An Lợi Đông, TP. Thủ Đức,
-                    TP.HCM
+                    <span className="font-bold">
+                      <FormattedMessage id="footer.address" />:{" "}
+                    </span>
+                    <FormattedMessage id="footer.detail-address" />
                   </li>
                 </ul>
               </div>
               <div className="col-3">
-                <ul className="footer-list" style={{marginLeft: '10px'}}>
+                <ul className="footer-list" style={{ marginLeft: "10px" }}>
                   <li>
-                    <span className="font-bold">Dịch vụ</span>
+                    <span className="font-bold">
+                      <FormattedMessage id="footer.service" />
+                    </span>
                   </li>
-                  <li>Đặt lịch khám trực tuyến</li>
+                  <li>
+                    <FormattedMessage id="footer.detail-service" />
+                  </li>
                 </ul>
               </div>
               <div className="col-3">
                 <ul className="footer-list">
                   <li>
-                    <span className="font-bold">Tìm hiểu thêm</span>
+                    <span className="font-bold">
+                      <FormattedMessage id="footer.more-infomation" />
+                    </span>
                   </li>
-                  <li>Đội ngũ bác sĩ</li>
-                  <li>Cơ sở y tế</li>
-                  <li>Chuyên khoa phổ biến</li>
+                  <li>
+                    <FormattedMessage id="footer.detail-infomation-crew" />
+                  </li>
+                  <li>
+                    <FormattedMessage id="footer.detail-infomation-facility" />
+                  </li>
+                  <li>
+                    <FormattedMessage id="footer.detail-infomation-speciality" />
+                  </li>
                 </ul>
               </div>
               <div className="col-3">
                 <ul className="footer-list">
                   <li>
-                    <span className="font-bold">Hỗ trợ khách hàng</span>
+                    <span className="font-bold">
+                      <FormattedMessage id="footer.customer-support" />
+                    </span>
                   </li>
                   <li>
-                    <a href="/cau-hoi-thuong-gap" onClick={handleATag}>Câu hỏi thường gặp</a>
+                    <a href="/cau-hoi-thuong-gap" onClick={handleATag}>
+                      <FormattedMessage id="footer.detail-cs-question" />
+                    </a>
                   </li>
                   <li>
-                    <a href="/chinh-sach-bao-mat" onClick={handleATag}>Chính sách bảo mật</a>
+                    <a href="/chinh-sach-bao-mat" onClick={handleATag}>
+                      <FormattedMessage id="footer.detail-cs-private-policy" />
+                    </a>
                   </li>
                   <li>
-                    <a href="/chinh-sach-hoat-dong" onClick={handleATag}>Chính sách hoạt động</a>
+                    <a href="/chinh-sach-hoat-dong" onClick={handleATag}>
+                      <FormattedMessage id="footer.detail-cs-policy" />
+                    </a>
                   </li>
                   <li>
-                    <a href="/chinh-sach-khieu-nai" onClick={handleATag}
-                    >Chính sách khiếu nại</a>
+                    <a href="/chinh-sach-khieu-nai" onClick={handleATag}>
+                      <FormattedMessage id="footer.detail-cs-complain" />
+                    </a>
                   </li>
                 </ul>
               </div>
             </div>
             <div className="row footer-bottom">
-              <div className="col-15" style={{marginTop: '10px'}}>
+              <div className="col-15" style={{ marginTop: "10px" }}>
                 <hr className="separated-line" />
               </div>
               <div className="col-6">
                 <ul className="footer-list">
                   <li>
                     <span className="font-bold">
-                      CÔNG TY PHÒNG KHÁM ĐA KHOA JIO HEALTH
+                      <FormattedMessage id="footer.name" />
                     </span>
                   </li>
                   <li>
-                    <span className="font-bold">Giấy CNĐKDN </span>
+                    <span className="font-bold">
+                      <FormattedMessage id="footer.business-certificate" />
+                    </span>
                     <p>
-                      0309145924 đăng ký lần đầu ngày 06/07/2009, đăng ký thay
-                      đổi lần thứ 6 ngày 11/09/2019, cấp bởi Sở KHĐT thành phố
-                      Hồ Chí Minh.
+                      <FormattedMessage id="footer.detail-bc" />
                     </p>
                   </li>
                 </ul>
@@ -113,7 +142,7 @@ class HomeFooter extends Component {
                 <ul className="footer-list">
                   <li>
                     <span className="font-bold">
-                      Hãy theo dõi chúng tôi tại{" "}
+                      <FormattedMessage id="footer.follow-us" />{" "}
                     </span>
                   </li>
                   <li className="footer-icon">
