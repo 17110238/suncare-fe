@@ -269,7 +269,7 @@ class ManageDoctor extends Component {
                             "bg-yellow-400 hover:bg-yellow-500 font-bold py-2 px-4 border border-yellow-700 rounded z-50"
                         }
                             onClick={() => this.handleSaveContentMarkdown()}>
-                            {isHasInfo === false ? 'Create' : 'Edit'}
+                            {isHasInfo === false ? <FormattedMessage id="menu.admin.create" /> : <FormattedMessage id="menu.admin.edit" />}
                         </button>
                     </div>
                 </div>

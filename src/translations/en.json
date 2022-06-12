@@ -39,7 +39,9 @@
             "specialty": "Specialty",
             "manage-specialty": "Manage Specialty",
             "handbook": "Handbook",
-            "manage-handbook": "Manage Handbook"
+            "manage-handbook": "Manage Handbook",
+            "create": "Create",
+            "edit": "Edit"
         },
         "doctor": {
             "manage-schedule": "Manage Doctor's schedule"
@@ -65,7 +67,22 @@
         "manage-doctor": "Manage Doctor's information",
         "create-doctor-information": "Create doctor information",
         "edit-doctor-information": "Edit doctor information",
-        "them-nguoi-dung": "Add user"
+        "them-nguoi-dung": "Add user",
+        "time-create": "Time create",
+        "status": "Status",
+        "action": "Action",
+        "delete-alert": "Are you sure to delete this item!",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "verified": "Verified",
+        "pending": "Pending",
+        "confirm-user-infomation": "Confirm user infomation",
+        "edit-profile": "Edit personal infomation",
+        "confirm": "Confirm",
+        "change": "Change",
+        "add-img": "Add",
+        "delete-img": "Delete image"
+        
     },
     "homepage": {
         "outstanding-doctor": "Last week's featured doctor",

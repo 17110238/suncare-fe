@@ -40,7 +40,10 @@
             "specialty": "Chuyên Khoa",
             "manage-specialty": "Quản lý Chuyên Khoa",
             "handbook": "Cẩm Nang",
-            "manage-handbook": "Quản lý Cẩm Nang"
+            "manage-handbook": "Quản lý Cẩm Nang",
+            "create": "Tạo",
+            "edit": "Chỉnh sửa"
+
         },
         "doctor": {
             "manage-schedule": "Quản lý kế hoạch khám bệnh"
@@ -66,7 +69,21 @@
         "manage-doctor": "Quản lý thông tin người dùng",
         "create-doctor-information": "Tạo thông tin bác sĩ",
         "edit-doctor-information": "Chỉnh sửa thông tin bác sĩ",
-        "them-nguoi-dung": "Thêm người dùng"
+        "them-nguoi-dung": "Thêm người dùng",
+        "time-create": "Thời gian tạo",
+        "status": "Trạng thái",
+        "action": "Tác vụ",
+        "delete-alert": "Bạn muốn xóa người dùng này!",
+        "cancel": "Hủy bỏ",
+        "delete": "Xóa",
+        "verified": "Đã xác thực",
+        "pending": "Chờ xác thực",
+        "confirm-user-infomation": "Xác nhận thông tin người dùng",
+        "edit-profile": "Chỉnh sửa thông tin cá nhân",
+        "confirm": "Xác nhận",
+        "change": "Thay đổi",
+        "add-img": "Tải ảnh lên",
+        "delete-img": "Xóa hỉnh ảnh"
     },
     "homepage": {
         "outstanding-doctor": "Bác sĩ nỗi bật tuần qua ",
