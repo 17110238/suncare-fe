@@ -29,11 +29,11 @@
     },
     "menu": {
         "admin": {
-            "manage-user": "Users System",
+            "manage-user": "Information manage",
             "manage-doctor": "Manage Doctors",
             "manage-admin": "Admin",
             "crud": "CRUD User",
-            "crud-redux": "Manage users",
+            "crud-redux": "Information manage",
             "manage-clinic": "Manage Clinic",
             "clinic": "Clinic",
             "specialty": "Specialty",

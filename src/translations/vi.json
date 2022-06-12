@@ -30,11 +30,11 @@
     },
     "menu": {
         "admin": {
-            "manage-user": "Quản lý người dùng",
+            "manage-user": "Quản lý thông tin",
             "manage-doctor": "Quản lý Bác sĩ",
             "manage-admin": "Quản lý admin",
             "crud": "CRUD User",
-            "crud-redux": "Quản lý người dùng",
+            "crud-redux": "Quản lý thông tin",
             "manage-clinic": "Quản lý phòng khám",
             "clinic": "Phòng khám",
             "specialty": "Chuyên Khoa",
