@@ -13,6 +13,17 @@
         "sign-in": "Đăng nhập",
         "sign-up": "Đăng ký"
     },
+    "login": {
+        "login": "Đăng nhập",
+        "email": "Email",
+        "password": "Mật khẩu",
+        "email-placeholder": "Nhập email",
+        "password-placeholder": "Nhập mật khẩu",
+        "forgot-password": "Quên mật khẩu?",
+        "note": "Bạn không có tài khoản?",
+        "register-here": "Đăng ký tại đây!",
+        "sign-in-with": "Hoặc đăng nhập bằng"
+    },
     "banner": {
         "medical-background": "NỀN TẢNG Y TẾ",
         "comprehensive-health-care": "CHĂM SÓC SỨC KHỎE TOÀN DIỆN",

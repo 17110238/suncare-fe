@@ -13,6 +13,17 @@
         "sign-in": "Sign In",
         "sign-up": "Sign Up"
     },
+    "login": {
+        "login": "Login",
+        "email": "Email",
+        "password": "Password",
+        "email-placeholder": "Enter your email",
+        "password-placeholder": "Enter your password",
+        "forgot-password": "Forgot Password?",
+        "note": "Don't have an account?",
+        "register-here": "Register here!",
+        "sign-in-with": "Or Sign in With"
+    },
     "banner": {
         "medical-background": "MEDICAL PLATFORM",
         "comprehensive-health-care": "COMPREHENSIVE HEALTH CARE",

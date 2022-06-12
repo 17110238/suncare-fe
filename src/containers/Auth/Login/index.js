@@ -8,7 +8,7 @@ import { FormattedMessage } from "react-intl";
 import doccare from "../../../assets/images/doctorcare.jpg";
 import { handleLoginApi } from "../../../services/userService";
 // import { Button } from "reactstrap";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import HomeHeader from "../../Homepage/HomeHeader";
 
 class Login extends Component {
@@ -100,8 +100,9 @@ class Login extends Component {
 
   handleClickRegister = () => {
     const { history } = this.props;
-    history.push('/sign-up');
-  }
+    history.push("/sign-up");
+  };
+
   render() {
     const { username, password, type, hideShow } = this.state;
     return (
@@ -117,20 +118,22 @@ class Login extends Component {
                 <img src={doccare} />
               </div>
               <form className="bg-gray-100 shadow-md px-8 pt-6 pb-8 w-2/5">
-                <div className="text-2xl font-bold text-center mb-6">Login</div>
+                <div className="text-2xl font-bold text-center mb-6">
+                  <FormattedMessage id="login.login" />
+                </div>
                 <div className="mb-4">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="username"
                   >
-                    Username:
+                    <FormattedMessage id="login.email" />
                   </label>
                   <input
                     className="shadow appearance-none border rounded-2xl w-full py-2 px-3 text-gray-700 leading-tight focus:ring-2 focus:ring-blue-300 focus:outline-none focus:shadow-outline"
                     value={username}
                     id="username"
                     type="text"
-                    placeholder="Enter Your Email"
+                    placeholder="Enter your email"
                     onChange={(e) => this.handleUserNameChange(e)}
                   />
                 </div>
@@ -139,7 +142,7 @@ class Login extends Component {
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="password"
                   >
-                    Password:
+                    <FormattedMessage id="login.password" />
                   </label>
                   <div className="flex ">
                     <input
@@ -172,21 +175,26 @@ class Login extends Component {
                     type="button"
                     onClick={() => this.handleOnSignIn()}
                   >
-                    Sign In
+                    <FormattedMessage id="login.login" />
                   </button>
                   <a
                     className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
                     href="#"
                   >
-                    Forgot Password?
+                    <FormattedMessage id="login.forgot-password" />
                   </a>
                 </div>
                 <div className="sign-up-btn">
-                  Don't have an account? <span onClick={() => this.handleClickRegister()}>Register here!</span>
+                  <FormattedMessage id="login.note" />{" "}
+                  <span onClick={() => this.handleClickRegister()}>
+                    <FormattedMessage id="login.register-here" />
+                  </span>
                 </div>
                 <div className="mt-8 flex items-center">
                   <div className="w-1 h-1 bg-gray-400 flex-1"></div>
-                  <div className="mx-2">Or Sign In With</div>
+                  <div className="mx-2">
+                    <FormattedMessage id="login.sign-in-with" />
+                  </div>
                   <div className="w-1 h-1 bg-gray-400 flex-1"></div>
                 </div>
                 <div className="mt-4 flex justify-center">
