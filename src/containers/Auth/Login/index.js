@@ -177,12 +177,12 @@ class Login extends Component {
                   >
                     <FormattedMessage id="login.login" />
                   </button>
-                  <a
+                  {/* <a
                     className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
                     href="#"
                   >
                     <FormattedMessage id="login.forgot-password" />
-                  </a>
+                  </a> */}
                 </div>
                 <div className="sign-up-btn">
                   <FormattedMessage id="login.note" />{" "}
@@ -190,21 +190,21 @@ class Login extends Component {
                     <FormattedMessage id="login.register-here" />
                   </span>
                 </div>
-                <div className="mt-8 flex items-center">
+                {/* <div className="mt-8 flex items-center">
                   <div className="w-1 h-1 bg-gray-400 flex-1"></div>
                   <div className="mx-2">
                     <FormattedMessage id="login.sign-in-with" />
                   </div>
                   <div className="w-1 h-1 bg-gray-400 flex-1"></div>
-                </div>
-                <div className="mt-4 flex justify-center">
+                </div> */}
+                {/* <div className="mt-4 flex justify-center">
                   <div className="text-5xl mr-4 text-red-700">
                     <FaGooglePlus />
                   </div>
                   <div className="text-5xl text-blue-700">
                     <FaFacebook />
                   </div>
-                </div>
+                </div> */}
               </form>
             </div>
           </div>
