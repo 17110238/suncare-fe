@@ -7,6 +7,7 @@ import NumberFormat from 'react-number-format'
 import { FormattedMessage } from 'react-intl'
 import _ from 'lodash'
 import moment from 'moment'
+import { withRouter } from 'react-router'
 
 class ProfileDoctor extends Component {
     constructor(props) {
@@ -62,9 +63,11 @@ class ProfileDoctor extends Component {
         }
         return <></>
     }
-
+    handleOnChangeToDotocDetail = (doctorId) => {
+        this.props.history.push(`/detail-doctor/${doctorId}`);
+    }
     render() {
-        let { language, isShowDescriptionDoctor, dataTime } = this.props
+        let { language, isShowDescriptionDoctor, dataTime, isShowLinkDetail, isShowPrice, doctorId } = this.props
         let { dataProfile } = this.state
         let nameVi = '', nameEn = ''
         if (dataProfile?.positionData) {
@@ -100,14 +103,20 @@ class ProfileDoctor extends Component {
                     </div>
                 </div>
 
-                <div className="flex ">
-                    <div className="mr-1"><FormattedMessage id="patient.extra-info-doctor.price" />:</div>
-                    {dataProfile?.Doctor_Info && language === LANGUAGES.VI ?
-                        <span> <NumberFormat value={dataProfile.Doctor_Info.priceData.valueVi} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} suffix={' VND'} /></span> : ''}
+                {isShowLinkDetail === true && <span className="underline text-blue-500 cursor-pointer pl-4"
+                    onClick={() => this.handleOnChangeToDotocDetail(doctorId)}
+                >Xem thêm</span>}
 
-                    {dataProfile?.Doctor_Info && language === LANGUAGES.EN ?
-                        <span> <NumberFormat value={dataProfile.Doctor_Info.priceData.valueEn} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} suffix={' $'} /></span> : ''}
-                </div>
+                {isShowPrice &&
+                    <div className="flex ">
+                        <div className="mr-1"><FormattedMessage id="patient.extra-info-doctor.price" />:</div>
+                        {dataProfile?.Doctor_Info && language === LANGUAGES.VI ?
+                            <span> <NumberFormat value={dataProfile.Doctor_Info.priceData.valueVi} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} suffix={' VND'} /></span> : ''}
+
+                        {dataProfile?.Doctor_Info && language === LANGUAGES.EN ?
+                            <span> <NumberFormat value={dataProfile.Doctor_Info.priceData.valueEn} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} suffix={' $'} /></span> : ''}
+                    </div>
+                }
             </>
         )
     }
@@ -125,4 +134,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileDoctor)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProfileDoctor))

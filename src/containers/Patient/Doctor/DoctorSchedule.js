@@ -22,7 +22,7 @@ class DoctorSchedule extends Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         let { language } = this.props
         let allDays = this.fetchAllDay(language)
         if (allDays?.length > 0) {
@@ -30,6 +30,11 @@ class DoctorSchedule extends Component {
                 allDays: allDays,
             })
         }
+        let allDayss = this.fetchAllDay(this.props.language)
+        let res = await getScheduleDoctorByDate(this.props.doctorIdFromParent, allDayss[0].value)
+        this.setState({
+            allAvailabelTime: res.data ? res.data : []
+        })
     }
 
     fetchAllDay = (language) => {
@@ -125,7 +130,7 @@ class DoctorSchedule extends Component {
                         </div>
                         <div className="grid grid-cols-4 gap-y-4 gap-x-1 text-center cursor-pointer">
                             {allAvailabelTime?.length > 0 ? allAvailabelTime.map(item =>
-                                <div key={item.id} className=" bg-yellow-200 font-bold  w-44 rounded-md flex items-center justify-center h-12 hover:bg-blue-400"
+                                <div key={item.id} className=" bg-yellow-200 font-bold w-36 rounded-md flex items-center justify-center h-12 hover:bg-blue-400"
                                     onClick={() => this.handleClickScheduleTime(item)}>
                                     {language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn}
                                 </div>

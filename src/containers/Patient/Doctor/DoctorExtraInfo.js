@@ -23,7 +23,9 @@ class DoctorExtraInfo extends Component {
     }
 
     componentDidMount() {
-
+        if (this.props.doctorIdFromParent) {
+            this.props.getDetailInfoDoctors(this.props.doctorIdFromParent)
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -98,10 +100,10 @@ class DoctorExtraInfo extends Component {
                             <div className="text-gray-700 font-semibold mb-2 text-lg"><FormattedMessage id="patient.extra-info-doctor.price" />: </div>
                             <div className=" bg-gray-200 p-1">
                                 <div className="flex justify-between text-lg">
-                                    <div className=" font-semibold ">
+                                    <div className="font-semibold">
                                         <FormattedMessage id="patient.extra-info-doctor.price" />
                                     </div>
-                                    <div className="mr-2 text-lg">
+                                    <div className="pl-5 mr-2 text-lg">
                                         <NumberFormat value={price} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} />
                                         {language === LANGUAGES.VI ? ' VND' : ' $'}
                                     </div>
@@ -136,3 +138,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DoctorExtraInfo)
+
+
+

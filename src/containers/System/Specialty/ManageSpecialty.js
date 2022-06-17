@@ -7,8 +7,6 @@ import MarkdownIt from 'markdown-it'
 import { FormattedMessage } from 'react-intl'
 import { saveNewSpecialtyService } from '../../../services/userService'
 import { toast } from 'react-toastify'
-
-
 const mdParser = new MarkdownIt(/* Markdown-it options */)
 function getBase64(file) {
     return new Promise(resolve => {
@@ -85,6 +83,7 @@ class ManageSpecialty extends Component {
                 contentHTML: '',
                 contentMarkdown: ''
             })
+            document.getElementsByClassName("uploadCaptureInputFile")[0].value = "";
         }
         else {
             toast.error('Create a new Specialty fail!')
@@ -113,7 +112,7 @@ class ManageSpecialty extends Component {
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
                             <FormattedMessage id="admin.manage-specialty.image" />
                         </label>
-                        <input type='file' name="file"
+                        <input type='file' name="file" className="uploadCaptureInputFile"
                             onChange={(e) => this.handleOnChangeImageInput(e)}
                         />
                     </div>

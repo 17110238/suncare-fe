@@ -120,9 +120,14 @@ const handleConfirmDoctorService = (data) => {
     return axios.post('/api/confirmDoctor', data)
 }
 
+const getDetailSpecialtyByIdService = (data) => {
+    return axios.get(`/api/get-detail-specialty-by-id?id=${data.id}&location=${data.location}`)
+}
+
 export {
     handleLoginApi, getAllUsers, createNewUserService, deleteUserService, editUserService, getAllCodeService, getTopDoctorHomeService
     , getAllDoctorService, saveDoctorDetailService, getDetailInfoDoctorService, getAllcodeScheduleTimeDoctorService, saveBulkScheduleDoctor,
     getScheduleDoctorByDate, getListPriceService, getListPaymentService, getListProvinceService, getProfileDoctorByIdService, postPatientAppointment,
-    postVerifyBookAppoinment, saveNewSpecialtyService, getAllSpecialtyService, getDetailSpecialtyService, handleConfirmDoctorService
+    postVerifyBookAppoinment, saveNewSpecialtyService, getAllSpecialtyService, getDetailSpecialtyService, handleConfirmDoctorService,
+    getDetailSpecialtyByIdService
 }

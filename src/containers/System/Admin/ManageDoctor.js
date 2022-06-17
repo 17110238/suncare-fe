@@ -69,9 +69,7 @@ class ManageDoctor extends Component {
                     valueVI = item.valueVi
                     object.value = item.keyMap
                 }
-
                 object.label = language === LANGUAGES.VI ? valueVI : valueEN
-
                 if (types === 'SPECIALTIES') {
                     object.value = item.id
                     object.label = item.name
@@ -255,7 +253,6 @@ class ManageDoctor extends Component {
         const { listDoctors, selectedDoctor, description, contentMarkdown, isHasInfo, arrPrices, arrPayments, arrProvinces,
             selectedPrice, selectedPayment, selectedProvince, nameClinic, addressClinic, note, selectedSpecialty, selectedClinic,
             arrClinic, arrSpecialty } = this.state
-
         let { language } = this.props
 
         return (
@@ -435,3 +432,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageDoctor)
+
+
+
+
