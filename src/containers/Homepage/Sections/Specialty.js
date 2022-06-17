@@ -7,7 +7,7 @@ import Slider from "react-slick"
 import { getAllSpecialtyService } from '../../../services/userService'
 import { LANGUAGES } from '../../../utils/constant'
 import { withRouter } from 'react-router-dom'
-
+import "./Specialty.scss"
 class Specialty extends Component {
 
     constructor(props) {
@@ -54,12 +54,14 @@ class Specialty extends Component {
                                 imageBase64 = new Buffer(item.image, 'base64').toString('binary')
                             }
                             return (
-                                <div className="cursor-pointer" key={item.id}
+                                <div className="cursor-pointer flex important justify-center " key={item.id}
                                     onClick={() => this.handleViewDetailSpecialty(item.id)}
                                 >
+                                    <div>
                                     <div className="bg-img" style={{ backgroundImage: `url(${imageBase64})` }}></div>
                                     <div className="mt-1 text-center">
                                         <div>{item.name} </div>
+                                    </div>
                                     </div>
                                 </div>
                             )

@@ -682,9 +682,11 @@ class UserManage extends Component {
                                     type="button"
                                     className="bg-green-500 hover:bg-green-700 text-white rounded w-24 cursor-pointer"
                                   >
-                                    {!previewCertificateImage
-                                      ? "Add"
-                                      : "Change"}
+                                    {!previewCertificateImage ? (
+                                      <FormattedMessage id="manage-user.add-img" />
+                                    ) : (
+                                      <FormattedMessage id="manage-user.change" />
+                                    )}
                                   </button>
 
                                   <input
@@ -707,7 +709,7 @@ class UserManage extends Component {
                                       this.handleDeleteImage("CERTIFICATEIMAGE")
                                     }
                                   >
-                                    Delete Image
+                                    <FormattedMessage id="manage-user.delete-img" />
                                   </button>
                                 </div>
                               </div>

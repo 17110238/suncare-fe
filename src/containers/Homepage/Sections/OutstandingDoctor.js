@@ -5,6 +5,7 @@ import { LANGUAGES } from '../../../utils/constant'
 import { withRouter } from 'react-router-dom'
 import Slider from "react-slick"
 import * as actions from '../../../store/actions'
+import { getAllSpecialtyService } from '../../../services/userService'
 
 class OutstandingDoctor extends Component {
     constructor(props) {
@@ -35,6 +36,7 @@ class OutstandingDoctor extends Component {
         history.push(`/detail-doctor/${doctorId}`)
     }
 
+
     render() {
         let arrTopDoctors = this.state.arrTopDoctors
         let { language } = this.props
@@ -56,12 +58,12 @@ class OutstandingDoctor extends Component {
                             let nameEn = `${item.positionData.valueEn} - ${item.lastName} ${item.firstName}`
                             return (
                                 <div className="p-2" key={item.id}>
-                                    <div className="cursor-pointer border-4 border-white w-72 h-64"
+                                    <div className="cursor-pointer border-4 border-white w-72 h-64 bg-white rounded-lg"
                                         onClick={() => this.handleViewDetailDoctor(item.id)}>
-                                        <div className="bg-avatar mt-3" style={{ backgroundImage: `url(${imageBase64})` }}></div>
+                                        <div className="bg-avatar mt-3 " style={{ backgroundImage: `url(${imageBase64})` }}></div>
                                         <div className="mt-3 text-center">
                                             <div>{language === LANGUAGES.VI ? nameVi : nameEn}</div>
-                                            <div>Cơ Xương Khớp </div>
+                                            <div>Cơ xương khớp</div>
                                         </div>
                                     </div>
                                 </div>
