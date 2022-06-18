@@ -4,9 +4,10 @@ import { LANGUAGES } from '../../../utils/constant'
 import * as actions from '../../../store/actions'
 import DatePicker from '../../../components/Input/DatePicker'
 import { FormattedMessage } from 'react-intl'
-import { getAllPatientForDoctor } from '../../../services/userService'
+import { getAllPatientForDoctor, handleConfirmAndPaymentPatient } from '../../../services/userService'
 import moment from 'moment'
 import noData from '../../../assets/images/Nodata.jpg'
+import { toast } from 'react-toastify'
 
 class ManagePatient extends Component {
     constructor(props) {
@@ -53,19 +54,23 @@ class ManagePatient extends Component {
         })
     }
 
-    handleConfirmSchedule = (item, action) => {
+    handleConfirmSchedule = async (item, action) => {
         let data = {
             doctorId: item.doctorId,
             patientId: item.patientId,
             email: item.patientData.email,
+            timeType: item.timeType,
             action
         }
-
+        const res = await handleConfirmAndPaymentPatient(data)
+        if (res?.errCode === 0) {
+            toast.success('Xác nhận đặt lịch thành công!')
+        }
     }
 
     render() {
         const { currentDate, dataPatient } = this.state
-        console.log("currentDate", dataPatient)
+        console.log("dataPatient", dataPatient)
         const { user, language } = this.props
         return (
             <div className='w-full h-full p-4'>
@@ -153,10 +158,10 @@ class ManagePatient extends Component {
                                 <td className="whitespace-nowrap group-hover:bg-gray-50 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">
                                     <button
                                         type="button"
-                                        className="mr-5 rounded text-white bg-green-500 w-24 whitespace-nowrap px-2 py-2 font-bold"
+                                        className="mr-5 rounded text-white bg-green-500 w-52 whitespace-nowrap px-2 py-2 font-bold"
                                         onClick={(e) => this.handleConfirmSchedule(item, 'confirm')}
                                     >
-                                        <FormattedMessage id="manage-user.confirm" />
+                                        Xác nhận và gửi thanh toán
                                     </button>
 
                                     <button

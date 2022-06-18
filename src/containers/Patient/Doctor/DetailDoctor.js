@@ -38,7 +38,6 @@ class DetailDoctor extends Component {
         let language = this.props.language
         let nameVi = '', nameEn = ''
         if (infoDoctor?.positionData) {
-
             nameVi = `${infoDoctor.positionData.valueVi} - ${infoDoctor?.firstName} ${infoDoctor?.lastName}`
             nameEn = `${infoDoctor.positionData.valueEn} - ${infoDoctor?.lastName} ${infoDoctor?.firstName}`
         }
