@@ -41,11 +41,11 @@
     },
     "menu": {
         "admin": {
-            "manage-user": "Quản lý thông tin",
+            "manage-user": "Quản lý",
             "manage-doctor": "Quản lý Bác sĩ",
             "manage-admin": "Quản lý admin",
             "crud": "CRUD User",
-            "crud-redux": "Quản lý thông tin",
+            "crud-redux": "Quản lý",
             "manage-clinic": "Quản lý phòng khám",
             "clinic": "Phòng khám",
             "specialty": "Chuyên Khoa",
@@ -54,10 +54,10 @@
             "manage-handbook": "Quản lý Cẩm Nang",
             "create": "Tạo",
             "edit": "Chỉnh sửa"
-
         },
         "doctor": {
-            "manage-schedule": "Quản lý kế hoạch khám bệnh"
+            "manage-schedule": "Kế hoạch khám bệnh",
+            "manage-patient": "Bệnh nhân khám bệnh"
         }
     },
     "manage-user": {

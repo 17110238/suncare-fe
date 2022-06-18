@@ -55,7 +55,8 @@
             "edit": "Edit"
         },
         "doctor": {
-            "manage-schedule": "Manage Doctor's schedule"
+            "manage-schedule": "Manage Doctor's schedule",
+            "manage-patient": "Manage Doctor's patient"
         }
     },
     "manage-user": {
@@ -93,7 +94,6 @@
         "change": "Change",
         "add-img": "Add",
         "delete-img": "Delete image"
-        
     },
     "homepage": {
         "outstanding-doctor": "Last week's featured doctor",

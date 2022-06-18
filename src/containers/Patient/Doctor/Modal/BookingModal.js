@@ -75,6 +75,25 @@ class BookingModal extends Component {
                 })
             }
         }
+        if (this.props.isOpen !== prevProps.isOpen) {
+            if ((this.props.userInfo)) {
+                let arrGenders = this.buildDataInputGender(this.props.language)
+                const genderDefault = arrGenders.filter(item => {
+                    if (item.value === this.props.userInfo.gender) {
+                        return item
+                    }
+                })
+                this.setState({
+                    name: this.props.language === 'vi' ? this.props.userInfo.firstName + ' ' + this.props.userInfo.lastName : this.props.userInfo.lastName + ' ' + this.props.userInfo.firstName,
+                    phoneNumber: this.props.userInfo.phoneNumber,
+                    email: this.props.userInfo.email,
+                    address: this.props.userInfo.address,
+                    birthday: this.props.userInfo.birthday,
+                    gender: genderDefault,
+                    reason: this.props.userInfo.reason,
+                })
+            }
+        }
     }
 
     buildDataInputGender = (language) => {
@@ -171,8 +190,6 @@ class BookingModal extends Component {
         let { language } = this.props
 
         if (dataTime && !_.isEmpty(dataTime)) {
-
-            console.log('datetime', dataTime.date)
             let date = language === LANGUAGES.VI ?
                 moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YYYY')
                 :
@@ -206,13 +223,15 @@ class BookingModal extends Component {
                 phoneNumber: this.state.phoneNumber,
                 email: this.state.email,
                 address: this.state.address,
-                date: date,
+                date: this.props.dataTime.date,
+                birthday: date,
                 gender: this.state.gender.value,
                 reason: this.state.reason,
                 timeType: this.state.timeType,
                 language: this.props.language,
                 timeString: timeString,
-                doctorName: doctorName
+                doctorName: doctorName,
+                scheduleId: this.props.dataTime.id
             })
 
             if (res?.errCode === 0) {
@@ -241,15 +260,12 @@ class BookingModal extends Component {
         if (dataTime && !_.isEmpty(dataTime)) {
             doctorId = dataTime.doctorId
         }
-
-        console.log('dataTime', this.props.dataTime)
-
         let confirm = language === LANGUAGES.VI ? 'Xác nhận' : 'Confirm'
         let cancel = language === LANGUAGES.VI ? 'Hủy' : 'Cancel'
 
         return (
             <div>
-                <Modal isOpen={isShowDetailInfo} toggle={() => this.toggle()} style={{ maxWidth: '60%' }} >
+                <Modal isOpen={isShowDetailInfo} toggle={() => this.toggle()} style={{ maxWidth: '60%' }} backdrop="static">
                     <ModalHeader toggle={() => this.toggle()} className="text-2xl">
                         <FormattedMessage id="patient.profile-doctor.title" />
                     </ModalHeader>
@@ -398,6 +414,7 @@ const mapStateToProps = state => {
     return {
         genderRedux: state.admin.genders,
         language: state.app.language,
+        userInfo: state.user.userInfo
     }
 }
 

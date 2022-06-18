@@ -108,12 +108,16 @@ class DoctorSchedule extends Component {
 
     render() {
         let { allDays, allAvailabelTime, isOpenShowModal, dataScheduleTimeModal } = this.state
+        console.log("dataScheduleTimeModal", dataScheduleTimeModal)
         let { language } = this.props
 
         return (
             <>
-                <BookingModal isOpen={isOpenShowModal} handleCloseModal={this.handleCloseModal}
-                    dataTime={dataScheduleTimeModal} />
+                <BookingModal
+                    isOpen={isOpenShowModal}
+                    handleCloseModal={this.handleCloseModal}
+                    dataTime={dataScheduleTimeModal}
+                />
                 <div className="">
                     <div className="cursor-pointer">
                         <select className="w-48 cursor-pointer  border-b-2 text-blue-600 font-semibold text-xl mb-3 outline-none" onChange={(e) => this.handleChangeAllDay(e)}>
@@ -129,13 +133,16 @@ class DoctorSchedule extends Component {
                             <span className="ml-2 font-bold uppercase"> <FormattedMessage id="patient.detail-doctor.schedule" /> </span>
                         </div>
                         <div className="grid grid-cols-4 gap-y-4 gap-x-1 text-center cursor-pointer">
-                            {allAvailabelTime?.length > 0 ? allAvailabelTime.map(item =>
-                                <div key={item.id} className=" bg-yellow-200 font-bold w-36 rounded-md flex items-center justify-center h-12 hover:bg-blue-400"
-                                    onClick={() => this.handleClickScheduleTime(item)}>
-                                    {language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn}
-                                </div>
-                            )
-                                : <div className="w-96 italic">
+                            {allAvailabelTime?.length > 0 ? allAvailabelTime.map(item => {
+                                return item.isActive && (
+                                    <div key={item.id} className=" bg-yellow-200 font-bold w-36 rounded-md flex items-center justify-center h-12 hover:bg-blue-400"
+                                        onClick={() => this.handleClickScheduleTime(item)}>
+                                        {language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn}
+                                    </div>
+                                )
+                            }
+                            ) :
+                                <div className="w-96 italic">
                                     <FormattedMessage id="patient.detail-doctor.no-schedule" />
                                 </div>
                             }

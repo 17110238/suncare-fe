@@ -13,7 +13,8 @@ class VerifyEmail extends Component {
         super(props)
         this.state = {
             statusVerified: false,
-            errCode: 0
+            errCode: 0,
+            errMessage: ''
         }
     }
 
@@ -27,10 +28,11 @@ class VerifyEmail extends Component {
                 this.setState({
                     statusVerified: true,
                     errCode: res.errCode,
+                    errMessage: res.errMessage
                 })
             }
             else {
-                this.setState({ statusVerified: true, errCode: res?.errCode ? res.errCode : -1 })
+                this.setState({ statusVerified: true, errCode: res?.errCode ? res.errCode : -1, errMessage: res.errMessage })
             }
         }
     }
@@ -42,7 +44,7 @@ class VerifyEmail extends Component {
     }
 
     render() {
-        let { statusVerified, errCode } = this.state
+        let { statusVerified, errCode, errMessage } = this.state
         return (
             <>
                 <HomeHeader />
@@ -55,9 +57,9 @@ class VerifyEmail extends Component {
                         :
                         <div>
                             {errCode === 0 ?
-                                <div className="text-xl text-green-500 font-semibold"> <FormattedMessage id="patient.verify-booking.success" /></div>
+                                <div className="text-xl text-green-500 font-semibold"> {errMessage}</div>
                                 :
-                                <div className="text-xl text-red-600 font-semibold"> <FormattedMessage id="patient.verify-booking.fail" /> </div>}
+                                <div className="text-xl text-red-600 font-semibold"> {errMessage}</div>}
                         </div>
                     }
                 </div>

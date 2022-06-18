@@ -98,7 +98,6 @@ class ManageSchedule extends Component {
         if (!selectedDoctor) {
             return toast.error('Invalid Doctor!')
         }
-        console.log('currentDate', currentDate)
         if (currentDate && _.isEmpty(selectedDoctor)) {
             return toast.error('Invalid date!')
         }
@@ -111,6 +110,7 @@ class ManageSchedule extends Component {
                 object.timeType = item.keyMap
                 object.date = formatedDate
                 object.doctorId = selectedDoctor.value
+                object.isActive = true
                 result.push(object)
             })
         }
@@ -122,7 +122,7 @@ class ManageSchedule extends Component {
         let res = await saveBulkScheduleDoctor({
             arrSchedule: result,
             doctorId: selectedDoctor.value,
-            date: formatedDate
+            date: formatedDate,
         })
         if (res) {
             return toast.success('Create Schedule Time Success!')

@@ -58,9 +58,7 @@ class Login extends Component {
   };
 
   handleOnKeyDown = async (e) => {
-    // if (e.keyCode === 13) {
-    //     alert('yeyeyeyey')
-    // }
+
     if (e.key === "Enter" || e.charCode === 13) {
       try {
         const data = await handleLoginApi(
@@ -105,6 +103,7 @@ class Login extends Component {
 
   render() {
     const { username, password, type, hideShow } = this.state;
+    const { language } = this.props
     return (
       <div className="w-full h-screen overflow-hidden">
         <HomeHeader />
@@ -133,7 +132,7 @@ class Login extends Component {
                     value={username}
                     id="username"
                     type="text"
-                    placeholder="Enter your email"
+                    placeholder={`${language === 'vi' ? 'Nhập email' : 'Enter email'}`}
                     onChange={(e) => this.handleUserNameChange(e)}
                   />
                 </div>
@@ -144,12 +143,12 @@ class Login extends Component {
                   >
                     <FormattedMessage id="login.password" />
                   </label>
-                  <div className="flex ">
+                  <div className="flex">
                     <input
                       className="shadow appearance-none rounded-2xl w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:ring-2 focus:ring-blue-300 focus:outline-none focus:shadow-outline"
                       id="password"
                       type={type}
-                      placeholder="Enter Your Password"
+                      placeholder={`${language === 'vi' ? 'Nhập mật khẩu' : 'Enter password'}`}
                       value={password}
                       onChange={(e) => this.handlePassWordChange(e)}
                     />

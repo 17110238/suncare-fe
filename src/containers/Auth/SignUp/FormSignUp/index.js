@@ -117,7 +117,6 @@ class index extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-
         const validate = this.validate()
         if (validate === false) return
         if (validate) {
@@ -132,7 +131,9 @@ class index extends Component {
                 role: this.state.role,
                 position: this.state.position,
                 image: this.state.image,
-                certificateImage: this.state.certificateImage
+                certificateImage: this.state.certificateImage,
+                isVerify: this.state.role === 'R2' ? 0 : 1,
+                language: this.props.language === 'vi' ? 'vi' : 'en',
             })
         }
     }
