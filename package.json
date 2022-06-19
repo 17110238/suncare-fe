@@ -43,6 +43,7 @@
     "react-scripts": "^4.0.3",
     "react-select": "^5.2.1",
     "react-slick": "^0.28.1",
+    "react-stripe-checkout": "^2.6.3",
     "react-toastify": "^5.5.0",
     "reactstrap": "^8.10.1",
     "redux": "^4.1.0",

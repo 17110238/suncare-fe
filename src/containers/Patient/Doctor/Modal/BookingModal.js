@@ -231,7 +231,10 @@ class BookingModal extends Component {
                 language: this.props.language,
                 timeString: timeString,
                 doctorName: doctorName,
-                scheduleId: this.props.dataTime.id
+                scheduleId: this.props.dataTime.id,
+                priceId: this.props.getInfoDoctor.Doctor_Info.priceId,
+                price: this.props.language === 'vi' ? this.props.getInfoDoctor.Doctor_Info.priceData.valueVi : this.props.getInfoDoctor.Doctor_Info.priceData.valueEn
+
             })
 
             if (res?.errCode === 0) {
@@ -255,7 +258,8 @@ class BookingModal extends Component {
 
     render() {
         let { isShowDetailInfo, name, phoneNumber, email, arrGenders, gender, birthday, reason, address, errors } = this.state
-        let { dataTime, language } = this.props
+        let { dataTime, language, getInfoDoctor } = this.props
+        console.log("getInfoDoctor", getInfoDoctor)
         let doctorId = '', price = ''
         if (dataTime && !_.isEmpty(dataTime)) {
             doctorId = dataTime.doctorId
@@ -414,7 +418,8 @@ const mapStateToProps = state => {
     return {
         genderRedux: state.admin.genders,
         language: state.app.language,
-        userInfo: state.user.userInfo
+        userInfo: state.user.userInfo,
+        getInfoDoctor: state.admin.getInfoDoctor,
     }
 }
 

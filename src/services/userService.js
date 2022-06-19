@@ -132,10 +132,14 @@ const handleConfirmAndPaymentPatient = (data) => {
     return axios.post(`/api/handle-confirm-patient`, data)
 }
 
+const handlePaymentCheckout = (data) => {
+    return axios.post(`/api/payment-checkout`, data)
+}
+
 export {
     handleLoginApi, getAllUsers, createNewUserService, deleteUserService, editUserService, getAllCodeService, getTopDoctorHomeService
     , getAllDoctorService, saveDoctorDetailService, getDetailInfoDoctorService, getAllcodeScheduleTimeDoctorService, saveBulkScheduleDoctor,
     getScheduleDoctorByDate, getListPriceService, getListPaymentService, getListProvinceService, getProfileDoctorByIdService, postPatientAppointment,
     postVerifyBookAppoinment, saveNewSpecialtyService, getAllSpecialtyService, getDetailSpecialtyService, handleConfirmDoctorService,
-    getDetailSpecialtyByIdService, getAllPatientForDoctor, handleConfirmAndPaymentPatient
+    getDetailSpecialtyByIdService, getAllPatientForDoctor, handleConfirmAndPaymentPatient, handlePaymentCheckout
 }

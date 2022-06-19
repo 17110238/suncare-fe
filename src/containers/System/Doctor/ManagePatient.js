@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from "react-redux"
-import { LANGUAGES } from '../../../utils/constant'
 import * as actions from '../../../store/actions'
 import DatePicker from '../../../components/Input/DatePicker'
 import { FormattedMessage } from 'react-intl'
@@ -8,7 +7,9 @@ import { getAllPatientForDoctor, handleConfirmAndPaymentPatient } from '../../..
 import moment from 'moment'
 import noData from '../../../assets/images/Nodata.jpg'
 import { toast } from 'react-toastify'
-
+import NumberFormat from 'react-number-format'
+import { FaEdit, FaTrashAlt, FaPlus, FaCheckCircle, FaTimes, FaWindowClose } from "react-icons/fa"
+import { Menu, Transition } from "@headlessui/react"
 class ManagePatient extends Component {
     constructor(props) {
         super(props)
@@ -55,22 +56,29 @@ class ManagePatient extends Component {
     }
 
     handleConfirmSchedule = async (item, action) => {
+        const { language, user } = this.props
         let data = {
-            doctorId: item.doctorId,
-            patientId: item.patientId,
-            email: item.patientData.email,
-            timeType: item.timeType,
-            action
+            doctorId: item?.doctorId,
+            patientId: item?.patientId,
+            email: item?.patientData.email,
+            timeType: item?.timeType,
+            action,
+            language: language === 'vi' ? 'vi' : 'en',
+            price: language === 'vi' ? item.priceDataPatient.valueVi : item.priceDataPatient.valueEn,
+            patientName: item?.patientData?.firstName,
+            phoneNumber: item?.patientData?.phoneNumber,
+            currentDate: this.state.currentDate,
+            doctorName: language === 'vi' ? user.firstName + ' ' + user.lastName : user.lastName + user.firstName,
+            timeSchudle: language === 'vi' ? item.timeTypeDataPatient.valueVi : item.timeTypeDataPatient.valueEn
         }
         const res = await handleConfirmAndPaymentPatient(data)
         if (res?.errCode === 0) {
-            toast.success('Xác nhận đặt lịch thành công!')
+            toast.success(res?.errMessage)
         }
     }
 
     render() {
         const { currentDate, dataPatient } = this.state
-        console.log("dataPatient", dataPatient)
         const { user, language } = this.props
         return (
             <div className='w-full h-full p-4'>
@@ -111,6 +119,12 @@ class ManagePatient extends Component {
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
+                                Số điện thoại
+                            </th>
+                            <th
+                                scope="col"
+                                className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
+                            >
                                 Địa chỉ
                             </th>
                             <th
@@ -118,6 +132,12 @@ class ManagePatient extends Component {
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
                                 Giới tính
+                            </th>
+                            <th
+                                scope="col"
+                                className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
+                            >
+                                Giá
                             </th>
                             <th
                                 scope="col"
@@ -147,30 +167,67 @@ class ManagePatient extends Component {
                                     {language === 'vi' ? item.timeTypeDataPatient.valueVi : item.timeTypeDataPatient.valueEn}
                                 </td>
                                 <td className="whitespace-nowrap group-hover:bg-gray-50 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">
+                                    {item?.patientData?.phoneNumber ? item.patientData?.phoneNumber : '-'}
+                                </td>
+                                <td className="whitespace-nowrap group-hover:bg-gray-50 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">
                                     {Object.keys(item?.patientData).length > 0 ? item?.patientData?.address : '-'}
                                 </td>
                                 <td className="whitespace-nowrap group-hover:bg-gray-50 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">
                                     {language === 'vi' ? item?.patientData?.genderData.valueVi : item?.patientData?.genderData.valueEn}
                                 </td>
                                 <td className="whitespace-nowrap group-hover:bg-gray-50 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">
-                                    {item.statusId === 'S3' ? <span className='text-red-500'>Đã thanh toán</span> : <span className='text-red-500'>Chưa thanh toán</span>}
+                                    {language === 'vi' ?
+                                        <NumberFormat value={item?.priceDataPatient?.valueVi} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} suffix={' VND'} />
+                                        :
+                                        <NumberFormat value={item?.priceDataPatient?.valueEn} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} suffix={' USD'} />}
                                 </td>
                                 <td className="whitespace-nowrap group-hover:bg-gray-50 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">
-                                    <button
-                                        type="button"
-                                        className="mr-5 rounded text-white bg-green-500 w-52 whitespace-nowrap px-2 py-2 font-bold"
-                                        onClick={(e) => this.handleConfirmSchedule(item, 'confirm')}
-                                    >
-                                        Xác nhận và gửi thanh toán
-                                    </button>
+                                    {item.statusId === 'S3' ? <span className='text-green-500'>Đã thanh toán</span> : <span className='text-red-500'>Chưa thanh toán</span>}
+                                </td>
+                                <td className="whitespace-nowrap group-hover:bg-gray-50 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">
 
-                                    <button
-                                        type="button"
-                                        className="mr-5 rounded text-white bg-yellow-500 w-24 whitespace-nowrap px-2 py-2 font-bold"
-                                        onClick={(e) => this.handleConfirmSchedule(item, 'cancel')}
+
+                                    <Menu
+                                        as="div"
+                                        className="relative inline-block text-left"
                                     >
-                                        Hủy
-                                    </button>
+                                        <div>
+                                            <Menu.Button className="text-yellow-600 text-xl cursor-pointer">
+                                                <FaEdit
+                                                // onClick={() => this.handleIsOpen()}
+                                                />
+                                            </Menu.Button>
+                                        </div>
+                                        <Transition
+                                            show={this.isOpen}
+                                            as={Fragment}
+                                            enter="transition ease-out duration-100"
+                                            enterFrom="transform opacity-0 scale-95"
+                                            enterTo="transform opacity-100 scale-100"
+                                            leave="transition ease-in duration-75"
+                                            leaveFrom="transform opacity-100 scale-100"
+                                            leaveTo="transform opacity-0 scale-95"
+                                        >
+                                            <Menu.Items className="absolute border-2 border-gray-200 z-10 flex flex-col top-7 -right-6 w-56 h-24 mt-2 origin-top-right bg-white rounded-md shadow-lg">
+
+                                                <div className="flex z-10 w-full justify-around items-center text-white">
+                                                    <div className="flex flex-col">
+                                                        <span className='text-green-500 mt-2 flex cursor-pointer items-center text-sm ' onClick={(e) => this.handleConfirmSchedule(item, 'confirm')} > <FaCheckCircle className="text-xl mr-2" /> Xác nhận và gửi thanh toán</span>
+                                                        <span className='text-yellow-500 mt-2 flex cursor-pointer items-center text-sm ' onClick={(e) => this.handleConfirmSchedule(item, 'noConfirm')} > <FaTimes className="text-xl mr-2" />  Không khám</span>
+                                                        <span className='text-red-500 mt-2 flex cursor-pointer items-center text-sm ' onClick={(e) => this.handleConfirmSchedule(item, 'cancel')} > <FaWindowClose className="text-xl mr-2" />  Hủy lịch</span>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    className="bg-white z-0 border-t-2 border-l-2 border-gray-200 h-5 w-5 absolute"
+                                                    style={{
+                                                        right: "22px",
+                                                        top: "-10px",
+                                                        transform: "rotate(45deg)",
+                                                    }}
+                                                />
+                                            </Menu.Items>
+                                        </Transition>
+                                    </Menu>
 
                                 </td>
                             </tr>
