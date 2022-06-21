@@ -10,6 +10,7 @@ import NumberFormat from 'react-number-format';
 import moment from 'moment';
 import { handlePaymentCheckout } from '../../../services/userService';
 import { toast } from 'react-toastify';
+import { FormattedMessage } from "react-intl";
 
 class Payment extends Component {
     constructor(props) {
@@ -69,26 +70,26 @@ class Payment extends Component {
             <div>
                 <HomeHeader />
                 <div className='w-full mt-10 flex flex-col justify-center items-center'>
-                    <h2 className='mb-4 text-indigo-600'>Thanh toán hóa đơn</h2>
+                    <h2 className='mb-4 text-indigo-600'><FormattedMessage id="payment.title" /></h2>
                     <div className='w-80 h-64 flex flex-col py-2 pl-4' style={{ border: '1px dashed green' }}>
                         <div className='mt-2'>
-                            <span className='font-semibold'>Họ và tên: </span>
+                            <span className='font-semibold'><FormattedMessage id="payment.full-name" />: </span>
                             <span> {patientName}</span>
                         </div>
                         <div className='mt-2'>
-                            <span className='font-semibold'>Số điện thoại: </span>
+                            <span className='font-semibold'><FormattedMessage id="payment.phone" />: </span>
                             <span> {phoneNumber}</span>
                         </div>
                         <div className='mt-2'>
-                            <span className='font-semibold'>Tên Bác sĩ: </span>
+                            <span className='font-semibold'><FormattedMessage id="payment.doctor-name" />: </span>
                             <span>{doctorName}</span>
                         </div>
                         <div className='mt-2'>
-                            <span className='font-semibold'>Giá khám: </span>
+                            <span className='font-semibold'><FormattedMessage id="payment.price" />: </span>
                             <NumberFormat value={price} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} suffix={' VND'} />
                         </div>
                         <div className='mt-2 font-bold'>
-                            <span className='font-semibold'>Thời gian khám: </span>
+                            <span className='font-semibold'><FormattedMessage id="payment.booking-date" />: </span>
                             {timeSchudle ? timeSchudle + '- ' : ''}
                             {
                                 moment.unix(+date / 1000).format('dddd - DD/MM/YYYY')

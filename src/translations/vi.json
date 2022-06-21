@@ -24,6 +24,25 @@
         "register-here": "Đăng ký tại đây!",
         "sign-in-with": "Hoặc đăng nhập bằng"
     },
+    "payment":{
+        "title": "Chi tiết hóa đơn",
+        "full-name": "Họ và tên",
+        "phone": "Số điện thoại",
+        "doctor-name":"Tên bác sĩ",
+        "price": "Giá khám",
+        "booking-date": "Thời gian khám" 
+    },
+    "manage-booking":{
+        "stt": "STT",
+        "full-name": "Họ và tên",
+        "booking-date": "Lịch đăng ký",
+        "phone": "Số điện thoại",
+        "address": "Địa chỉ",
+        "gender": "Giới tính",
+        "price": "Giá Khám",
+        "payment-status": "Trạng thái thanh toán",
+        "actions": "Tác vụ"
+    },
     "banner": {
         "medical-background": "NỀN TẢNG Y TẾ",
         "comprehensive-health-care": "CHĂM SÓC SỨC KHỎE TOÀN DIỆN",
