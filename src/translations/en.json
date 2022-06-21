@@ -24,6 +24,25 @@
         "register-here": "Register here!",
         "sign-in-with": "Or Sign in With"
     },
+    "payment":{
+        "title": "Payment's Details",
+        "full-name": "Full name",
+        "phone": "Phone number",
+        "doctor-name":"Doctor's name",
+        "price": "Price",
+        "booking-date": "Booking date" 
+    },
+    "manage-booking":{
+        "stt": "No.",
+        "full-name": "Full name",
+        "booking-date": "Booking date",
+        "phone": "Phone number",
+        "address": "Address",
+        "gender": "Gender",
+        "price": "Price",
+        "payment-status": "Payment status",
+        "actions": "Actions"
+    },
     "banner": {
         "medical-background": "MEDICAL PLATFORM",
         "comprehensive-health-care": "COMPREHENSIVE HEALTH CARE",

@@ -101,55 +101,56 @@ class ManagePatient extends Component {
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                STT
+                                <FormattedMessage id="manage-booking.stt" />
                             </th>
                             <th
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                Họ và tên
+                                                                <FormattedMessage id="manage-booking.full-name" />
+
                             </th>
                             <th
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                Thời gian
+                                <FormattedMessage id="manage-booking.booking-date" />
                             </th>
                             <th
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                Số điện thoại
+                                <FormattedMessage id="manage-booking.phone" />
                             </th>
                             <th
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                Địa chỉ
+                                <FormattedMessage id="manage-booking.address" />
                             </th>
                             <th
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                Giới tính
+                                <FormattedMessage id="manage-booking.gender" />
                             </th>
                             <th
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                Giá
+                                <FormattedMessage id="manage-booking.price" />
                             </th>
                             <th
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                Trạng thái thanh toán
+                                <FormattedMessage id="manage-booking.payment-status" />
                             </th>
                             <th
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                Actions
+                                <FormattedMessage id="manage-booking.actions" />
                             </th>
 
                         </tr>
