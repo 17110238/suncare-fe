@@ -134,10 +134,10 @@ class ManageSchedule extends Component {
         let yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
 
         let datee = new Date();
+        console.log("vvvvv", this.props.user)
 
         let formatedDate = `${datee.getMonth() + 1}-${datee.getDate()}-${datee.getFullYear()}`
         let language = this.props.language
-        console.log('state', this.state)
         return (
             <div className="container">
                 <div className="text-2xl font-bold w-full text-center my-4">
@@ -230,6 +230,7 @@ const mapStateToProps = state => {
         scheduleTimeDoctor: state.admin.scheduleTimeDoctor,
         language: state.app.language,
         AllDoctorRedux: state.admin.allDoctors,
+        user: state.admin.user
     }
 }
 

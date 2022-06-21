@@ -185,17 +185,13 @@ class ManagePatient extends Component {
                                     {item.statusId === 'S3' ? <span className='text-green-500'>Đã thanh toán</span> : <span className='text-red-500'>Chưa thanh toán</span>}
                                 </td>
                                 <td className="whitespace-nowrap group-hover:bg-gray-50 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">
-
-
                                     <Menu
                                         as="div"
                                         className="relative inline-block text-left"
                                     >
                                         <div>
                                             <Menu.Button className="text-yellow-600 text-xl cursor-pointer">
-                                                <FaEdit
-                                                // onClick={() => this.handleIsOpen()}
-                                                />
+                                                <FaEdit />
                                             </Menu.Button>
                                         </div>
                                         <Transition
