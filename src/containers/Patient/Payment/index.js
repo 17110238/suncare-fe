@@ -11,6 +11,7 @@ import moment from 'moment';
 import { handlePaymentCheckout } from '../../../services/userService';
 import { toast } from 'react-toastify';
 import { FormattedMessage } from "react-intl";
+import "./payment.scss"
 
 class Payment extends Component {
     constructor(props) {
@@ -67,35 +68,39 @@ class Payment extends Component {
         const { language } = this.props
         const stripeKey = 'pk_test_51LC4rKI4mP7c8dVYr56BpOyiwPXPKYmjiMh5QNYDm27lIt7CRwVvkeyyPpvUHpztNEZZh3rFBAAbOqLbsz4LzNTS00kbdgI7hN'
         return (
-            <div>
-                <HomeHeader />
-                <div className='w-full mt-10 flex flex-col justify-center items-center'>
-                    <h2 className='mb-4 text-indigo-600'><FormattedMessage id="payment.title" /></h2>
-                    <div className='w-80 h-64 flex flex-col py-2 pl-4' style={{ border: '1px dashed green' }}>
+            <div className='container'>
+                <HomeHeader/>
+                <div className='w-full mt-10 flex flex-col justify-center items-center payment'>
+                    <h2 className='mb-4  title'><FormattedMessage id="payment.title" /></h2>
+                    <div className='py-2 pl-4 payment-detail' >
                         <div className='mt-2'>
-                            <span className='font-semibold'><FormattedMessage id="payment.full-name" />: </span>
-                            <span> {patientName}</span>
+                            <h2 className='label'><FormattedMessage id="payment.full-name" /></h2>
+                            <span className='label-detail'> {patientName}</span>
+                            <hr className='underline'/>
                         </div>
                         <div className='mt-2'>
-                            <span className='font-semibold'><FormattedMessage id="payment.phone" />: </span>
-                            <span> {phoneNumber}</span>
+                            <h2 className='label'><FormattedMessage id="payment.phone" /></h2>
+                            <span className='label-detail'> {phoneNumber}</span>
+                            <hr className='underline'/>
                         </div>
                         <div className='mt-2'>
-                            <span className='font-semibold'><FormattedMessage id="payment.doctor-name" />: </span>
-                            <span>{doctorName}</span>
+                            <h2 className='label'><FormattedMessage id="payment.doctor-name" /></h2>
+                            <span className='label-detail'>{doctorName}</span>
+                            <hr className='underline'/>
                         </div>
                         <div className='mt-2'>
-                            <span className='font-semibold'><FormattedMessage id="payment.price" />: </span>
-                            <NumberFormat value={price} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} suffix={' VND'} />
+                            <h2 className='label'><FormattedMessage id="payment.price" /></h2>
+                            <NumberFormat className='label-detail' value={price} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} suffix={' VND'} />
+                            <hr className='underline'/>
                         </div>
-                        <div className='mt-2 font-bold'>
+                        <div className='font-bold' style={{marginTop: "20px"}}>
                             <span className='font-semibold'><FormattedMessage id="payment.booking-date" />: </span>
                             {timeSchudle ? timeSchudle + '- ' : ''}
                             {
                                 moment.unix(+date / 1000).format('dddd - DD/MM/YYYY')
                             }
                         </div>
-                        <div className='mt-2'>
+                        <div className='mt-2 button'>
                             <StripeCheckout
                                 stripeKey={stripeKey}
                                 token={this.handleToken}
@@ -105,7 +110,7 @@ class Payment extends Component {
                             >
                                 <button
                                     type="button"
-                                    className="inline-flex items-center mr-5 px-3 py-1 border border-transparent text-md font-medium rounded shadow-sm text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                                    className="payment-button items-center border border-transparent text-md font-medium rounded shadow-sm text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                                 // onClick={() => this.handleLogin()}
                                 >
                                     {language === 'vi' ? 'Thanh toán tại đây' : 'Payment in here'}
@@ -119,6 +124,7 @@ class Payment extends Component {
         )
     }
 }
+
 
 const mapStateToProps = state => {
     return {
