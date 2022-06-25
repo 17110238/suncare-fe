@@ -95,14 +95,14 @@ class UserRedux extends Component {
     arrUsersFilter =
       currentUser.roleId !== "R1"
         ? arrUsers.filter((user) => {
-            if (
-              user.roleId === currentUser.roleId &&
-              currentUser.email === user.email &&
-              currentUser !== "R1"
-            ) {
-              return user;
-            }
-          })
+          if (
+            user.roleId === currentUser.roleId &&
+            currentUser.email === user.email &&
+            currentUser !== "R1"
+          ) {
+            return user;
+          }
+        })
         : arrUsersFilter;
     const handleShowModal = (user, action) => {
       this.setState({
@@ -188,6 +188,14 @@ class UserRedux extends Component {
                         >
                           <FormattedMessage id="manage-user.time-create" />
                         </th>
+                        {this.props.userInfo.roleId === "R1" ?
+                          <th
+                            scope="col"
+                            className="w-20 px-3 py-3.5 text-left text-base font-semibold text-gray-900"
+                          >
+                            Vai trò
+                          </th> : ''
+                        }
                         {this.props.userInfo.roleId === "R1" ? (
                           <th
                             scope="col"
@@ -204,6 +212,7 @@ class UserRedux extends Component {
                         >
                           <FormattedMessage id="manage-user.action" />
                         </th>
+
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200 bg-white">
@@ -231,12 +240,18 @@ class UserRedux extends Component {
                               )}
                             </td>
                             {this.props.userInfo.roleId === "R1" ? (
+                              <td className="whitespace-nowrap group-hover:bg-gray-50 px-3 py-4 text-left text-sm text-gray-500">
+                                {user.roleId === "R2" ? 'Bác sĩ' : user.roleId === "R3" ? 'Bệnh nhân' : 'Admin'}
+                              </td>
+                            ) : (
+                              ""
+                            )}
+                            {this.props.userInfo.roleId === "R1" ? (
                               <td
-                                className={`whitespace-wrap group-hover:bg-gray-50 px-3 py-4 text-sm ${
-                                  user?.isVerify
-                                    ? "text-green-500"
-                                    : "text-yellow-500"
-                                }`}
+                                className={`whitespace-wrap group-hover:bg-gray-50 px-3 py-4 text-sm ${user?.isVerify
+                                  ? "text-green-500"
+                                  : "text-yellow-500"
+                                  }`}
                               >
                                 {user?.isVerify ? (
                                   <FormattedMessage id="manage-user.verified" />
@@ -247,6 +262,7 @@ class UserRedux extends Component {
                             ) : (
                               ""
                             )}
+
                             <td className="relative whitespace-nowrap group-hover:bg-gray-50 py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                               <div className="flex justify-end text-lg">
                                 <FaEdit

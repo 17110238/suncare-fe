@@ -42,6 +42,7 @@ class Header extends Component {
 
     render() {
         const { processLogout, language, userInfo } = this.props
+        console.log("userInfo", userInfo)
         const { menuApp } = this.state
         return (
             <div className="flex justify-between items-center bg-indigo-600 text-gray-200 z-50">
@@ -53,7 +54,7 @@ class Header extends Component {
                 <div className="btn btn-logout leading-10 mr-4 " title="Log out">
                     <div className="flex justify-between items-center">
                         <div className="text-white mr-3">
-                            <FormattedMessage id="homeheader.welcome" /> <span className="text-white">{userInfo?.firstName ? userInfo.firstName : ''} !</span>
+                            <FormattedMessage id="homeheader.welcome" /> <span className="text-white">{language === 'vi' ? userInfo?.lastName : userInfo.firstName} !</span>
                         </div>
                         {language === 'vi' ? <img className="w-8" src={vi} /> : <img className="w-8  " src={en} />}
                         <select value={language} className="outline-none mr-4 cursor-pointer ml-2" onChange={(e) => this.handleChangeLanguage(e)}>
@@ -70,7 +71,6 @@ class Header extends Component {
             </div>
         )
     }
-
 }
 
 const mapStateToProps = state => {
