@@ -63,6 +63,7 @@ class ManagePatient extends Component {
             email: item?.patientData.email,
             timeType: item?.timeType,
             action,
+            date: item.date,
             language: language === 'vi' ? 'vi' : 'en',
             price: language === 'vi' ? item.priceDataPatient.valueVi : item.priceDataPatient.valueEn,
             patientName: item?.patientData?.firstName,
@@ -71,6 +72,7 @@ class ManagePatient extends Component {
             doctorName: language === 'vi' ? user.firstName + ' ' + user.lastName : user.lastName + user.firstName,
             timeSchudle: language === 'vi' ? item.timeTypeDataPatient.valueVi : item.timeTypeDataPatient.valueEn
         }
+
         const res = await handleConfirmAndPaymentPatient(data)
         if (res?.errCode === 0) {
             toast.success(res?.errMessage)
@@ -101,56 +103,55 @@ class ManagePatient extends Component {
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                <FormattedMessage id="manage-booking.stt" />
+                                STT
                             </th>
                             <th
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                                                <FormattedMessage id="manage-booking.full-name" />
-
+                                Họ và tên
                             </th>
                             <th
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                <FormattedMessage id="manage-booking.booking-date" />
+                                Thời gian
                             </th>
                             <th
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                <FormattedMessage id="manage-booking.phone" />
+                                Số điện thoại
                             </th>
                             <th
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                <FormattedMessage id="manage-booking.address" />
+                                Địa chỉ
                             </th>
                             <th
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                <FormattedMessage id="manage-booking.gender" />
+                                Giới tính
                             </th>
                             <th
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                <FormattedMessage id="manage-booking.price" />
+                                Giá
                             </th>
                             <th
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                <FormattedMessage id="manage-booking.payment-status" />
+                                Trạng thái
                             </th>
                             <th
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
-                                <FormattedMessage id="manage-booking.actions" />
+                                Actions
                             </th>
 
                         </tr>
@@ -183,7 +184,9 @@ class ManagePatient extends Component {
                                         <NumberFormat value={item?.priceDataPatient?.valueEn} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} suffix={' USD'} />}
                                 </td>
                                 <td className="whitespace-nowrap group-hover:bg-gray-50 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">
-                                    {item.statusId === 'S3' ? <span className='text-green-500'>Đã thanh toán</span> : <span className='text-red-500'>Chưa thanh toán</span>}
+                                    {item.statusId === 'S1' ? <span className='text-yellow-500'>Chờ xác nhận</span> : item.statusId === 'S2' ? <span className='text-blue-500'>Đã xác nhận</span> :
+                                        item.statusId === 'S3' ? <span className='text-green-500'>Đã thanh toán xong</span> : item.statusId === 'S4' ? <span className='text-red-500'>Đã hủy</span> : ''}
+
                                 </td>
                                 <td className="whitespace-nowrap group-hover:bg-gray-50 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">
                                     <Menu
@@ -261,3 +264,5 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManagePatient)
+
+

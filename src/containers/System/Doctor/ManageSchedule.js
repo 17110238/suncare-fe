@@ -48,8 +48,18 @@ class ManageSchedule extends Component {
     componentDidUpdate(prevProps) {
         if (this.props.AllDoctorRedux !== prevProps.AllDoctorRedux) {
             let dataSelect = this.buildDataInputSelect(this.props.AllDoctorRedux)
+            const { user } = this.props
+            if (user.roleId === 'R2') {
+                dataSelect = dataSelect.filter(item => {
+                    if (user.id === item.value) {
+                        return item
+                    }
+                })
+            }
+
             this.setState({
-                listDoctors: dataSelect
+                listDoctors: dataSelect,
+                selectedDoctor: dataSelect[0]
             })
         }
 
@@ -134,8 +144,6 @@ class ManageSchedule extends Component {
         let yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
 
         let datee = new Date();
-        console.log("vvvvv", this.props.user)
-
         let formatedDate = `${datee.getMonth() + 1}-${datee.getDate()}-${datee.getFullYear()}`
         let language = this.props.language
         return (
@@ -230,7 +238,7 @@ const mapStateToProps = state => {
         scheduleTimeDoctor: state.admin.scheduleTimeDoctor,
         language: state.app.language,
         AllDoctorRedux: state.admin.allDoctors,
-        user: state.admin.user
+        user: state.user.userInfo,
     }
 }
 
