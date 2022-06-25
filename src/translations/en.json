@@ -11,7 +11,8 @@
         "support": "Support",
         "welcome": "Welcome,",
         "sign-in": "Sign In",
-        "sign-up": "Sign Up"
+        "sign-up": "Sign Up",
+        "home-page": "Home Page"
     },
     "login": {
         "login": "Login",
