@@ -70,16 +70,6 @@ class MedicalFacility extends Component {
                 <div className="mt-1">Bệnh viện nhi đồng 2</div>
               </div>
             </div>
-            <div className="cursor-pointer important">
-              <div>
-                <div
-                  className="bg-img"
-                  style={{ backgroundImage: `url(${CoXuongKhop})` }}
-                >
-                </div>
-                <div className="mt-1">Cơ Xương Khớp</div>
-              </div>
-            </div>
           </Slider>
         </div>
       </div>

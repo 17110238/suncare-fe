@@ -16,18 +16,18 @@ export const adminMenu = [
         ]
     },
     // Quản lý Phòng Khám
-    {
-        name: 'menu.admin.clinic',
-        menus: [
-            {
-                name: 'menu.admin.manage-clinic', link: '/system/manage-clinic'
-                // subMenus: [
-                //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
-                //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
-                // ]
-            }
-        ]
-    },
+    // {
+    //     name: 'menu.admin.clinic',
+    //     menus: [
+    //         {
+    //             name: 'menu.admin.manage-clinic', link: '/system/manage-clinic'
+    //             // subMenus: [
+    //             //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
+    //             //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
+    //             // ]
+    //         }
+    //     ]
+    // },
     // Quản lý Chuyên Khoa
     {
         name: 'menu.admin.specialty',
@@ -42,18 +42,18 @@ export const adminMenu = [
         ]
     },
     // Quản lý Cẩm Nang
-    {
-        name: 'menu.admin.handbook',
-        menus: [
-            {
-                name: 'menu.admin.manage-handbook', link: '/system/manage-handbook'
-                // subMenus: [
-                //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
-                //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
-                // ]
-            }
-        ]
-    },
+    // {
+    //     name: 'menu.admin.handbook',
+    //     menus: [
+    //         {
+    //             name: 'menu.admin.manage-handbook', link: '/system/manage-handbook'
+    //             // subMenus: [
+    //             //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
+    //             //     { name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
+    //             // ]
+    //         }
+    //     ]
+    // },
 ];
 
 

@@ -32,6 +32,7 @@ class Payment extends Component {
     componentDidMount() {
         let url = this.props.location.search;
         let params = queryString.parse(url)
+        console.log("params", params)
         if (params && !_.isEmpty(params)) {
             this.setState({
                 date: params.date,

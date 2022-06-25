@@ -59,8 +59,8 @@ class Homepage extends Component {
                 <Specialty settings={settings} />
                 <MedicalFacility settings={settings} />
                 <OutstandingDoctor settings={settings} />
-                <HandBook settings={settings} />
-                <About />
+                {/* <HandBook settings={settings} /> */}
+                {/* <About /> */}
                 <HomeFooter />
             </div>
         )
