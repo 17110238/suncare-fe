@@ -5,6 +5,7 @@ import * as actions from '../../../store/actions'
 import { LANGUAGES } from '../../../utils/constant'
 import DoctorSchedule from './DoctorSchedule'
 import DoctorExtraInfo from './DoctorExtraInfo'
+import Loading from '../../../components/Loading/Loading'
 
 class DetailDoctor extends Component {
     constructor(props) {
@@ -12,6 +13,7 @@ class DetailDoctor extends Component {
         this.state = {
             infoDoctor: {},
             currentDoctorId: -1,
+            isLoading: false
         }
     }
 
@@ -45,6 +47,7 @@ class DetailDoctor extends Component {
         return (
             <div className="max-w-7xl mx-auto">
                 <HomeHeader />
+                {this.state.isLoading && <Loading />}
                 <div className="grid grid-cols-8 h-32 my-4">
                     <div className="">
                         <div className="bg-avatar mx-0" style={{ backgroundImage: `url(${infoDoctor?.image})` }}></div>

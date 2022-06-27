@@ -5,7 +5,6 @@ import { LANGUAGES } from '../../../utils/constant'
 import { withRouter } from 'react-router-dom'
 import Slider from "react-slick"
 import * as actions from '../../../store/actions'
-import { getAllSpecialtyService } from '../../../services/userService'
 
 class OutstandingDoctor extends Component {
     constructor(props) {
@@ -38,9 +37,8 @@ class OutstandingDoctor extends Component {
 
 
     render() {
-        let arrTopDoctors = this.state.arrTopDoctors
+        let { arrTopDoctors } = this.state
         let { language } = this.props
-
         return (
             <div className="bg-gray-200" >
                 <div className="h-96 pb-3 pt-3 mx-auto w-10/12">
@@ -63,7 +61,6 @@ class OutstandingDoctor extends Component {
                                         <div className="bg-avatar mt-3 " style={{ backgroundImage: `url(${imageBase64})` }}></div>
                                         <div className="mt-3 text-center">
                                             <div>{language === LANGUAGES.VI ? nameVi : nameEn}</div>
-                                            <div>Cơ xương khớp</div>
                                         </div>
                                     </div>
                                 </div>

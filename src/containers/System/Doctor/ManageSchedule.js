@@ -9,6 +9,7 @@ import moment from 'moment'
 import { toast, ToastType } from 'react-toastify'
 import _ from 'lodash'
 import { saveBulkScheduleDoctor } from '../../../services/userService'
+import Loading from '../../../components/Loading/Loading'
 
 class ManageSchedule extends Component {
     constructor(props) {
@@ -19,6 +20,7 @@ class ManageSchedule extends Component {
             currentDate: null,
             arrSchuduleTime: [],
             isActive: false,
+            isLoading: false
         }
     }
 
@@ -103,6 +105,9 @@ class ManageSchedule extends Component {
     }
 
     handleClickSaveSchedule = async () => {
+        this.setState({
+            isLoading: true
+        })
         let { arrSchuduleTime, selectedDoctor, currentDate } = this.state
         let result = []
         if (!selectedDoctor) {
@@ -135,12 +140,15 @@ class ManageSchedule extends Component {
             date: formatedDate,
         })
         if (res) {
+            this.setState({
+                isLoading: false
+            })
             return toast.success('Create Schedule Time Success!')
         }
     }
 
     render() {
-        const { listDoctors, selectedDoctor, currentDate, arrSchuduleTime } = this.state
+        const { listDoctors, selectedDoctor, currentDate, arrSchuduleTime, isLoading } = this.state
         let yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
 
         let datee = new Date();
@@ -148,6 +156,7 @@ class ManageSchedule extends Component {
         let language = this.props.language
         return (
             <div className="container">
+                {isLoading && <Loading />}
                 <div className="text-2xl font-bold w-full text-center my-4">
                     <FormattedMessage id="manage-schudule.title" />
                 </div>

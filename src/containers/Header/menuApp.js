@@ -13,6 +13,9 @@ export const adminMenu = [
             {
                 name: 'menu.doctor.manage-schedule', link: '/doctor/manage-schedule'
             },
+            { // Quản lý bệnh nhân khám bệnh của bác sĩ
+                name: 'menu.admin.revenue-statistics', link: '/system/revenue-statistics'
+            },
         ]
     },
     // Quản lý Phòng Khám

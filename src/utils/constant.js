@@ -8,6 +8,7 @@ export const path = {
     VERIFY_EMAIL_BOOKING: '/verify-booking/',
     DETAIL_SPECIALTY: '/detail-specialty/:id',
     PAYEMENT: '/payment-order',
+    STATICTIS: '/system/revenue-statistics',
 }
 
 export const LANGUAGES = {

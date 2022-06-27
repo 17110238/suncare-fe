@@ -12,6 +12,7 @@ import Select from 'react-select'
 import { postPatientAppointment } from '../../../../services/userService'
 import { toast } from 'react-toastify'
 import moment from 'moment'
+import Loading from '../../../../components/Loading/Loading'
 
 class BookingModal extends Component {
     constructor(props) {
@@ -29,7 +30,8 @@ class BookingModal extends Component {
             doctorName: '',
             timeType: '',
             arrGenders: [],
-            errors: {}
+            errors: {},
+            isLoading: false
         }
     }
 
@@ -117,7 +119,6 @@ class BookingModal extends Component {
         this.setState({
             isShowDetailInfo: false,
         })
-
         this.props.handleCloseModal()
     }
 
@@ -188,7 +189,6 @@ class BookingModal extends Component {
 
     buildTimeBooking = (dataTime) => {
         let { language } = this.props
-
         if (dataTime && !_.isEmpty(dataTime)) {
             let date = language === LANGUAGES.VI ?
                 moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YYYY')
@@ -214,6 +214,9 @@ class BookingModal extends Component {
     handleConfirmBooking = async () => {
 
         if (this.validate()) {
+            this.setState({
+                isLoading: true
+            })
             let date = new Date(this.state.birthday).getTime()
             let timeString = this.buildTimeBooking(this.props.dataTime)
             let doctorName = this.buildDoctorName(this.props.dataTime)
@@ -236,9 +239,11 @@ class BookingModal extends Component {
                 price: this.props.language === 'vi' ? this.props.getInfoDoctor.Doctor_Info.priceData.valueVi : this.props.getInfoDoctor.Doctor_Info.priceData.valueEn
 
             })
-
             if (res?.errCode === 0) {
-                toast.success('Booking a new appointment successed!')
+                this.setState({
+                    isLoading: false
+                })
+                toast.success(this.props.language === 'en' ? 'Booking a new appointment successed and please check email.' : 'Đặt lịch thành công, vui lòng kiểm tra email!')
                 this.props.handleCloseModal()
                 this.setState({
                     name: '',
@@ -251,15 +256,17 @@ class BookingModal extends Component {
                 })
             }
             else {
-                toast.error('Booking a new appointment failed! ')
+                this.setState({
+                    isLoading: false
+                })
+                toast.error(this.props.language === 'en' ? 'Booking a new appointment failed!' : 'Đặt lịch không thành công !')
             }
         }
     }
 
     render() {
-        let { isShowDetailInfo, name, phoneNumber, email, arrGenders, gender, birthday, reason, address, errors } = this.state
+        let { isShowDetailInfo, name, phoneNumber, email, arrGenders, gender, birthday, reason, address, errors, isLoading } = this.state
         let { dataTime, language, getInfoDoctor } = this.props
-        console.log("getInfoDoctor", getInfoDoctor)
         let doctorId = '', price = ''
         if (dataTime && !_.isEmpty(dataTime)) {
             doctorId = dataTime.doctorId
@@ -270,6 +277,7 @@ class BookingModal extends Component {
         return (
             <div>
                 <Modal isOpen={isShowDetailInfo} toggle={() => this.toggle()} style={{ maxWidth: '60%' }} backdrop="static">
+                    {isLoading && <Loading />}
                     <ModalHeader toggle={() => this.toggle()} className="text-2xl">
                         <FormattedMessage id="patient.profile-doctor.title" />
                     </ModalHeader>
