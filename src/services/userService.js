@@ -64,10 +64,10 @@ const saveBulkScheduleDoctor = (data) => {
     return axios.post('/api/bulk-create-schedule', data)
 }
 
-const getScheduleDoctorByDate = (doctorId, date) => {
+const getScheduleDoctorByDate = (doctorId, date, formality) => {
     return axios.get('/api/get-schedule-doctor-by-date', {
         params: {
-            doctorId, date
+            doctorId, date, formality
         }
     })
 }

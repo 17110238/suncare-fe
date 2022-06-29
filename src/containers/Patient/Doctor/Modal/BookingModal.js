@@ -236,8 +236,8 @@ class BookingModal extends Component {
                 doctorName: doctorName,
                 scheduleId: this.props.dataTime.id,
                 priceId: this.props.getInfoDoctor.Doctor_Info.priceId,
-                price: this.props.language === 'vi' ? this.props.getInfoDoctor.Doctor_Info.priceData.valueVi : this.props.getInfoDoctor.Doctor_Info.priceData.valueEn
-
+                price: this.props.language === 'vi' ? this.props.getInfoDoctor.Doctor_Info.priceData.valueVi : this.props.getInfoDoctor.Doctor_Info.priceData.valueEn,
+                formality: this.props.formality
             })
             if (res?.errCode === 0) {
                 this.setState({
@@ -266,7 +266,7 @@ class BookingModal extends Component {
 
     render() {
         let { isShowDetailInfo, name, phoneNumber, email, arrGenders, gender, birthday, reason, address, errors, isLoading } = this.state
-        let { dataTime, language, getInfoDoctor } = this.props
+        let { dataTime, language, getInfoDoctor, formality } = this.props
         let doctorId = '', price = ''
         if (dataTime && !_.isEmpty(dataTime)) {
             doctorId = dataTime.doctorId

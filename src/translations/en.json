@@ -77,7 +77,8 @@
         },
         "doctor": {
             "manage-schedule": "Manage Doctor's schedule",
-            "manage-patient": "Manage Doctor's patient"
+            "manage-patient": "Manage Doctor's patient",
+            "manage-schedule-online": "Manage Doctor's patient online"
         }
     },
     "manage-user": {

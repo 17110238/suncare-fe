@@ -21,7 +21,7 @@ class index extends Component {
             const dataFitler = {
                 labels: res && res.data?.map((data) => moment.unix(+data.date / 1000).format('dddd - DD/MM/YYYY')),
                 datasets: [{
-                    label: 'Doanh thu',
+                    label: `Tổng doanh thu ${res.data.reduce((sum, { total_amount }) => sum + total_amount, 0)}`,
                     data: res && res.data?.map((data) => data.total_amount),
                 }]
             }

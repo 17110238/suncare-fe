@@ -77,8 +77,9 @@
             "revenue-statistics": "Thống kê doanh thu"
         },
         "doctor": {
-            "manage-schedule": "Kế hoạch khám bệnh",
-            "manage-patient": "Bệnh nhân khám bệnh"
+            "manage-schedule": "Kế hoạch khám bệnh tại phòng khám",
+            "manage-patient": "Bệnh nhân khám bệnh",
+            "manage-schedule-online": "Kế hoạch khám bệnh trực tuyến"
         }
     },
     "manage-user": {

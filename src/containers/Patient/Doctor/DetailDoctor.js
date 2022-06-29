@@ -13,17 +13,22 @@ class DetailDoctor extends Component {
         this.state = {
             infoDoctor: {},
             currentDoctorId: -1,
-            isLoading: false
+            isLoading: false,
+            formality: ''
         }
     }
 
     componentDidMount() {
-        let id = +this.props.match?.params?.id
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const formality = urlParams.get('formality')
+        const doctorId = urlParams.get('doctorId')
         this.setState({
-            currentDoctorId: id,
+            currentDoctorId: +doctorId,
+            formality
         })
-        if (id) {
-            this.props.getDetailInfoDoctors(id)
+        if (doctorId) {
+            this.props.getDetailInfoDoctors(doctorId)
         }
     }
 
@@ -36,7 +41,7 @@ class DetailDoctor extends Component {
     }
 
     render() {
-        let infoDoctor = this.state.infoDoctor
+        let { infoDoctor, formality } = this.state
         let language = this.props.language
         let nameVi = '', nameEn = ''
         if (infoDoctor?.positionData) {
@@ -68,7 +73,7 @@ class DetailDoctor extends Component {
 
                 <div className="grid grid-cols-12  mb-8 border-b-2 border-gray-600">
                     <div className="col-span-7">
-                        <DoctorSchedule doctorIdFromParent={this.state.currentDoctorId} />
+                        {formality && <DoctorSchedule doctorIdFromParent={this.state.currentDoctorId} formality={formality} />}
                     </div>
                     <div className="col-span-5 ">
                         <DoctorExtraInfo doctorIdFromParent={this.state.currentDoctorId} />

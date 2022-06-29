@@ -10,9 +10,9 @@ export const adminMenu = [
                 name: 'menu.admin.manage-doctor', link: '/system/manage-doctor'
             },
             // Quản lý ke hoach kham benh
-            {
-                name: 'menu.doctor.manage-schedule', link: '/doctor/manage-schedule'
-            },
+            // {
+            //     name: 'menu.doctor.manage-schedule', link: '/doctor/manage-schedule'
+            // },
             { // Quản lý bệnh nhân khám bệnh của bác sĩ
                 name: 'menu.admin.revenue-statistics', link: '/system/revenue-statistics'
             },
@@ -70,6 +70,9 @@ export const doctorMenu = [
             },
             { // Quản lý ke hoach kham benh
                 name: 'menu.doctor.manage-schedule', link: '/doctor/manage-schedule'
+            },
+            { // Quản lý ke hoach kham benh
+                name: 'menu.doctor.manage-schedule-online', link: '/doctor/manage-schedule-online'
             },
             { // Quản lý bệnh nhân khám bệnh của bác sĩ
                 name: 'menu.doctor.manage-patient', link: '/doctor/manage-patient'

@@ -32,9 +32,8 @@ class OutstandingDoctor extends Component {
 
     handleViewDetailDoctor = (doctorId) => {
         const { history } = this.props
-        history.push(`/detail-doctor/${doctorId}`)
+        history.push(`/detail-doctor?doctorId=${doctorId}&formality=offline`)
     }
-
 
     render() {
         let { arrTopDoctors } = this.state
@@ -43,7 +42,7 @@ class OutstandingDoctor extends Component {
             <div className="bg-gray-200" >
                 <div className="h-96 pb-3 pt-3 mx-auto w-10/12">
                     <div className="flex items-center justify-between mb-3">
-                        <div className="font-medium text-2xl "><FormattedMessage id="homepage.outstanding-doctor" /></div>
+                        <div className="font-medium text-2xl ">{language === 'vi' ? 'Khám bệnh trực tiếp tại phòng khám' : 'Direct medical examination at the clinic'}</div>
                         <button className="p-2 bg-gray-300 uppercase hover:bg-yellow-300 hover:text-white"><FormattedMessage id="homepage.more-info" /></button>
                     </div>
                     <Slider {...this.props.settings} >

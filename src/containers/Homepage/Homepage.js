@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import HomeHeader from './HomeHeader'
 import Specialty from './Sections/Specialty'
-import MedicalFacility from './Sections/MedicalFacility'
+import OnlineMedicalExamination from './Sections/OnlineMedicalExamination'
 import OutstandingDoctor from './Sections/OutstandingDoctor'
 import About from './Sections/About'
 import HomeFooter from './HomeFooter/HomeFooter'
@@ -57,7 +57,7 @@ class Homepage extends Component {
                 <HomeHeader />
                 <HomeBanner />
                 <Specialty settings={settings} />
-                <MedicalFacility settings={settings} />
+                <OnlineMedicalExamination settings={settings} />
                 <OutstandingDoctor settings={settings} />
                 {/* <HandBook settings={settings} /> */}
                 {/* <About /> */}
