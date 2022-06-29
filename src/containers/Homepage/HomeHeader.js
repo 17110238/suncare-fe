@@ -27,6 +27,10 @@ class HomeHeader extends Component {
     const { history } = this.props;
     history.push("/login");
   };
+  handleVideoMeeting = () => {
+    const { history } = this.props;
+    history.push("/doctor/video-meeting");
+  }
 
   handleSignUp = () => {
     const { history } = this.props;
@@ -120,6 +124,13 @@ class HomeHeader extends Component {
                   {/* <div className="font-bold text-base flex items-center ">
                     <FormattedMessage id="homeheader.support" />
                   </div> */}
+                                      <button
+                      type="button"
+                      className="inline-flex items-center mr-5 px-3 py-1 border border-transparent text-md font-medium rounded-3xl shadow-sm text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                      onClick={() => this.handleVideoMeeting()}
+                    >
+                      Video meeting
+                    </button>
                 </div>
 
                 {language === "vi" ? (
