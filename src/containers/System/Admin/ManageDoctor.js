@@ -380,7 +380,7 @@ class ManageDoctor extends Component {
                                     name="selectedSpecialty"
                                 />
                             </div>
-                            <div className="grid grid-cols-1">
+                            {/* <div className="grid grid-cols-1">
                                 <label className="block uppercase tracking-wide text-gray-700 text-sm font-semibold mb-2" htmlFor="grid-clinic">
                                     <FormattedMessage id="admin.manage-doctor.clinic" />
                                 </label>
@@ -392,7 +392,7 @@ class ManageDoctor extends Component {
                                     placeholder={language === LANGUAGES.VI ? 'Chọn phòng khám...' : 'Choose Clinic...'}
                                     name="selectedClinic"
                                 />
-                            </div>
+                            </div> */}
 
                         </div>
                     </div>

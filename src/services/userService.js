@@ -64,10 +64,10 @@ const saveBulkScheduleDoctor = (data) => {
     return axios.post('/api/bulk-create-schedule', data)
 }
 
-const getScheduleDoctorByDate = (doctorId, date) => {
+const getScheduleDoctorByDate = (doctorId, date, formality) => {
     return axios.get('/api/get-schedule-doctor-by-date', {
         params: {
-            doctorId, date
+            doctorId, date, formality
         }
     })
 }
@@ -136,10 +136,14 @@ const handlePaymentCheckout = (data) => {
     return axios.post(`/api/payment-checkout`, data)
 }
 
+const revenueStatistics = () => {
+    return axios.get(`/api/revenueStatistics`)
+}
+
 export {
     handleLoginApi, getAllUsers, createNewUserService, deleteUserService, editUserService, getAllCodeService, getTopDoctorHomeService
     , getAllDoctorService, saveDoctorDetailService, getDetailInfoDoctorService, getAllcodeScheduleTimeDoctorService, saveBulkScheduleDoctor,
     getScheduleDoctorByDate, getListPriceService, getListPaymentService, getListProvinceService, getProfileDoctorByIdService, postPatientAppointment,
     postVerifyBookAppoinment, saveNewSpecialtyService, getAllSpecialtyService, getDetailSpecialtyService, handleConfirmDoctorService,
-    getDetailSpecialtyByIdService, getAllPatientForDoctor, handleConfirmAndPaymentPatient, handlePaymentCheckout
+    getDetailSpecialtyByIdService, getAllPatientForDoctor, handleConfirmAndPaymentPatient, handlePaymentCheckout, revenueStatistics
 }

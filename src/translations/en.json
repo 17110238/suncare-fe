@@ -25,15 +25,15 @@
         "register-here": "Register here!",
         "sign-in-with": "Or Sign in With"
     },
-    "payment":{
+    "payment": {
         "title": "Payment's Details",
         "full-name": "Full name",
         "phone": "Phone number",
-        "doctor-name":"Doctor's name",
+        "doctor-name": "Doctor's name",
         "price": "Price",
-        "booking-date": "Booking date" 
+        "booking-date": "Booking date"
     },
-    "manage-booking":{
+    "manage-booking": {
         "stt": "No.",
         "full-name": "Full name",
         "booking-date": "Booking date",
@@ -72,11 +72,13 @@
             "handbook": "Handbook",
             "manage-handbook": "Manage Handbook",
             "create": "Create",
-            "edit": "Edit"
+            "edit": "Edit",
+            "revenue-statistics": "Revenue statistics"
         },
         "doctor": {
             "manage-schedule": "Manage Doctor's schedule",
-            "manage-patient": "Manage Doctor's patient"
+            "manage-patient": "Manage Doctor's patient",
+            "manage-schedule-online": "Manage Doctor's patient online"
         }
     },
     "manage-user": {

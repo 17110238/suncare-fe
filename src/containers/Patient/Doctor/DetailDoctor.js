@@ -5,6 +5,7 @@ import * as actions from '../../../store/actions'
 import { LANGUAGES } from '../../../utils/constant'
 import DoctorSchedule from './DoctorSchedule'
 import DoctorExtraInfo from './DoctorExtraInfo'
+import Loading from '../../../components/Loading/Loading'
 
 class DetailDoctor extends Component {
     constructor(props) {
@@ -12,16 +13,22 @@ class DetailDoctor extends Component {
         this.state = {
             infoDoctor: {},
             currentDoctorId: -1,
+            isLoading: false,
+            formality: ''
         }
     }
 
     componentDidMount() {
-        let id = +this.props.match?.params?.id
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const formality = urlParams.get('formality')
+        const doctorId = urlParams.get('doctorId')
         this.setState({
-            currentDoctorId: id,
+            currentDoctorId: +doctorId,
+            formality
         })
-        if (id) {
-            this.props.getDetailInfoDoctors(id)
+        if (doctorId) {
+            this.props.getDetailInfoDoctors(doctorId)
         }
     }
 
@@ -34,7 +41,7 @@ class DetailDoctor extends Component {
     }
 
     render() {
-        let infoDoctor = this.state.infoDoctor
+        let { infoDoctor, formality } = this.state
         let language = this.props.language
         let nameVi = '', nameEn = ''
         if (infoDoctor?.positionData) {
@@ -45,6 +52,7 @@ class DetailDoctor extends Component {
         return (
             <div className="max-w-7xl mx-auto">
                 <HomeHeader />
+                {this.state.isLoading && <Loading />}
                 <div className="grid grid-cols-8 h-32 my-4">
                     <div className="">
                         <div className="bg-avatar mx-0" style={{ backgroundImage: `url(${infoDoctor?.image})` }}></div>
@@ -65,7 +73,7 @@ class DetailDoctor extends Component {
 
                 <div className="grid grid-cols-12  mb-8 border-b-2 border-gray-600">
                     <div className="col-span-7">
-                        <DoctorSchedule doctorIdFromParent={this.state.currentDoctorId} />
+                        {formality && <DoctorSchedule doctorIdFromParent={this.state.currentDoctorId} formality={formality} />}
                     </div>
                     <div className="col-span-5 ">
                         <DoctorExtraInfo doctorIdFromParent={this.state.currentDoctorId} />

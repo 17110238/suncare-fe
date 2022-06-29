@@ -135,6 +135,7 @@ class SpecialtyDetail extends Component {
                                     <div>
                                         <DoctorSchedule
                                             doctorIdFromParent={doctor}
+                                            formality='offline'
                                         />
                                     </div>
                                     <div>

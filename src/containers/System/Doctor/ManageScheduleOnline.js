@@ -5,13 +5,12 @@ import Select from 'react-select'
 import * as actions from "../../../store/actions"
 import { LANGUAGES, dateFormat } from '../../../utils'
 import DatePicker from '../../../components/Input/DatePicker'
-import moment from 'moment'
 import { toast, ToastType } from 'react-toastify'
 import _ from 'lodash'
 import { saveBulkScheduleDoctor } from '../../../services/userService'
 import Loading from '../../../components/Loading/Loading'
 
-class ManageSchedule extends Component {
+class ManageScheduleOnline extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -126,7 +125,7 @@ class ManageSchedule extends Component {
                 object.date = formatedDate
                 object.doctorId = selectedDoctor.value
                 object.isActive = true
-                object.formality = 'offline'
+                object.formality = 'online'
                 result.push(object)
             })
         }
@@ -159,7 +158,7 @@ class ManageSchedule extends Component {
             <div className="container">
                 {isLoading && <Loading />}
                 <div className="text-2xl font-bold w-full text-center my-4">
-                    <FormattedMessage id="manage-schudule.title" />
+                    Quản lý khám bệnh trực tuyến
                 </div>
                 <div className="grid grid-cols-4 gap-8 mb-16">
                     <div className="grid grid-cols-1">
@@ -260,4 +259,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageSchedule)
+export default connect(mapStateToProps, mapDispatchToProps)(ManageScheduleOnline)

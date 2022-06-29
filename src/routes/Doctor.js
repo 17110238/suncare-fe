@@ -6,6 +6,7 @@ import UserManage from '../containers/System/Admin/Modal/UserManage'
 import ManageSchedule from '../containers/System/Doctor/ManageSchedule'
 import ManagePatient from '../containers/System/Doctor/ManagePatient'
 import VideoMeeting from '../containers/System/Doctor/VideoMeeting'
+import ManageScheduleOnline from '../containers/System/Doctor/ManageScheduleOnline'
 
 
 class Doctor extends Component {
@@ -20,6 +21,7 @@ class Doctor extends Component {
                         <Switch>
                             <Route path="/system/user-redux" component={UserManage} />
                             <Route path="/doctor/manage-schedule" component={ManageSchedule} />
+                            <Route path="/doctor/manage-schedule-online" component={ManageScheduleOnline} />
                             <Route path="/doctor/manage-patient" component={ManagePatient} />
                             <Route path="/doctor/video-meeting" component={VideoMeeting}/>
                         </Switch>

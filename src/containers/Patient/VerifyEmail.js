@@ -21,7 +21,6 @@ class VerifyEmail extends Component {
     async componentDidMount() {
         let url = this.props.location.search;
         let params = queryString.parse(url)
-        console.log("params", params)
         if (params && !_.isEmpty(params)) {
             let res = await postVerifyBookAppoinment(params)
             if (res && res.errCode === 0) {

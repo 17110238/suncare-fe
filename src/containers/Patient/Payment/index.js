@@ -12,6 +12,7 @@ import { handlePaymentCheckout } from '../../../services/userService';
 import { toast } from 'react-toastify';
 import { FormattedMessage } from "react-intl";
 import "./payment.scss"
+import { withRouter } from 'react-router-dom';
 
 class Payment extends Component {
     constructor(props) {
@@ -26,13 +27,13 @@ class Payment extends Component {
             timeSchudle: '',
             patientId: '',
             doctorId: '',
+            timeType: ''
         }
     }
 
     componentDidMount() {
         let url = this.props.location.search;
         let params = queryString.parse(url)
-        console.log("params", params)
         if (params && !_.isEmpty(params)) {
             this.setState({
                 date: params.date,
@@ -44,19 +45,24 @@ class Payment extends Component {
                 timeSchudle: params.timeSchudle,
                 patientId: params.patientId,
                 doctorId: params.doctorId,
+                timeType: params.timeType,
             })
         }
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.language !== prevProps.language) {
-
         }
     }
+
+
     handleToken = async (token, image) => {
-        const { email, price, patientName, patientId, doctorId, date } = this.state
-        const res = await handlePaymentCheckout({ token, email, price, patientName, patientId, doctorId, date })
+        const currentDate = moment(new Date()).startOf('day').valueOf()
+
+        const { email, price, patientName, patientId, doctorId, date, timeType } = this.state
+        const res = await handlePaymentCheckout({ token, email, price, patientName, patientId, doctorId, date, timeType, currentDate })
         if (res.errCode === 0) {
+            this.props.history.push('/home')
             toast.success(res.errMessage)
         }
         else {
@@ -65,36 +71,36 @@ class Payment extends Component {
     }
 
     render() {
-        const { price, doctorName, email, patientName, phoneNumber, date, timeSchudle } = this.state
+        const { price, doctorName, email, patientName, phoneNumber, date, timeSchudle, timeType } = this.state
         const { language } = this.props
         const stripeKey = 'pk_test_51LC4rKI4mP7c8dVYr56BpOyiwPXPKYmjiMh5QNYDm27lIt7CRwVvkeyyPpvUHpztNEZZh3rFBAAbOqLbsz4LzNTS00kbdgI7hN'
         return (
             <div className='container'>
-                <HomeHeader/>
+                <HomeHeader />
                 <div className='w-full mt-10 flex flex-col justify-center items-center payment'>
                     <h2 className='mb-4  title'><FormattedMessage id="payment.title" /></h2>
                     <div className='py-2 pl-4 payment-detail' >
                         <div className='mt-2'>
                             <h2 className='label'><FormattedMessage id="payment.full-name" /></h2>
                             <span className='label-detail'> {patientName}</span>
-                            <hr className='underline'/>
+                            <hr className='underline' />
                         </div>
                         <div className='mt-2'>
                             <h2 className='label'><FormattedMessage id="payment.phone" /></h2>
                             <span className='label-detail'> {phoneNumber}</span>
-                            <hr className='underline'/>
+                            <hr className='underline' />
                         </div>
                         <div className='mt-2'>
                             <h2 className='label'><FormattedMessage id="payment.doctor-name" /></h2>
                             <span className='label-detail'>{doctorName}</span>
-                            <hr className='underline'/>
+                            <hr className='underline' />
                         </div>
                         <div className='mt-2'>
                             <h2 className='label'><FormattedMessage id="payment.price" /></h2>
                             <NumberFormat className='label-detail' value={price} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} suffix={' VND'} />
-                            <hr className='underline'/>
+                            <hr className='underline' />
                         </div>
-                        <div className='font-bold' style={{marginTop: "20px"}}>
+                        <div className='font-bold' style={{ marginTop: "20px" }}>
                             <span className='font-semibold'><FormattedMessage id="payment.booking-date" />: </span>
                             {timeSchudle ? timeSchudle + '- ' : ''}
                             {
@@ -112,7 +118,6 @@ class Payment extends Component {
                                 <button
                                     type="button"
                                     className="payment-button items-center border border-transparent text-md font-medium rounded shadow-sm text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                                // onClick={() => this.handleLogin()}
                                 >
                                     {language === 'vi' ? 'Thanh toán tại đây' : 'Payment in here'}
                                 </button>
@@ -139,4 +144,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Payment)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Payment)) 

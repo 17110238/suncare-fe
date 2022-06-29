@@ -25,15 +25,15 @@
         "register-here": "Đăng ký tại đây!",
         "sign-in-with": "Hoặc đăng nhập bằng"
     },
-    "payment":{
+    "payment": {
         "title": "Chi tiết hóa đơn",
         "full-name": "Họ và tên",
         "phone": "Số điện thoại",
-        "doctor-name":"Tên bác sĩ",
+        "doctor-name": "Tên bác sĩ",
         "price": "Giá khám",
-        "booking-date": "Thời gian khám" 
+        "booking-date": "Thời gian khám"
     },
-    "manage-booking":{
+    "manage-booking": {
         "stt": "STT",
         "full-name": "Họ và tên",
         "booking-date": "Lịch đăng ký",
@@ -73,11 +73,13 @@
             "handbook": "Cẩm Nang",
             "manage-handbook": "Quản lý Cẩm Nang",
             "create": "Tạo",
-            "edit": "Chỉnh sửa"
+            "edit": "Chỉnh sửa",
+            "revenue-statistics": "Thống kê doanh thu"
         },
         "doctor": {
-            "manage-schedule": "Kế hoạch khám bệnh",
-            "manage-patient": "Bệnh nhân khám bệnh"
+            "manage-schedule": "Kế hoạch khám bệnh tại phòng khám",
+            "manage-patient": "Bệnh nhân khám bệnh",
+            "manage-schedule-online": "Kế hoạch khám bệnh trực tuyến"
         }
     },
     "manage-user": {

@@ -6,7 +6,7 @@ import localization from 'moment/locale/vi'
 import { LANGUAGES } from '../../../utils/constant'
 import moment from 'moment'
 import { getScheduleDoctorByDate } from '../../../services/userService'
-import { FaCalendarAlt, FaHandPointUp } from 'react-icons/fa'
+import { FaCalendarAlt, FaHandPointUp, FaVideo } from 'react-icons/fa'
 import { FormattedMessage } from 'react-intl'
 import BookingModal from './Modal/BookingModal'
 
@@ -18,22 +18,24 @@ class DoctorSchedule extends Component {
             allDays: [],
             allAvailabelTime: [],
             isOpenShowModal: false,
-            dataScheduleTimeModal: {}
+            dataScheduleTimeModal: {},
+            formality: ''
         }
     }
 
     async componentDidMount() {
-        let { language } = this.props
+        let { language, formality } = this.props
         let allDays = this.fetchAllDay(language)
         if (allDays?.length > 0) {
             this.setState({
                 allDays: allDays,
+                formality
             })
         }
         let allDayss = this.fetchAllDay(this.props.language)
-        let res = await getScheduleDoctorByDate(this.props.doctorIdFromParent, allDayss[0].value)
+        let res = await getScheduleDoctorByDate(this.props.doctorIdFromParent, allDayss[0].value, this.props.formality)
         this.setState({
-            allAvailabelTime: res.data ? res.data : []
+            allAvailabelTime: res.data ? res.data : [],
         })
     }
 
@@ -71,9 +73,9 @@ class DoctorSchedule extends Component {
             })
         }
 
-        if (this.props.doctorIdFromParent !== prevProps.doctorIdFromParent) {
+        if (this.props.doctorIdFromParent !== prevProps.doctorIdFromParent || this.props.formality !== prevProps.formality) {
             let allDays = this.fetchAllDay(this.props.language)
-            let res = await getScheduleDoctorByDate(this.props.doctorIdFromParent, allDays[0].value)
+            let res = await getScheduleDoctorByDate(this.props.doctorIdFromParent, allDays[0].value, this.state.formality)
             this.setState({
                 allAvailabelTime: res.data ? res.data : []
             })
@@ -84,7 +86,7 @@ class DoctorSchedule extends Component {
         if (this.props.doctorIdFromParent && this.props.doctorIdFromParent != -1) {
             let doctorId = this.props.doctorIdFromParent
             let date = e.target.value
-            let res = await getScheduleDoctorByDate(doctorId, date)
+            let res = await getScheduleDoctorByDate(doctorId, date, this.state.formality)
             if (res?.errCode === 0) {
                 this.setState({
                     allAvailabelTime: res.data ? res.data : []
@@ -107,7 +109,7 @@ class DoctorSchedule extends Component {
     }
 
     render() {
-        let { allDays, allAvailabelTime, isOpenShowModal, dataScheduleTimeModal } = this.state
+        let { allDays, allAvailabelTime, isOpenShowModal, dataScheduleTimeModal, formality } = this.state
         let { language } = this.props
 
         return (
@@ -116,8 +118,9 @@ class DoctorSchedule extends Component {
                     isOpen={isOpenShowModal}
                     handleCloseModal={this.handleCloseModal}
                     dataTime={dataScheduleTimeModal}
+                    formality={formality}
                 />
-                <div className="">
+                <div>
                     <div className="cursor-pointer">
                         <select className="w-48 cursor-pointer  border-b-2 text-blue-600 font-semibold text-xl mb-3 outline-none" onChange={(e) => this.handleChangeAllDay(e)}>
                             {allDays?.length > 0 && allDays.map((item, index) =>
@@ -136,7 +139,7 @@ class DoctorSchedule extends Component {
                                 return item.isActive && (
                                     <div key={item.id} className=" bg-yellow-200 font-bold w-36 rounded-md flex items-center justify-center h-12 hover:bg-blue-400"
                                         onClick={() => this.handleClickScheduleTime(item)}>
-                                        {language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn}
+                                        {this.props.formality === 'online' && <FaVideo className='mr-2 text-green-700' />}   {language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn}
                                     </div>
                                 )
                             }

@@ -10,12 +10,14 @@ import { toast } from 'react-toastify'
 import NumberFormat from 'react-number-format'
 import { FaEdit, FaTrashAlt, FaPlus, FaCheckCircle, FaTimes, FaWindowClose } from "react-icons/fa"
 import { Menu, Transition } from "@headlessui/react"
+import Loading from '../../../components/Loading/Loading'
 class ManagePatient extends Component {
     constructor(props) {
         super(props)
         this.state = {
             currentDate: moment(new Date()).startOf('day').valueOf(),
-            dataPatient: []
+            dataPatient: [],
+            isLoading: false
         }
     }
 
@@ -72,15 +74,24 @@ class ManagePatient extends Component {
             doctorName: language === 'vi' ? user.firstName + ' ' + user.lastName : user.lastName + user.firstName,
             timeSchudle: language === 'vi' ? item.timeTypeDataPatient.valueVi : item.timeTypeDataPatient.valueEn
         }
-
+        this.setState({
+            isLoading: true
+        })
         const res = await handleConfirmAndPaymentPatient(data)
         if (res?.errCode === 0) {
+            this.setState({
+                isLoading: false
+            })
             toast.success(res?.errMessage)
+            const { currentDate } = this.state
+            const formatedDate = new Date(currentDate).getTime()
+            this.getDataPatient(user, formatedDate)
         }
     }
 
     render() {
-        const { currentDate, dataPatient } = this.state
+        const { currentDate, dataPatient, isLoading } = this.state
+        console.log("dataPatient", dataPatient)
         const { user, language } = this.props
         return (
             <div className='w-full h-full p-4'>
@@ -145,6 +156,12 @@ class ManagePatient extends Component {
                                 scope="col"
                                 className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
                             >
+                                Hình thức
+                            </th>
+                            <th
+                                scope="col"
+                                className="py-3.5 pl-4 pr-3 text-left text-base font-semibold text-gray-900"
+                            >
                                 Trạng thái
                             </th>
                             <th
@@ -184,8 +201,12 @@ class ManagePatient extends Component {
                                         <NumberFormat value={item?.priceDataPatient?.valueEn} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} suffix={' USD'} />}
                                 </td>
                                 <td className="whitespace-nowrap group-hover:bg-gray-50 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">
+                                    {item?.formality === 'online' ? <span className="text-green-500">{language === 'vi' ? 'Khám trực tuyến' : 'online'}</span> :
+                                        <span className="text-red-500">{item?.formality === 'offline' ? 'Khám tại phòng khám' : 'Examination at the clinic'}</span>}
+                                </td>
+                                <td className="whitespace-nowrap group-hover:bg-gray-50 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">
                                     {item.statusId === 'S1' ? <span className='text-yellow-500'>Chờ xác nhận</span> : item.statusId === 'S2' ? <span className='text-blue-500'>Đã xác nhận</span> :
-                                        item.statusId === 'S3' ? <span className='text-green-500'>Đã thanh tóan</span> : item.statusId === 'S4' ? <span className='text-red-500'>Đã hủy</span> : ''}
+                                        item.statusId === 'S3' ? <span className='text-green-500'>Đã thanh tóan</span> : item.statusId === 'S4' ? <span className='text-red-500'>Đã hủy</span> : item.statusId === 'S5' ? <span className='text-indigo-500'>Chờ thanh toán</span> : ''}
 
                                 </td>
                                 <td className="whitespace-nowrap group-hover:bg-gray-50 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">
@@ -208,13 +229,16 @@ class ManagePatient extends Component {
                                             leaveFrom="transform opacity-100 scale-100"
                                             leaveTo="transform opacity-0 scale-95"
                                         >
-                                            <Menu.Items className="absolute border-2 border-gray-200 z-10 flex flex-col top-7 -right-6 w-56 h-24 mt-2 origin-top-right bg-white rounded-md shadow-lg">
+                                            <Menu.Items className={`absolute border-2 border-gray-200 z-10 flex flex-col top-7 -right-6 w-56 ${item?.formality === 'online' ? ' h-24 ' : 'h-16'} mt-2 origin-top-right bg-white rounded-md shadow-lg`}>
 
                                                 <div className="flex z-10 w-full justify-around items-center text-white">
                                                     <div className="flex flex-col">
-                                                        <span className='text-green-500 mt-2 flex cursor-pointer items-center text-sm ' onClick={(e) => this.handleConfirmSchedule(item, 'confirm')} > <FaCheckCircle className="text-xl mr-2" /> Xác nhận và gửi thanh toán</span>
-                                                        <span className='text-yellow-500 mt-2 flex cursor-pointer items-center text-sm ' onClick={(e) => this.handleConfirmSchedule(item, 'noConfirm')} > <FaTimes className="text-xl mr-2" />  Không khám</span>
-                                                        <span className='text-red-500 mt-2 flex cursor-pointer items-center text-sm ' onClick={(e) => this.handleConfirmSchedule(item, 'cancel')} > <FaWindowClose className="text-xl mr-2" />  Hủy lịch</span>
+                                                        <span className={`text-green-500 hover:text-green-700 mt-2 flex items-center text-sm  ${item.statusId === 'S5' || item.statusId === 'S1' || item.statusId === 'S4' || item.statusId === 'S3' ? ' opacity-50 cursor-not-allowed pointer-events-none' : ' cursor-pointer'}`} onClick={(e) => this.handleConfirmSchedule(item, 'confirm')} > <FaCheckCircle className="text-xl mr-2" /> Xác nhận và gửi thanh toán</span>
+                                                        <span className={`text-red-500 mt-2 hover:text-red-700 flex cursor-pointer items-center text-sm  ${item.statusId === 'S5' || item.statusId === 'S1' || item.statusId === 'S4' || item.statusId === 'S3' ? ' opacity-50 cursor-not-allowed pointer-events-none' : ''}`} onClick={(e) => this.handleConfirmSchedule(item, 'cancel')} > <FaWindowClose className="text-xl mr-2" />  Hủy lịch</span>
+                                                        {item?.formality === 'online' ?
+                                                            <span className={`text-yellow-500 mt-2 hover:text-yellow-700 flex cursor-pointer items-center text-sm  ${item.statusId === 'S5' || item.statusId === 'S1' || item.statusId === 'S4' || item.statusId === 'S2' ? ' opacity-50 cursor-not-allowed pointer-events-none' : ''}`} onClick={(e) => this.handleConfirmSchedule(item, 'cancel')} > <FaWindowClose className="text-xl mr-2" />  Bắt đầu khám</span>
+                                                            : ''
+                                                        }
                                                     </div>
                                                 </div>
                                                 <div
@@ -245,6 +269,7 @@ class ManagePatient extends Component {
                         </div>
                     </>
                 }
+                {isLoading && <Loading />}
             </div >
         )
     }
